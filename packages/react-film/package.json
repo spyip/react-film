@@ -13,9 +13,9 @@
     "url": "git+https://github.com/spyip/react-film.git"
   },
   "keywords": [
-    "react",
+    "carousel",
     "film",
-    "carousel"
+    "react"
   ],
   "author": "William Wong <compulim@hotmail.com> (http://compulim.info/)",
   "license": "MIT",
@@ -26,8 +26,8 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-3": "^6.24.1",
     "jest": "^22.4.4",
     "rimraf": "^2.6.2"
   }
