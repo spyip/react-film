@@ -1,0 +1,34 @@
+{
+  "name": "react-film",
+  "version": "1.0.0",
+  "description": "Film-like carousel for React",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "babel --out-dir lib --ignore **/*.spec.js,**/*.test.js --source-maps inline src/",
+    "clean": "rimraf lib",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spyip/react-film.git"
+  },
+  "keywords": [
+    "react",
+    "film",
+    "carousel"
+  ],
+  "author": "William Wong <compulim@hotmail.com> (http://compulim.info/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/spyip/react-film/issues"
+  },
+  "homepage": "https://github.com/spyip/react-film#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "jest": "^22.4.4",
+    "rimraf": "^2.6.2"
+  }
+}
