@@ -2,6 +2,11 @@ import { css } from 'glamor';
 import React from 'react';
 
 const ROOT_CSS = css({
+  '& > ul': {
+    listStyleType: 'none',
+    margin: 0,
+    padding: 0
+  }
 });
 
 export default props =>
