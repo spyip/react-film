@@ -2,6 +2,7 @@ language: node_js
 node_js:
   - "10"
 before_script:
+  - npm run bootstrap
   - npm run build
 before_deploy:
   - npx version-from-git --travis
