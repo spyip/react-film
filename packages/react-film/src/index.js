@@ -1,16 +1,12 @@
 import { css } from 'glamor';
+import classNames from 'classnames';
 import React from 'react';
 
 const ROOT_CSS = css({
-  '& > ul': {
-    listStyleType: 'none',
-    margin: 0,
-    padding: 0
-  }
 });
 
 export default props =>
-  <div className={ ROOT_CSS }>
+  <div className={ classNames(ROOT_CSS + '', props.className) }>
     <ul>
       {
         React.Children.map(props.children, child =>

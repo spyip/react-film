@@ -1,11 +1,17 @@
+import { css } from 'glamor';
 import React, { Component } from 'react';
 import Film from 'react-film';
+
+const FILM_CSS = css({
+  height: 316,
+  width: 1024
+});
 
 class App extends Component {
   render() {
     return (
       <div>
-        <Film>
+        <Film className={ FILM_CSS + '' }>
           <img src="image/01.jpg" />
           <img src="image/02.jpg" />
           <img src="image/03.jpg" />
