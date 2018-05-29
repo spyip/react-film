@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  - "10"
+before_script:
+  - npm run bootstrap
+  - npm run build
+before_deploy:
+  - npx version-from-git --travis
+deploy:
+  - provider: pages
+    skip-cleanup: true
+    github-token:
+      secure: "l0NLN6VxUID9rbxl9CCvNAStsFxYR1dZpEGK++YieJi7VNdCMzr69vU4jaK+6B2WVGKBE6w4Df/6ssgHjGTyE8egS1XM/4JtPyP6jJfhuHAaZgs3VLEGPpLC/nmdEDYJ93APnKSNCKsqiVKvwleu9/ZRLXsHVnBpKkNpEdU7kNN2Iq9SsnHyttbP3KcN10OT8icr4sVe6LXtsZ3RHyxxk+keBt2Q1ipi7EPxwu9V/a+eW4A2XDGXV1ttwbbrDuV4Gy8N277mWuniWMJLDBD4BNFNQPzwaSl/grA8x/S+WzmM+u4U3ux7YpaywYlbKw0GZgjCMYxTkJ1FlI0V28BABtD/UOL7iTbW0b4GmSlIXn9dVGgkxE6BGuWMjDvc+DzaI8NmCAhfx7ZDp1hIgmOfBm3KkO8Hp0w1UH2NyuaZ4qFZxa0bGGtPiulsclS1JyFHP/CzB7XdX5KpIvyoD9qzTNqf7mabbXipFS3sscuHJD14WKh/jxAgk72e19+T23vtIziLFVFHt4zPeRLeigY2M6/eHZET7mSPkcksvxGLwyxjgmUEHhp+Pu7i4UcKDx/VZ2VTtDRRj9NXO0ZwnxkUSBA6VZ2rtViUU+7ohZVbNTEy5mJDxlbzPjihhvbIZVaMUlrjQ3davS6qSYTGQlHlWfMD6Cy/LmNrvuNJNsUXGMI="
+    on:
+      branch: master
+    local-dir: packages/playground/build

@@ -30,5 +30,9 @@
     "babel-preset-env": "^1.7.0",
     "jest": "^22.4.4",
     "rimraf": "^2.6.2"
+  },
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "glamor": "^2.20.40"
   }
 }
