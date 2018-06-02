@@ -5,14 +5,34 @@ import ReactDOM from 'react-dom';
 
 import ScrollBar from './scrollBar';
 
+const SHOW_SCROLL_BAR_DURATION_AFTER_SCROLL = 300;
+
+const SCROLL_BAR_CSS = css({
+  bottom: -16,
+  transition: 'bottom 300ms 500ms'
+});
+
 const ROOT_CSS = css({
+  overflow: 'hidden',
   position: 'relative',
+
+  '&:hover, &.scrolling': {
+    '& > .flipper': {
+      opacity: 1
+    },
+
+    [`& .${ SCROLL_BAR_CSS + '' }`]: {
+      bottom: 0,
+      transition: 'bottom 300ms'
+    }
+  },
 
   '& > .strip': {
     height: '100%',
     overflowX: 'scroll',
     overflowY: 'hidden',
     MsOverflowStyle: 'none',
+    touchAction: 'pan-x',
 
     '&::-webkit-scrollbar': {
       display: 'none'
@@ -32,8 +52,10 @@ const ROOT_CSS = css({
     border: 0,
     color: 'White',
     height: '100%',
+    opacity: 0,
     position: 'absolute',
     top: 0,
+    transition: 'opacity 300ms',
     width: 100,
 
     '&.left': { left: 0 },
@@ -59,12 +81,14 @@ export default class Film extends React.Component {
 
     this.state = {
       offsetWidth: 1,
+      scrolling: false,
       scrollLeft: 0,
       scrollWidth: 1
     };
   }
 
   componentDidMount() {
+    this.hideScrollBarTimeout && clearTimeout(this.hideScrollBarTimeout);
     this.handleScroll({ target: ReactDOM.findDOMNode(this.stripRef) });
   }
 
@@ -72,14 +96,23 @@ export default class Film extends React.Component {
     this.stripRef && ReactDOM.findDOMNode(this.stripRef).removeEventListener('scroll', this.handleScroll);
   }
 
-  handleScroll(event) {
-    const { offsetWidth, scrollLeft, scrollWidth } = event.target;
+  handleScroll({ target, type }) {
+    const { offsetWidth, scrollLeft, scrollWidth } = target;
+    const userInitiated = type;
 
-    this.setState(() => ({
+    this.setState(state => ({
       offsetWidth,
+      scrolling: userInitiated ? true : state.scrolling,
       scrollLeft,
       scrollWidth
     }));
+
+    if (userInitiated) {
+      this.hideScrollBarTimeout = setTimeout(() => {
+        this.hideScrollBarTimeout = null;
+        this.setState(() => ({ scrolling: false }));
+      }, SHOW_SCROLL_BAR_DURATION_AFTER_SCROLL);
+    }
   }
 
   saveStrip(ref) {
@@ -92,7 +125,7 @@ export default class Film extends React.Component {
     const { props, state } = this;
 
     return (
-      <div className={ classNames(ROOT_CSS + '', props.className) }>
+      <div className={ classNames(ROOT_CSS + '', props.className, { scrolling: state.scrolling }) }>
         <div className="strip" ref={ this.saveStrip }>
           <ul>
             {
@@ -110,6 +143,7 @@ export default class Film extends React.Component {
         </button>
         <div className="debug" hidden={ true } ref={ this.saveDebug } />
         <ScrollBar
+          className={ SCROLL_BAR_CSS + '' }
           offsetWidth={ state.offsetWidth }
           scrollLeft={ state.scrollLeft }
           scrollWidth={ state.scrollWidth }

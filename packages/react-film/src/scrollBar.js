@@ -1,4 +1,5 @@
 import { css } from 'glamor';
+import classNames from 'classnames';
 import React from 'react';
 
 const SCROLL_BAR_HEIGHT = 16;
@@ -20,8 +21,8 @@ const ROOT_CSS = css({
   }
 });
 
-export default ({ offsetWidth, scrollLeft, scrollWidth }) =>
-  <div className={ ROOT_CSS + '' }>
+export default ({ className, offsetWidth, scrollLeft, scrollWidth }) =>
+  <div className={ classNames(ROOT_CSS + '', className) }>
     <div
       className="handler"
       style={{
