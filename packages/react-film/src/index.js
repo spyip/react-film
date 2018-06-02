@@ -1,26 +1,16 @@
-import { css } from 'glamor';
-import classNames from 'classnames';
-import React from 'react';
+import Film from './film';
+// import ScrollBar from './scrollBar';
 
-const ROOT_CSS = css({
-  overflowX: 'scroll',
-  overflowY: 'hidden',
+// const ROOT_CSS = css({
+//   overflowX: 'scroll',
+//   overflowY: 'hidden',
 
-  '& > ul': {
-    listStyleType: 'none',
-    margin: 0,
-    padding: 0,
-    display: 'flex'
-  }
-});
+//   '& > ul': {
+//     listStyleType: 'none',
+//     margin: 0,
+//     padding: 0,
+//     display: 'flex'
+//   }
+// });
 
-export default props =>
-  <div className={ classNames(ROOT_CSS + '', props.className) }>
-    <ul>
-      {
-        React.Children.map(props.children, child =>
-          <li>{ child }</li>
-        )
-      }
-    </ul>
-  </div>
+export default Film;
