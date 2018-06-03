@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 
 import ScrollBar from './scrollBar';
 
-const SHOW_SCROLL_BAR_DURATION_AFTER_SCROLL = 300;
+const SCROLL_DEBOUNCE = 300;
 
 const SCROLL_BAR_CSS = css({
   bottom: -16,
@@ -76,57 +76,37 @@ export default class Film extends React.Component {
     super(props, context);
 
     this.handleScroll = this.handleScroll.bind(this);
-    // this.saveDebug = this.saveDebug.bind(this);
     this.saveStrip = this.saveStrip.bind(this);
 
     this.state = {
-      offsetWidth: 1,
-      scrolling: false,
-      scrollLeft: 0,
-      scrollWidth: 1
+      stripRef: null
     };
   }
 
-  componentDidMount() {
-    this.hideScrollBarTimeout && clearTimeout(this.hideScrollBarTimeout);
-    this.handleScroll({ target: ReactDOM.findDOMNode(this.stripRef) });
-  }
-
   componentWillUnmount() {
-    this.stripRef && ReactDOM.findDOMNode(this.stripRef).removeEventListener('scroll', this.handleScroll);
+    clearTimeout(this.hideScrollBarTimeout);
   }
 
-  handleScroll({ target, type }) {
-    const { offsetWidth, scrollLeft, scrollWidth } = target;
-    const userInitiated = type;
+  handleScroll() {
+    this.setState(() => ({ scrolling: true }));
 
-    this.setState(state => ({
-      offsetWidth,
-      scrolling: userInitiated ? true : state.scrolling,
-      scrollLeft,
-      scrollWidth
-    }));
-
-    if (userInitiated) {
-      this.hideScrollBarTimeout = setTimeout(() => {
-        this.hideScrollBarTimeout = null;
-        this.setState(() => ({ scrolling: false }));
-      }, SHOW_SCROLL_BAR_DURATION_AFTER_SCROLL);
-    }
+    this.hideScrollBarTimeout = setTimeout(() => {
+      this.hideScrollBarTimeout = null;
+      this.setState(() => ({ scrolling: false }));
+    }, SCROLL_DEBOUNCE);
   }
 
   saveStrip(ref) {
-    this.stripRef = ref;
-
-    ReactDOM.findDOMNode(this.stripRef).addEventListener('scroll', this.handleScroll, { passive: true });
+    this.setState(() => ({ stripRef: ref }));
   }
 
   render() {
     const { props, state } = this;
+    const { scrolling } = state;
 
     return (
-      <div className={ classNames(ROOT_CSS + '', props.className, { scrolling: state.scrolling }) }>
-        <div className="strip" ref={ this.saveStrip }>
+      <div className={ classNames(ROOT_CSS + '', props.className, { scrolling }) }>
+        <div className="strip" ref={ this.saveStrip } onScroll={ this.handleScroll }>
           <ul>
             {
               React.Children.map(props.children, child =>
@@ -141,12 +121,9 @@ export default class Film extends React.Component {
         <button className="flipper right">
           { props.rightFlipper || '>' }
         </button>
-        <div className="debug" hidden={ true } ref={ this.saveDebug } />
         <ScrollBar
           className={ SCROLL_BAR_CSS + '' }
-          offsetWidth={ state.offsetWidth }
-          scrollLeft={ state.scrollLeft }
-          scrollWidth={ state.scrollWidth }
+          target={ this.state.stripRef }
         />
       </div>
     );
