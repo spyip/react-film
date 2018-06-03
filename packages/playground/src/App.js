@@ -4,7 +4,7 @@ import Film from 'react-film';
 
 const FILM_CSS = css({
   height: 316,
-  width: 1024
+  width: '100%'
 });
 
 class App extends Component {
