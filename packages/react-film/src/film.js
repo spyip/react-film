@@ -20,7 +20,8 @@ const ROOT_CSS = css({
   '&:hover, &.scrolling': {
     '& > .flipper': {
       backdropFilter: 'blur(4px)',
-      opacity: 1
+      opacity: 1,
+      transition: 'opacity 300ms'
     },
 
     [`& .${ SCROLL_BAR_CSS + '' }`]: {
@@ -52,15 +53,16 @@ const ROOT_CSS = css({
   '& > .flipper': {
     backdropFilter: 'blur(0px)',
     backgroundColor: 'rgba(255, 255, 255, .2)',
-    // backgroundColor: 'rgba(0, 0, 0, .2)',
     border: 0,
     color: 'White',
     height: '100%',
     maxWidth: '10%',
     opacity: 0,
+    outline: 0,
     position: 'absolute',
     top: 0,
-    transition: 'opacity 300ms',
+    touchAction: 'none',
+    transition: 'backdrop-filter 300ms, opacity 300ms',
     width: 100,
 
     '&.left': { left: 0 },
@@ -106,55 +108,60 @@ export default class Film extends React.Component {
     const target = ReactDOM.findDOMNode(this.state.stripRef);
 
     if (target) {
-      const { scrollLeft } = target;
+      const scrollLeft = this.state.scrollLeft || target.scrollLeft;
       const items = target.querySelectorAll('ul > li');
-      const index = [].findIndex.call(items, item => item.offsetLeft + item.offsetWidth > scrollLeft);
+      const scrollCenter = scrollLeft + target.offsetWidth / 2;
+      const index = best([].slice.call(items), item => {
+        const offsetCenter = item.offsetLeft + item.offsetWidth / 2;
+
+        return 1 / Math.abs(scrollCenter - offsetCenter);
+      });
 
       if (~index) {
         const item = items[index];
+        const offsetCenter = item.offsetLeft + item.offsetWidth / 2;
 
         return {
-          indexFraction: index + (scrollLeft - item.offsetLeft) / item.offsetWidth,
+          indexFraction: index + (scrollCenter - offsetCenter) / item.offsetWidth,
           items,
-          target,
+          target
         };
       }
     }
   }
 
-  handleNextClick() {
-    const { indexFraction, items, target } = this.getView();
+  getScrollLeft(index) {
+    const target = ReactDOM.findDOMNode(this.state.stripRef);
 
-    if (~indexFraction) {
-      const nextIndex = Math.floor(indexFraction) + 1;
+    if (target) {
+      const items = target.querySelectorAll('ul > li');
+      const item = items[Math.max(0, Math.min(items.length - 1, index))];
 
-      if (nextIndex < items.length) {
-        // target.scrollLeft = items[nextIndex].offsetLeft;
+      if (item) {
+        const itemOffsetCenter = item.offsetLeft + item.offsetWidth / 2;
 
-        this.setState(() => ({
-          scrollLeft: items[nextIndex].offsetLeft
-        }));
+        return itemOffsetCenter - target.offsetWidth / 2;
       }
     }
   }
 
+  handleNextClick() {
+    const { indexFraction, itemOffsetCenter, items, target: { offsetWidth } } = this.getView();
+
+    if (~indexFraction) {
+      const nextIndex = Math.floor(indexFraction) + 1;
+
+      this.setState(() => ({ scrollLeft: this.getScrollLeft(nextIndex) }));
+    }
+  }
+
   handlePrevClick() {
-    const { indexFraction, items, target } = this.getView();
+    const { indexFraction, items, target: { offsetWidth } } = this.getView();
 
     if (~indexFraction) {
       const nextIndex = Math.ceil(indexFraction) - 1;
 
-      if (nextIndex >= 0) {
-        // target.scrollLeft = items[nextIndex].offsetLeft;
-
-        this.setState(() => ({
-          scrollLeft: items[nextIndex].offsetLeft
-        }));
-      } else {
-        // target.scrollLeft = 0;
-
-        this.setState(() => ({ scrollLeft: 0 }));
-      }
+      this.setState(() => ({ scrollLeft: this.getScrollLeft(nextIndex) }));
     }
   }
 
@@ -186,9 +193,7 @@ export default class Film extends React.Component {
         <div className="strip" ref={ this.saveStrip } onScroll={ this.handleScroll }>
           <ul>
             {
-              React.Children.map(props.children, child =>
-                <li>{ child }</li>
-              )
+              React.Children.map(props.children, child => <li>{ child }</li>)
             }
           </ul>
         </div>

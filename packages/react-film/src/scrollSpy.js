@@ -55,15 +55,11 @@ export default class ScrollSpy extends React.Component {
   }
 
   addEventListeners(element) {
-    if (element) {
-      element.addEventListener('pointerdown', this.handleCancelAnimation, { passive: true });
-    }
+    element && element.addEventListener('pointerdown', this.handleCancelAnimation, { passive: true });
   }
 
   removeEventListeners(element) {
-    if (element) {
-      element.removeEventListener('pointerdown', this.handleCancelAnimation);
-    }
+    element && element.removeEventListener('pointerdown', this.handleCancelAnimation);
   }
 
   animate(name, from, to, index, start = Date.now()) {
