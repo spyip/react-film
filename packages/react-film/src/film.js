@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import ScrollBar from './scrollBar';
+import ScrollSpy from './scrollSpy';
 
 const SCROLL_DEBOUNCE = 300;
 
@@ -18,6 +19,7 @@ const ROOT_CSS = css({
 
   '&:hover, &.scrolling': {
     '& > .flipper': {
+      backdropFilter: 'blur(4px)',
       opacity: 1
     },
 
@@ -48,8 +50,9 @@ const ROOT_CSS = css({
   },
 
   '& > .flipper': {
-    backdropFilter: 'blur(4px)',
-    backgroundColor: 'rgba(0, 0, 0, .2)',
+    backdropFilter: 'blur(0px)',
+    backgroundColor: 'rgba(255, 255, 255, .2)',
+    // backgroundColor: 'rgba(0, 0, 0, .2)',
     border: 0,
     color: 'White',
     height: '100%',
@@ -84,6 +87,7 @@ export default class Film extends React.Component {
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handlePrevClick = this.handlePrevClick.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
+    this.handleScrollFinish = this.handleScrollFinish.bind(this);
     this.saveStrip = this.saveStrip.bind(this);
 
     this.state = {
@@ -125,7 +129,11 @@ export default class Film extends React.Component {
       const nextIndex = Math.floor(indexFraction) + 1;
 
       if (nextIndex < items.length) {
-        target.scrollLeft = items[nextIndex].offsetLeft;
+        // target.scrollLeft = items[nextIndex].offsetLeft;
+
+        this.setState(() => ({
+          scrollLeft: items[nextIndex].offsetLeft
+        }));
       }
     }
   }
@@ -137,9 +145,15 @@ export default class Film extends React.Component {
       const nextIndex = Math.ceil(indexFraction) - 1;
 
       if (nextIndex >= 0) {
-        target.scrollLeft = items[nextIndex].offsetLeft;
+        // target.scrollLeft = items[nextIndex].offsetLeft;
+
+        this.setState(() => ({
+          scrollLeft: items[nextIndex].offsetLeft
+        }));
       } else {
-        target.scrollLeft = 0;
+        // target.scrollLeft = 0;
+
+        this.setState(() => ({ scrollLeft: 0 }));
       }
     }
   }
@@ -153,6 +167,10 @@ export default class Film extends React.Component {
       this.hideScrollBarTimeout = null;
       this.setState(() => ({ scrolling: false }));
     }, SCROLL_DEBOUNCE);
+  }
+
+  handleScrollFinish() {
+    this.setState(() => ({ scrollLeft: null }));
   }
 
   saveStrip(ref) {
@@ -188,6 +206,11 @@ export default class Film extends React.Component {
         </button>
         <ScrollBar
           className={ SCROLL_BAR_CSS + '' }
+          target={ this.state.stripRef }
+        />
+        <ScrollSpy
+          onFinish={ this.handleScrollFinish }
+          scrollLeft={ this.state.scrollLeft }
           target={ this.state.stripRef }
         />
       </div>

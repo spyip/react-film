@@ -56,11 +56,13 @@ export default class ScrollBar extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const prevTarget = ReactDOM.findDOMNode(prevProps.target);
-    const target = ReactDOM.findDOMNode(this.props.target);
+    if (prevProps.target !== this.props.target) {
+      const prevTarget = ReactDOM.findDOMNode(prevProps.target);
+      const target = ReactDOM.findDOMNode(this.props.target);
 
-    prevTarget && prevTarget.removeEventListener('scroll', this.handleScroll);
-    target && target.addEventListener('scroll', this.handleScroll, { passive: true });
+      prevTarget && prevTarget.removeEventListener('scroll', this.handleScroll);
+      target && target.addEventListener('scroll', this.handleScroll, { passive: true });
+    }
   }
 
   componentWillUnmount() {
