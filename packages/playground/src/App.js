@@ -1,59 +1,92 @@
 import { css } from 'glamor';
+import classNames from 'classnames';
 import React, { Component } from 'react';
 import Film from 'react-film';
 
 import Flipper from './Flipper';
 import ScrollBar from './ScrollBar';
 
-const FILM_CSS = css({
-  height: 316,
-  width: '100%'
-});
-
-const FILM_STRIP_CSS = css({
-  height: 316,
-  position: 'relative'
+const SCROLL_BAR_CSS = css({
+  bottom: -30,
+  transitionDelay: '1s',
+  transitionDuration: '300ms',
+  transitionProperty: 'bottom'
 });
 
 const FLIPPER_CSS = css({
   position: 'absolute',
-  top: 0
+  top: 0,
+  transitionDelay: '1s',
+  transitionDuration: '300ms'
 });
 
 const LEFT_FLIPPER_CSS = css({
-  left: 0,
+  left: -50,
+  transitionProperty: 'left'
 }, FLIPPER_CSS);
 
 const RIGHT_FLIPPER_CSS = css({
-  right: 0
+  right: -50,
+  transitionProperty: 'right'
 }, FLIPPER_CSS);
+
+const FILM_CSS = css({
+  height: 316,
+  overflow: 'hidden',
+  position: 'relative',
+
+  '&:hover, &.touch': {
+    [`& .${ SCROLL_BAR_CSS + '' }, & .${ LEFT_FLIPPER_CSS + '' }, & .${ RIGHT_FLIPPER_CSS + '' }`]: {
+      transitionDelay: '0s'
+    },
+
+    [`& .${ SCROLL_BAR_CSS + '' }`]: {
+      bottom: 0
+    },
+
+    [`& .${ LEFT_FLIPPER_CSS + '' }`]: {
+      left: 0
+    },
+
+    [`& .${ RIGHT_FLIPPER_CSS + '' }`]: {
+      right: 0
+    }
+  }
+});
 
 class App extends Component {
   constructor(props, context) {
     super(props, context);
 
-    this.handlePrevClick = this.handlePrevClick.bind(this);
     this.handleNextClick = this.handleNextClick.bind(this);
+    this.handlePrevClick = this.handlePrevClick.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
     this.handleScrollToEnd = this.handleScrollToEnd.bind(this);
 
     this.state = {
       scrollBarLeft: 0,
       scrollBarWidth: 0,
-      scrollTo: null
+      scrollTo: null,
+      touch: false
     };
-  }
-
-  handlePrevClick() {
-    this.setState(() => ({ scrollTo: ({ indexFraction }) => Math.ceil(indexFraction) - 1 }));
   }
 
   handleNextClick() {
     this.setState(() => ({ scrollTo: ({ indexFraction }) => Math.floor(indexFraction) + 1 }));
   }
 
-  handleScroll({ left, width }) {
-    this.setState(() => ({ scrollBarLeft: left, scrollBarWidth: width }));
+  handlePrevClick() {
+    this.setState(() => ({ scrollTo: ({ indexFraction }) => Math.ceil(indexFraction) - 1 }));
+  }
+
+  handleScroll({ initial, left, width }) {
+    this.setState(() => ({
+      scrollBarLeft: left,
+      scrollBarWidth: width,
+      touch: !initial
+    }));
+
+    !initial && setTimeout(() => this.setState(() => ({ touch: false })), 500);
   }
 
   handleScrollToEnd() {
@@ -68,9 +101,8 @@ class App extends Component {
         <p>Ut anim commodo nisi cillum tempor. Cillum adipisicing velit exercitation pariatur dolor exercitation mollit deserunt eiusmod ad id sit voluptate. Sit nulla et deserunt consequat culpa aliquip adipisicing. Velit ea id et id occaecat proident proident aliqua nostrud reprehenderit do aliqua. Irure nisi irure excepteur in eiusmod adipisicing nisi consectetur consectetur sit.</p>
         <p>Dolore ad sit voluptate esse exercitation cupidatat. Commodo excepteur sunt magna do sunt fugiat laboris non in Lorem proident aliqua tempor. Exercitation est ad laborum eu elit commodo dolore. Enim sint quis do incididunt duis minim veniam Lorem mollit ex nostrud deserunt. Pariatur fugiat sint eiusmod voluptate officia.</p>
         <p>In elit anim elit ea ex. Voluptate qui id laborum sit duis officia enim est velit sunt do. Amet aliqua occaecat laboris pariatur. Veniam eu reprehenderit ea esse officia esse dolor laborum deserunt. Laboris occaecat et aute nostrud consequat amet elit adipisicing non nostrud minim id voluptate sunt. Qui consequat veniam occaecat veniam dolor ex consequat. Ullamco elit ad commodo consequat ullamco magna aliqua nulla deserunt officia reprehenderit irure.</p>
-        <div className={ FILM_STRIP_CSS + '' }>
+        <div className={ classNames(FILM_CSS + '', { touch: this.state.touch }) }>
           <Film
-            className={ FILM_CSS + '' }
             onScroll={ this.handleScroll }
             onScrollToEnd={ this.handleScrollToEnd }
             scrollTo={ this.state.scrollTo }
@@ -88,6 +120,7 @@ class App extends Component {
             <img alt="Cat 11" src="image/11.jpg" />
           </Film>
           <ScrollBar
+            className={ SCROLL_BAR_CSS + '' }
             left={ this.state.scrollBarLeft }
             width={ this.state.scrollBarWidth }
           />

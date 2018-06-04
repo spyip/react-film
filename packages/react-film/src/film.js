@@ -17,7 +17,8 @@ const ROOT_CSS = css({
   overflow: 'hidden',
   position: 'relative',
 
-  '&:hover, &.scrolling': {
+  '&:hover': {
+  // '&:hover, &.scrolling': {
     [`& .${ SCROLL_BAR_CSS + '' }`]: {
       bottom: 0,
       transition: 'bottom 300ms'
@@ -61,7 +62,7 @@ export default class Film extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.handleScroll = this.handleScroll.bind(this);
+    // this.handleScroll = this.handleScroll.bind(this);
     this.handleScrollToEnd = this.handleScrollToEnd.bind(this);
     this.saveStrip = this.saveStrip.bind(this);
 
@@ -73,9 +74,9 @@ export default class Film extends React.Component {
     };
   }
 
-  componentWillUnmount() {
-    clearTimeout(this.hideScrollBarTimeout);
-  }
+  // componentWillUnmount() {
+  //   clearTimeout(this.hideScrollBarTimeout);
+  // }
 
   componentDidUpdate(prevProps) {
     const { scrollTo } = this.props;
@@ -134,16 +135,16 @@ export default class Film extends React.Component {
     }
   }
 
-  handleScroll({ target }) {
-    this.setState(() => ({
-      scrolling: true
-    }));
+  // handleScroll({ target }) {
+  //   this.setState(() => ({
+  //     scrolling: true
+  //   }));
 
-    this.hideScrollBarTimeout = setTimeout(() => {
-      this.hideScrollBarTimeout = null;
-      this.setState(() => ({ scrolling: false }));
-    }, SCROLL_DEBOUNCE);
-  }
+  //   this.hideScrollBarTimeout = setTimeout(() => {
+  //     this.hideScrollBarTimeout = null;
+  //     this.setState(() => ({ scrolling: false }));
+  //   }, SCROLL_DEBOUNCE);
+  // }
 
   handleScrollToEnd() {
     this.setState(() => ({ scrollLeft: null }));
@@ -157,10 +158,11 @@ export default class Film extends React.Component {
 
   render() {
     const { props, state } = this;
-    const { scrolling } = state;
+    // const { scrolling } = state;
 
     return (
-      <div className={ classNames(ROOT_CSS + '', props.className, { scrolling }) }>
+      <div className={ classNames(ROOT_CSS + '', props.className) }>
+      {/* <div className={ classNames(ROOT_CSS + '', props.className, { scrolling }) }> */}
         <div className="strip" ref={ this.saveStrip } onScroll={ this.handleScroll }>
           <ul>
             {
