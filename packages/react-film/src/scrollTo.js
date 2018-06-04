@@ -25,7 +25,7 @@ function squareStepper(current, to) {
   }
 }
 
-export default class ScrollSpy extends React.Component {
+export default class ScrollTo extends React.Component {
   constructor(props, context) {
     super(props, context);
 
@@ -33,16 +33,24 @@ export default class ScrollSpy extends React.Component {
   }
 
   componentDidMount() {
-    this.addEventListeners(ReactDOM.findDOMNode(this.props.target));
+    const targetElement = ReactDOM.findDOMNode(this.props.target);
+
+    if (targetElement) {
+      this.addEventListeners(targetElement);
+      this.animate('scrollLeft', targetElement.scrollLeft, this.props.scrollLeft, 1);
+    }
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.target !== this.props.target) {
+    const scrollChanged = prevProps.scrollLeft !== this.props.scrollLeft;
+    const targetChanged = prevProps.target !== this.props.target;
+
+    if (targetChanged) {
       this.removeEventListeners(ReactDOM.findDOMNode(prevProps.target));
       this.addEventListeners(ReactDOM.findDOMNode(this.props.target));
     }
 
-    if (prevProps.scrollLeft !== this.props.scrollLeft) {
+    if (scrollChanged || targetChanged) {
       const targetElement = ReactDOM.findDOMNode(this.props.target);
 
       this.animate('scrollLeft', targetElement.scrollLeft, this.props.scrollLeft, 1);
@@ -64,6 +72,8 @@ export default class ScrollSpy extends React.Component {
 
   animate(name, from, to, index, start = Date.now()) {
     if (typeof to === 'number') {
+      cancelAnimationFrame(this.animator);
+
       this.animator = requestAnimationFrame(() => {
         const now = Date.now();
         const element = ReactDOM.findDOMNode(this.props.target);
@@ -73,8 +83,8 @@ export default class ScrollSpy extends React.Component {
 
           element[name] = nextValue;
 
-          if (to === nextValue) {
-            this.props.onFinish && this.props.onFinish(true);
+          if (Math.abs(to - nextValue) < .5) {
+            this.props.onEnd && this.props.onEnd(true);
           } else {
             this.animate(name, from, to, index + 1, start);
           }
@@ -85,7 +95,7 @@ export default class ScrollSpy extends React.Component {
 
   handleCancelAnimation() {
     cancelAnimationFrame(this.animator);
-    this.props.onFinish && this.props.onFinish(false);
+    this.props.onEnd && this.props.onEnd(false);
   }
 
   render() {
