@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import React from 'react';
 import Film from 'react-film';
 
+import Dots from './Dots';
 import Flipper from './Flipper';
 import ScrollBar from './ScrollBar';
 
@@ -31,25 +32,26 @@ const RIGHT_FLIPPER_CSS = css({
 }, FLIPPER_CSS);
 
 const FILM_CSS = css({
-  height: 316,
-  overflow: 'hidden',
-  position: 'relative',
+  '& > div': {
+    overflow: 'hidden',
+    position: 'relative',
 
-  '&:hover, &.scrolling': {
-    [`& .${ SCROLL_BAR_CSS + '' }, & .${ LEFT_FLIPPER_CSS + '' }, & .${ RIGHT_FLIPPER_CSS + '' }`]: {
-      transitionDelay: '0s'
-    },
+    '&:hover, &.scrolling': {
+      [`& .${ SCROLL_BAR_CSS + '' }, & .${ LEFT_FLIPPER_CSS + '' }, & .${ RIGHT_FLIPPER_CSS + '' }`]: {
+        transitionDelay: '0s'
+      },
 
-    [`& .${ SCROLL_BAR_CSS + '' }`]: {
-      bottom: 0
-    },
+      [`& .${ SCROLL_BAR_CSS + '' }`]: {
+        bottom: 0
+      },
 
-    [`& .${ LEFT_FLIPPER_CSS + '' }`]: {
-      left: 0
-    },
+      [`& .${ LEFT_FLIPPER_CSS + '' }`]: {
+        left: 0
+      },
 
-    [`& .${ RIGHT_FLIPPER_CSS + '' }`]: {
-      right: 0
+      [`& .${ RIGHT_FLIPPER_CSS + '' }`]: {
+        right: 0
+      }
     }
   }
 });
@@ -58,6 +60,7 @@ export default class BasicFilm extends React.Component {
   constructor(props, context) {
     super(props, context);
 
+    this.handleDotClick = this.handleDotClick.bind(this);
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handlePrevClick = this.handlePrevClick.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
@@ -71,6 +74,10 @@ export default class BasicFilm extends React.Component {
     };
   }
 
+  handleDotClick(index) {
+    this.setState(() => ({ scrollTo: () => index }));
+  }
+
   handleNextClick() {
     this.setState(() => ({ scrollTo: ({ indexFraction }) => Math.floor(indexFraction) + 1 }));
   }
@@ -79,8 +86,9 @@ export default class BasicFilm extends React.Component {
     this.setState(() => ({ scrollTo: ({ indexFraction }) => Math.ceil(indexFraction) - 1 }));
   }
 
-  handleScroll({ initial, left, width }) {
+  handleScroll({ index, initial, left, width }) {
     this.setState(() => ({
+      index,
       scrollBarLeft: left,
       scrollBarWidth: width,
       scrolling: !initial
@@ -94,38 +102,49 @@ export default class BasicFilm extends React.Component {
   }
 
   render() {
-    const { scrolling } = this.state;
+    const { index, scrolling } = this.state;
+    const fullWidth = this.setState.scrollBarWidth === '100%';
 
     return (
       <div className={ classNames(FILM_CSS + '', { scrolling }, this.props.className) }>
-        <Film
-          onScroll={ this.handleScroll }
-          onScrollToEnd={ this.handleScrollToEnd }
-          scrollTo={ this.state.scrollTo }
-        >
-          { this.props.children }
-        </Film>
+        <div>
+          <Film
+            onScroll={ this.handleScroll }
+            onScrollToEnd={ this.handleScrollToEnd }
+            scrollTo={ this.state.scrollTo }
+          >
+            { this.props.children }
+          </Film>
+          {
+            !fullWidth &&
+              <React.Fragment>
+                <ScrollBar
+                  className={ SCROLL_BAR_CSS + '' }
+                  left={ this.state.scrollBarLeft }
+                  width={ this.state.scrollBarWidth }
+                />
+                <Flipper
+                  className={ LEFT_FLIPPER_CSS + '' }
+                  onClick={ this.handlePrevClick }
+                >
+                  &lt;
+                </Flipper>
+                <Flipper
+                  className={ RIGHT_FLIPPER_CSS + '' }
+                  onClick={ this.handleNextClick }
+                >
+                  &gt;
+                </Flipper>
+              </React.Fragment>
+          }
+        </div>
         {
-          this.state.scrollBarWidth !== '100%' &&
-            <React.Fragment>
-              <ScrollBar
-                className={ SCROLL_BAR_CSS + '' }
-                left={ this.state.scrollBarLeft }
-                width={ this.state.scrollBarWidth }
-              />
-              <Flipper
-                className={ LEFT_FLIPPER_CSS + '' }
-                onClick={ this.handlePrevClick }
-              >
-                &lt;
-              </Flipper>
-              <Flipper
-                className={ RIGHT_FLIPPER_CSS + '' }
-                onClick={ this.handleNextClick }
-              >
-                &gt;
-              </Flipper>
-            </React.Fragment>
+          !fullWidth &&
+            <Dots
+              count={ React.Children.count(this.props.children) }
+              onClick={ this.handleDotClick }
+              value={ index }
+            />
         }
       </div>
     );

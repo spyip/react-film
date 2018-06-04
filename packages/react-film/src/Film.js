@@ -26,7 +26,11 @@ const ROOT_CSS = css({
       display: 'flex',
       listStyleType: 'none',
       margin: 0,
-      padding: 0
+      padding: 0,
+
+      '& > li': {
+        display: 'flex'
+      }
     }
   }
 });
@@ -47,6 +51,7 @@ export default class Film extends React.Component {
   constructor(props, context) {
     super(props, context);
 
+    this.handleScroll = this.handleScroll.bind(this);
     this.handleScrollToEnd = this.handleScrollToEnd.bind(this);
     this.saveStripRef = this.saveStripRef.bind(this);
 
@@ -96,7 +101,18 @@ export default class Film extends React.Component {
           indexFraction = Math.round(indexFraction);
         }
 
+        let selectedIndex;
+
+        if (scrollCenter <= target.offsetWidth / 2) {
+          selectedIndex = 0;
+        } else if (scrollCenter >= target.scrollWidth - target.offsetWidth / 2) {
+          selectedIndex = items.length - 1;
+        } else {
+          selectedIndex = Math.round(indexFraction);
+        }
+
         return {
+          index: selectedIndex,
           indexFraction,
           items,
           target
@@ -117,6 +133,18 @@ export default class Film extends React.Component {
 
         return itemOffsetCenter - target.offsetWidth / 2;
       }
+    }
+  }
+
+  handleScroll(event) {
+    if (this.props.onScroll) {
+      const { index, indexFraction } = this.getView();
+
+      this.props.onScroll({
+        ...event,
+        index,
+        indexFraction
+      });
     }
   }
 
@@ -148,7 +176,8 @@ export default class Film extends React.Component {
         {
           !!props.onScroll &&
             <ScrollSpy
-              onScroll={ props.onScroll }
+              // onScroll={ props.onScroll }
+              onScroll={ this.handleScroll }
               target={ state.stripRef }
             />
         }
