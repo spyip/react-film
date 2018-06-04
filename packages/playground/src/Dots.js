@@ -54,14 +54,14 @@ const ROOT_CSS = css({
   }
 });
 
-export default props =>
+export default ({ count, onClick, value }) =>
   <ul className={ ROOT_CSS }>
     {
-      new Array(props.count).fill().map((_, index) =>
+      new Array(count).fill().map((_, index) =>
         <li key={ index }>
           <input
-            checked={ props.value === index }
-            onChange={ props.onClick && props.onClick.bind(null, index) }
+            checked={ value === index }
+            onChange={ onClick && onClick.bind(null, index) }
             type="checkbox"
           >
           </input>

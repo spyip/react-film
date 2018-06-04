@@ -16,7 +16,9 @@ const ROOT_CSS = css({
   '& > div': {
     backgroundColor: 'rgba(0, 0, 0, .2)',
     borderRadius: 20,
-    color: 'White',
+    color: 'rgba(255, 255, 255, .6)',
+    fontFamily: ['Consolas', 'monospace'].map(font => `'${ font }'`).join(', '),
+    fontSize: 16,
     height: 40,
     lineHeight: '40px',
     transitionProperty: 'background-color',
@@ -26,21 +28,23 @@ const ROOT_CSS = css({
 
   '&:hover > div': {
     backgroundColor: 'rgba(0, 0, 0, .4)',
+    color: 'rgba(255, 255, 255, .8)',
     transitionDuration: 0
   },
 
   '&:active > div': {
     backgroundColor: 'rgba(0, 0, 0, .6)',
+    color: 'White',
     transitionDuration: 0
   }
 });
 
-export default props =>
+export default ({ children, className, onClick }) =>
   <button
-    className={ classNames(ROOT_CSS + '', props.className) }
-    onClick={ props.onClick }
+    className={ classNames(ROOT_CSS + '', className) }
+    onClick={ onClick }
   >
     <div>
-      { props.children }
+      { children }
     </div>
   </button>
