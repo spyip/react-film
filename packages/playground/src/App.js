@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Film from 'react-film';
 
 import Flipper from './Flipper';
+import ScrollBar from './ScrollBar';
 
 const FILM_CSS = css({
   height: 316,
@@ -33,9 +34,14 @@ class App extends Component {
 
     this.handlePrevClick = this.handlePrevClick.bind(this);
     this.handleNextClick = this.handleNextClick.bind(this);
-    this.handleScrollEnd = this.handleScrollEnd.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
+    this.handleScrollToEnd = this.handleScrollToEnd.bind(this);
 
-    this.state = { scrollTo: null };
+    this.state = {
+      scrollBarLeft: 0,
+      scrollBarWidth: 0,
+      scrollTo: null
+    };
   }
 
   handlePrevClick() {
@@ -46,7 +52,11 @@ class App extends Component {
     this.setState(() => ({ scrollTo: ({ indexFraction }) => Math.floor(indexFraction) + 1 }));
   }
 
-  handleScrollEnd() {
+  handleScroll({ left, width }) {
+    this.setState(() => ({ scrollBarLeft: left, scrollBarWidth: width }));
+  }
+
+  handleScrollToEnd() {
     this.setState(() => ({ scrollTo: null }));
   }
 
@@ -58,14 +68,11 @@ class App extends Component {
         <p>Ut anim commodo nisi cillum tempor. Cillum adipisicing velit exercitation pariatur dolor exercitation mollit deserunt eiusmod ad id sit voluptate. Sit nulla et deserunt consequat culpa aliquip adipisicing. Velit ea id et id occaecat proident proident aliqua nostrud reprehenderit do aliqua. Irure nisi irure excepteur in eiusmod adipisicing nisi consectetur consectetur sit.</p>
         <p>Dolore ad sit voluptate esse exercitation cupidatat. Commodo excepteur sunt magna do sunt fugiat laboris non in Lorem proident aliqua tempor. Exercitation est ad laborum eu elit commodo dolore. Enim sint quis do incididunt duis minim veniam Lorem mollit ex nostrud deserunt. Pariatur fugiat sint eiusmod voluptate officia.</p>
         <p>In elit anim elit ea ex. Voluptate qui id laborum sit duis officia enim est velit sunt do. Amet aliqua occaecat laboris pariatur. Veniam eu reprehenderit ea esse officia esse dolor laborum deserunt. Laboris occaecat et aute nostrud consequat amet elit adipisicing non nostrud minim id voluptate sunt. Qui consequat veniam occaecat veniam dolor ex consequat. Ullamco elit ad commodo consequat ullamco magna aliqua nulla deserunt officia reprehenderit irure.</p>
-        <p>
-          <button onClick={ this.handlePrevClick }>Prev</button>
-          <button onClick={ this.handleNextClick }>Next</button>
-        </p>
         <div className={ FILM_STRIP_CSS + '' }>
           <Film
             className={ FILM_CSS + '' }
-            onScrollEnd={ this.handleScrollEnd }
+            onScroll={ this.handleScroll }
+            onScrollToEnd={ this.handleScrollToEnd }
             scrollTo={ this.state.scrollTo }
           >
             <img alt="Cat 01" src="image/01.jpg" />
@@ -80,6 +87,10 @@ class App extends Component {
             <img alt="Cat 10" src="image/10.jpg" />
             <img alt="Cat 11" src="image/11.jpg" />
           </Film>
+          <ScrollBar
+            left={ this.state.scrollBarLeft }
+            width={ this.state.scrollBarWidth }
+          />
           <Flipper
             className={ LEFT_FLIPPER_CSS + '' }
             onClick={ this.handlePrevClick }

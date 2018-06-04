@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import ScrollBar from './scrollBar';
+import ScrollSpy from './scrollSpy';
 import ScrollTo from './scrollTo';
 
 const SCROLL_DEBOUNCE = 300;
@@ -148,7 +148,7 @@ export default class Film extends React.Component {
   handleScrollToEnd() {
     this.setState(() => ({ scrollLeft: null }));
 
-    this.props.onScrollEnd && this.props.onScrollEnd();
+    this.props.onScrollToEnd && this.props.onScrollToEnd();
   }
 
   saveStrip(ref) {
@@ -168,10 +168,13 @@ export default class Film extends React.Component {
             }
           </ul>
         </div>
-        <ScrollBar
-          className={ SCROLL_BAR_CSS + '' }
-          target={ this.state.stripRef }
-        />
+        {
+          !!props.onScroll &&
+            <ScrollSpy
+              onScroll={ props.onScroll }
+              target={ this.state.stripRef }
+            />
+        }
         {
           typeof this.state.scrollLeft === 'number' &&
             <ScrollTo
