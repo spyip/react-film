@@ -1,7 +1,7 @@
 import { css } from 'glamor';
 import classNames from 'classnames';
 import React from 'react';
-import Film from 'react-film';
+import Film, { memoize } from 'react-film';
 
 import Dots from './Dots';
 import Flipper from './Flipper';
@@ -66,11 +66,13 @@ export default class BasicFilm extends React.Component {
     this.handleScroll = this.handleScroll.bind(this);
     this.handleScrollToEnd = this.handleScrollToEnd.bind(this);
 
+    this.styleCreator = memoize(height => ({ height }));
+
     this.state = {
       scrollBarLeft: 0,
       scrollBarWidth: 0,
-      scrollTo: null,
-      scrolling: false
+      scrolling: false,
+      scrollTo: null
     };
   }
 
@@ -107,7 +109,7 @@ export default class BasicFilm extends React.Component {
 
     return (
       <div className={ classNames(FILM_CSS + '', { scrolling }, this.props.className) }>
-        <div>
+        <div style={ this.styleCreator(this.props.height) }>
           <Film
             onScroll={ this.handleScroll }
             onScrollToEnd={ this.handleScrollToEnd }

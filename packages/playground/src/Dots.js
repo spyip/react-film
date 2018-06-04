@@ -7,6 +7,7 @@ const ROOT_CSS = css({
   alignItems: 'center',
   bottom: 0,
   display: 'flex',
+  height: 20,
   justifyContent: 'center',
   listStyleType: 'none',
   margin: 0,
