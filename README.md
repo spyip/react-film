@@ -8,7 +8,6 @@ This is carousel mimic film strip, not a fixed-width fade-in/out rollover carous
    * [x] Virtual scroll bar
    * [x] Optionally, show when hover
    * [x] Support touch scrolling
-   * [x] Support mouse scrollwheel (translated `deltaY` into scroll horizontally)
 * [x] Bring your own flipper
    * [x] Sample: show when needed (content wider than container)
    * [x] Sample: show when hover
