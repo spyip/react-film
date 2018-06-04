@@ -6,24 +6,9 @@ import ReactDOM from 'react-dom';
 import ScrollSpy from './scrollSpy';
 import ScrollTo from './scrollTo';
 
-const SCROLL_DEBOUNCE = 300;
-
-const SCROLL_BAR_CSS = css({
-  bottom: -16,
-  transition: 'bottom 300ms 500ms'
-});
-
 const ROOT_CSS = css({
   overflow: 'hidden',
   position: 'relative',
-
-  '&:hover': {
-  // '&:hover, &.scrolling': {
-    [`& .${ SCROLL_BAR_CSS + '' }`]: {
-      bottom: 0,
-      transition: 'bottom 300ms'
-    }
-  },
 
   '& > .strip': {
     height: '100%',
@@ -62,9 +47,8 @@ export default class Film extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    // this.handleScroll = this.handleScroll.bind(this);
     this.handleScrollToEnd = this.handleScrollToEnd.bind(this);
-    this.saveStrip = this.saveStrip.bind(this);
+    this.saveStripRef = this.saveStripRef.bind(this);
 
     this.state = {
       index: -1,
@@ -74,14 +58,10 @@ export default class Film extends React.Component {
     };
   }
 
-  // componentWillUnmount() {
-  //   clearTimeout(this.hideScrollBarTimeout);
-  // }
-
   componentDidUpdate(prevProps) {
     const { scrollTo } = this.props;
 
-    if (scrollTo !== prevProps.scrollTo && scrollTo) {
+    if (scrollTo && scrollTo !== prevProps.scrollTo) {
       const view = this.getView();
 
       if (view) {
@@ -135,35 +115,26 @@ export default class Film extends React.Component {
     }
   }
 
-  // handleScroll({ target }) {
-  //   this.setState(() => ({
-  //     scrolling: true
-  //   }));
-
-  //   this.hideScrollBarTimeout = setTimeout(() => {
-  //     this.hideScrollBarTimeout = null;
-  //     this.setState(() => ({ scrolling: false }));
-  //   }, SCROLL_DEBOUNCE);
-  // }
-
   handleScrollToEnd() {
     this.setState(() => ({ scrollLeft: null }));
 
     this.props.onScrollToEnd && this.props.onScrollToEnd();
   }
 
-  saveStrip(ref) {
+  saveStripRef(ref) {
     this.setState(() => ({ stripRef: ref }));
   }
 
   render() {
     const { props, state } = this;
-    // const { scrolling } = state;
 
     return (
       <div className={ classNames(ROOT_CSS + '', props.className) }>
-      {/* <div className={ classNames(ROOT_CSS + '', props.className, { scrolling }) }> */}
-        <div className="strip" ref={ this.saveStrip } onScroll={ this.handleScroll }>
+        <div
+          className="strip"
+          onScroll={ this.handleScroll }
+          ref={ this.saveStripRef }
+        >
           <ul>
             {
               React.Children.map(props.children, child => <li>{ child }</li>)
@@ -174,15 +145,15 @@ export default class Film extends React.Component {
           !!props.onScroll &&
             <ScrollSpy
               onScroll={ props.onScroll }
-              target={ this.state.stripRef }
+              target={ state.stripRef }
             />
         }
         {
-          typeof this.state.scrollLeft === 'number' &&
+          typeof state.scrollLeft === 'number' &&
             <ScrollTo
               onEnd={ this.handleScrollToEnd }
-              scrollLeft={ this.state.scrollLeft }
-              target={ this.state.stripRef }
+              scrollLeft={ state.scrollLeft }
+              target={ state.stripRef }
             />
         }
       </div>

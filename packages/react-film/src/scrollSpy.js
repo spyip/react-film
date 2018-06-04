@@ -13,13 +13,7 @@ export default class ScrollSpy extends React.Component {
 
     if (target) {
       target.addEventListener('scroll', this.handleScroll, { passive: true });
-
-      if (target.scrollWidth === target.offsetWidth) {
-        // HACK: Chrome 66 is buggy, scrollWidth is initially equals to offsetWidth, we need to wait until scrollWidth has been corrected
-        setTimeout(() => this.handleScroll({ target }, true), 0);
-      } else {
-        this.handleScroll({ target }, true);
-      }
+      this.emitInitialScrollEvent(target);
     }
   }
 
@@ -32,15 +26,18 @@ export default class ScrollSpy extends React.Component {
 
       if (target) {
         target.addEventListener('scroll', this.handleScroll, { passive: true });
-
-        if (target.scrollWidth === target.offsetWidth) {
-          // HACK: Chrome 66 is buggy, scrollWidth is initially equals to offsetWidth, we need to wait until scrollWidth has been corrected
-          setTimeout(() => this.handleScroll({ target }, true), 0);
-        } else {
-          this.handleScroll({ target }, true);
-        }
+        this.emitInitialScrollEvent(target);
       }
     }
+  }
+
+  emitInitialScrollEvent(target, waited) {
+    if (!waited && target.scrollWidth === target.offsetWidth) {
+      // HACK: Chrome 66 is buggy, scrollWidth is initially equals to offsetWidth, we need to wait until scrollWidth has been corrected
+      setTimeout(() => this.emitInitialScrollEvent(target, true));
+    }
+
+    this.handleScroll({ target }, true);
   }
 
   componentWillUnmount() {
