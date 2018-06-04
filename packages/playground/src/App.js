@@ -35,7 +35,7 @@ const FILM_CSS = css({
   overflow: 'hidden',
   position: 'relative',
 
-  '&:hover, &.touch': {
+  '&:hover, &.scrolling': {
     [`& .${ SCROLL_BAR_CSS + '' }, & .${ LEFT_FLIPPER_CSS + '' }, & .${ RIGHT_FLIPPER_CSS + '' }`]: {
       transitionDelay: '0s'
     },
@@ -67,7 +67,7 @@ class App extends Component {
       scrollBarLeft: 0,
       scrollBarWidth: 0,
       scrollTo: null,
-      touch: false
+      scrolling: false
     };
   }
 
@@ -83,10 +83,10 @@ class App extends Component {
     this.setState(() => ({
       scrollBarLeft: left,
       scrollBarWidth: width,
-      touch: !initial
+      scrolling: !initial
     }));
 
-    !initial && setTimeout(() => this.setState(() => ({ touch: false })), 500);
+    !initial && setTimeout(() => this.setState(() => ({ scrolling: false })), 500);
   }
 
   handleScrollToEnd() {
@@ -94,6 +94,8 @@ class App extends Component {
   }
 
   render() {
+    const { scrolling } = this.state;
+
     return (
       <div>
         <p>Qui ad aute ipsum occaecat labore nostrud veniam ea Lorem proident esse cillum excepteur nulla. Minim pariatur deserunt consectetur adipisicing dolor velit occaecat velit ullamco aliquip. Eu incididunt velit ipsum ad voluptate amet irure ut nostrud nostrud culpa ullamco dolore. Et eiusmod eiusmod ad excepteur sunt. Veniam ipsum eiusmod tempor in.</p>
@@ -101,7 +103,7 @@ class App extends Component {
         <p>Ut anim commodo nisi cillum tempor. Cillum adipisicing velit exercitation pariatur dolor exercitation mollit deserunt eiusmod ad id sit voluptate. Sit nulla et deserunt consequat culpa aliquip adipisicing. Velit ea id et id occaecat proident proident aliqua nostrud reprehenderit do aliqua. Irure nisi irure excepteur in eiusmod adipisicing nisi consectetur consectetur sit.</p>
         <p>Dolore ad sit voluptate esse exercitation cupidatat. Commodo excepteur sunt magna do sunt fugiat laboris non in Lorem proident aliqua tempor. Exercitation est ad laborum eu elit commodo dolore. Enim sint quis do incididunt duis minim veniam Lorem mollit ex nostrud deserunt. Pariatur fugiat sint eiusmod voluptate officia.</p>
         <p>In elit anim elit ea ex. Voluptate qui id laborum sit duis officia enim est velit sunt do. Amet aliqua occaecat laboris pariatur. Veniam eu reprehenderit ea esse officia esse dolor laborum deserunt. Laboris occaecat et aute nostrud consequat amet elit adipisicing non nostrud minim id voluptate sunt. Qui consequat veniam occaecat veniam dolor ex consequat. Ullamco elit ad commodo consequat ullamco magna aliqua nulla deserunt officia reprehenderit irure.</p>
-        <div className={ classNames(FILM_CSS + '', { touch: this.state.touch }) }>
+        <div className={ classNames(FILM_CSS + '', { scrolling }) }>
           <Film
             onScroll={ this.handleScroll }
             onScrollToEnd={ this.handleScrollToEnd }

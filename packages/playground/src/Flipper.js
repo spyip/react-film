@@ -6,6 +6,7 @@ const ROOT_CSS = css({
   alignItems: 'center',
   background: 'Transparent',
   border: 0,
+  cursor: 'pointer',
   display: 'flex',
   height: '100%',
   outline: 0,
