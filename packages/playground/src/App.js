@@ -2,12 +2,54 @@ import { css } from 'glamor';
 import React, { Component } from 'react';
 import Film from 'react-film';
 
+import Flipper from './Flipper';
+
 const FILM_CSS = css({
   height: 316,
   width: '100%'
 });
 
+const FILM_STRIP_CSS = css({
+  height: 316,
+  position: 'relative'
+});
+
+const FLIPPER_CSS = css({
+  position: 'absolute',
+  top: 0
+});
+
+const LEFT_FLIPPER_CSS = css({
+  left: 0,
+}, FLIPPER_CSS);
+
+const RIGHT_FLIPPER_CSS = css({
+  right: 0
+}, FLIPPER_CSS);
+
 class App extends Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.handlePrevClick = this.handlePrevClick.bind(this);
+    this.handleNextClick = this.handleNextClick.bind(this);
+    this.handleScrollEnd = this.handleScrollEnd.bind(this);
+
+    this.state = { scrollTo: null };
+  }
+
+  handlePrevClick() {
+    this.setState(() => ({ scrollTo: ({ indexFraction }) => Math.ceil(indexFraction) - 1 }));
+  }
+
+  handleNextClick() {
+    this.setState(() => ({ scrollTo: ({ indexFraction }) => Math.floor(indexFraction) + 1 }));
+  }
+
+  handleScrollEnd() {
+    this.setState(() => ({ scrollTo: null }));
+  }
+
   render() {
     return (
       <div>
@@ -16,19 +58,41 @@ class App extends Component {
         <p>Ut anim commodo nisi cillum tempor. Cillum adipisicing velit exercitation pariatur dolor exercitation mollit deserunt eiusmod ad id sit voluptate. Sit nulla et deserunt consequat culpa aliquip adipisicing. Velit ea id et id occaecat proident proident aliqua nostrud reprehenderit do aliqua. Irure nisi irure excepteur in eiusmod adipisicing nisi consectetur consectetur sit.</p>
         <p>Dolore ad sit voluptate esse exercitation cupidatat. Commodo excepteur sunt magna do sunt fugiat laboris non in Lorem proident aliqua tempor. Exercitation est ad laborum eu elit commodo dolore. Enim sint quis do incididunt duis minim veniam Lorem mollit ex nostrud deserunt. Pariatur fugiat sint eiusmod voluptate officia.</p>
         <p>In elit anim elit ea ex. Voluptate qui id laborum sit duis officia enim est velit sunt do. Amet aliqua occaecat laboris pariatur. Veniam eu reprehenderit ea esse officia esse dolor laborum deserunt. Laboris occaecat et aute nostrud consequat amet elit adipisicing non nostrud minim id voluptate sunt. Qui consequat veniam occaecat veniam dolor ex consequat. Ullamco elit ad commodo consequat ullamco magna aliqua nulla deserunt officia reprehenderit irure.</p>
-        <Film className={ FILM_CSS + '' }>
-          <img alt="Cat 01" src="image/01.jpg" />
-          <img alt="Cat 02" src="image/02.jpg" />
-          <img alt="Cat 03" src="image/03.jpg" />
-          <img alt="Cat 04" src="image/04.jpg" />
-          <img alt="Cat 05" src="image/05.jpg" />
-          <img alt="Cat 06" src="image/06.jpg" />
-          <img alt="Cat 07" src="image/07.jpg" />
-          <img alt="Cat 08" src="image/08.jpg" />
-          <img alt="Cat 09" src="image/09.jpg" />
-          <img alt="Cat 10" src="image/10.jpg" />
-          <img alt="Cat 11" src="image/11.jpg" />
-        </Film>
+        <p>
+          <button onClick={ this.handlePrevClick }>Prev</button>
+          <button onClick={ this.handleNextClick }>Next</button>
+        </p>
+        <div className={ FILM_STRIP_CSS + '' }>
+          <Film
+            className={ FILM_CSS + '' }
+            onScrollEnd={ this.handleScrollEnd }
+            scrollTo={ this.state.scrollTo }
+          >
+            <img alt="Cat 01" src="image/01.jpg" />
+            <img alt="Cat 02" src="image/02.jpg" />
+            <img alt="Cat 03" src="image/03.jpg" />
+            <img alt="Cat 04" src="image/04.jpg" />
+            <img alt="Cat 05" src="image/05.jpg" />
+            <img alt="Cat 06" src="image/06.jpg" />
+            <img alt="Cat 07" src="image/07.jpg" />
+            <img alt="Cat 08" src="image/08.jpg" />
+            <img alt="Cat 09" src="image/09.jpg" />
+            <img alt="Cat 10" src="image/10.jpg" />
+            <img alt="Cat 11" src="image/11.jpg" />
+          </Film>
+          <Flipper
+            className={ LEFT_FLIPPER_CSS + '' }
+            onClick={ this.handlePrevClick }
+          >
+            &lt;
+          </Flipper>
+          <Flipper
+            className={ RIGHT_FLIPPER_CSS + '' }
+            onClick={ this.handleNextClick }
+          >
+            &gt;
+          </Flipper>
+        </div>
         <p>Deserunt mollit elit laborum quis commodo magna. Nulla ad amet pariatur exercitation sint dolore. Mollit in in duis deserunt dolore anim. Qui fugiat in sit ut do voluptate ipsum nostrud. Ad culpa officia sunt enim. Adipisicing ut dolore commodo fugiat. Do Lorem occaecat nisi nulla fugiat consectetur exercitation est sit et laborum.</p>
         <p>Sunt nostrud amet commodo consectetur culpa incididunt voluptate. Mollit tempor tempor nostrud ad non excepteur reprehenderit ea. Cillum mollit reprehenderit mollit minim eiusmod deserunt reprehenderit. Sit cupidatat laborum dolore et magna duis Lorem aute sint fugiat sunt sunt. Sit non nostrud aliquip et nisi ad ullamco aute proident enim sit sit consectetur velit. Enim excepteur voluptate culpa anim laborum commodo eu excepteur.</p>
         <p>Mollit fugiat proident consectetur excepteur mollit. Commodo ipsum laboris dolor voluptate amet eu amet excepteur quis incididunt quis veniam. Laborum anim ex nisi consectetur commodo adipisicing elit minim cillum fugiat. Id non amet adipisicing non ipsum pariatur. Ad mollit ea culpa enim nostrud exercitation occaecat velit aute esse. Reprehenderit sint et duis veniam excepteur duis irure aliquip amet. Deserunt ullamco incididunt Lorem excepteur est ea ipsum.</p>

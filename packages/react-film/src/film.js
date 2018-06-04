@@ -18,12 +18,6 @@ const ROOT_CSS = css({
   position: 'relative',
 
   '&:hover, &.scrolling': {
-    '& > .flipper': {
-      backdropFilter: 'blur(4px)',
-      opacity: 1,
-      transition: 'opacity 300ms'
-    },
-
     [`& .${ SCROLL_BAR_CSS + '' }`]: {
       bottom: 0,
       transition: 'bottom 300ms'
@@ -48,25 +42,6 @@ const ROOT_CSS = css({
       margin: 0,
       padding: 0
     }
-  },
-
-  '& > .flipper': {
-    backdropFilter: 'blur(0px)',
-    backgroundColor: 'rgba(255, 255, 255, .2)',
-    border: 0,
-    color: 'White',
-    height: '100%',
-    maxWidth: '10%',
-    opacity: 0,
-    outline: 0,
-    position: 'absolute',
-    top: 0,
-    touchAction: 'none',
-    transition: 'backdrop-filter 300ms, opacity 300ms',
-    width: 100,
-
-    '&.left': { left: 0 },
-    '&.right': { right: 0 }
   }
 });
 
@@ -86,8 +61,6 @@ export default class Film extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.handleNextClick = this.handleNextClick.bind(this);
-    this.handlePrevClick = this.handlePrevClick.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
     this.handleScrollFinish = this.handleScrollFinish.bind(this);
     this.saveStrip = this.saveStrip.bind(this);
@@ -102,6 +75,22 @@ export default class Film extends React.Component {
 
   componentWillUnmount() {
     clearTimeout(this.hideScrollBarTimeout);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { scrollTo } = this.props;
+
+    if (scrollTo !== prevProps.scrollTo && scrollTo) {
+      const view = this.getView();
+
+      if (view) {
+        const { indexFraction } = view;
+
+        this.setState(() => ({
+          scrollLeft: this.getScrollLeft(scrollTo({ indexFraction }))
+        }));
+      }
+    }
   }
 
   getView() {
@@ -145,26 +134,6 @@ export default class Film extends React.Component {
     }
   }
 
-  handleNextClick() {
-    const { indexFraction, itemOffsetCenter, items, target: { offsetWidth } } = this.getView();
-
-    if (~indexFraction) {
-      const nextIndex = Math.floor(indexFraction) + 1;
-
-      this.setState(() => ({ scrollLeft: this.getScrollLeft(nextIndex) }));
-    }
-  }
-
-  handlePrevClick() {
-    const { indexFraction, items, target: { offsetWidth } } = this.getView();
-
-    if (~indexFraction) {
-      const nextIndex = Math.ceil(indexFraction) - 1;
-
-      this.setState(() => ({ scrollLeft: this.getScrollLeft(nextIndex) }));
-    }
-  }
-
   handleScroll({ target }) {
     this.setState(() => ({
       scrolling: true
@@ -178,6 +147,8 @@ export default class Film extends React.Component {
 
   handleScrollFinish() {
     this.setState(() => ({ scrollLeft: null }));
+
+    this.props.onScrollEnd && this.props.onScrollEnd();
   }
 
   saveStrip(ref) {
@@ -197,18 +168,6 @@ export default class Film extends React.Component {
             }
           </ul>
         </div>
-        <button
-          className="flipper left"
-          onClick={ this.handlePrevClick }
-        >
-          { props.leftFlipper || '<' }
-        </button>
-        <button
-          className="flipper right"
-          onClick={ this.handleNextClick }
-        >
-          { props.rightFlipper || '>' }
-        </button>
         <ScrollBar
           className={ SCROLL_BAR_CSS + '' }
           target={ this.state.stripRef }
