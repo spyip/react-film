@@ -75,11 +75,10 @@ export default class ScrollTo extends React.Component {
       cancelAnimationFrame(this.animator);
 
       this.animator = requestAnimationFrame(() => {
-        const now = Date.now();
         const element = ReactDOM.findDOMNode(this.props.target);
 
         if (element) {
-          const nextValue = step(from, to, squareStepper, (now - start) / 5);
+          const nextValue = step(from, to, squareStepper, (Date.now() - start) / 5);
 
           element[name] = nextValue;
 
