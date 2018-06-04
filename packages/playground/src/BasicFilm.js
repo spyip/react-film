@@ -103,7 +103,7 @@ export default class BasicFilm extends React.Component {
 
   render() {
     const { index, scrolling } = this.state;
-    const fullWidth = this.setState.scrollBarWidth === '100%';
+    const fullWidth = this.state.scrollBarWidth === '100%';
 
     return (
       <div className={ classNames(FILM_CSS + '', { scrolling }, this.props.className) }>

@@ -9,10 +9,13 @@ This is carousel mimic film strip, not a fixed-width fade-in/out rollover carous
    * [x] Optionally, show when hover
    * [x] Support touch scrolling
 * [x] Bring your own flipper
-   * [x] Sample: show when needed (content wider than container)
+   * [x] Sample: show only when overflow
    * [x] Sample: show when hover
 * [x] Bring your own scrollbar
+   * [x] Sample: show only when overflow
    * [x] Sample: show when hover
+* [x] Bring your own dots
+   * [x] Sample: show only when overflow
 * [x] Variable container width
    * Users can resize the container width any time they want
 * [x] Variable item width:
