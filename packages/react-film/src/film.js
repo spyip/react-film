@@ -90,9 +90,14 @@ export default class Film extends React.Component {
       if (~index) {
         const item = items[index];
         const offsetCenter = item.offsetLeft + item.offsetWidth / 2;
+        let indexFraction = index + (scrollCenter - offsetCenter) / item.offsetWidth;
+
+        if (indexFraction % 1 > .99 || indexFraction % 1 < .01) {
+          indexFraction = Math.round(indexFraction);
+        }
 
         return {
-          indexFraction: index + (scrollCenter - offsetCenter) / item.offsetWidth,
+          indexFraction,
           items,
           target
         };
