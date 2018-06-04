@@ -48,6 +48,7 @@ export default class Film extends React.Component {
     super(props, context);
 
     this.handleScrollToEnd = this.handleScrollToEnd.bind(this);
+    this.handleWheel = this.handleWheel.bind(this);
     this.saveStripRef = this.saveStripRef.bind(this);
 
     this.state = {
@@ -121,6 +122,19 @@ export default class Film extends React.Component {
     this.props.onScrollToEnd && this.props.onScrollToEnd();
   }
 
+  handleWheel(event) {
+    const { deltaMode, deltaY } = event;
+
+    if (Math.abs(deltaY) > 100) {
+      event.preventDefault();
+
+      const { indexFraction } = this.getView();
+      const scrollLeft = this.getScrollLeft(deltaY > 0 ? Math.floor(indexFraction) + 1 : Math.ceil(indexFraction) - 1);
+
+      this.setState(() => ({ scrollLeft }));
+    }
+  }
+
   saveStripRef(ref) {
     this.setState(() => ({ stripRef: ref }));
   }
@@ -133,6 +147,7 @@ export default class Film extends React.Component {
         <div
           className="strip"
           onScroll={ this.handleScroll }
+          onWheel={ this.handleWheel }
           ref={ this.saveStripRef }
         >
           <ul>
