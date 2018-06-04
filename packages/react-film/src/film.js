@@ -146,7 +146,6 @@ export default class Film extends React.Component {
       <div className={ classNames(ROOT_CSS + '', props.className) }>
         <div
           className="strip"
-          onScroll={ this.handleScroll }
           onWheel={ this.handleWheel }
           ref={ this.saveStripRef }
         >
