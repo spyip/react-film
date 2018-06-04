@@ -3,8 +3,8 @@ import classNames from 'classnames';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import ScrollSpy from './scrollSpy';
-import ScrollTo from './scrollTo';
+import ScrollSpy from './ScrollSpy';
+import ScrollTo from './ScrollTo';
 
 const ROOT_CSS = css({
   overflow: 'hidden',
