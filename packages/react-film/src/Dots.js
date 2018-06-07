@@ -1,6 +1,8 @@
 import { css } from 'glamor';
 import React from 'react';
 
+import FilmContext from './FilmContext';
+
 const DOT_SIZE = 6;
 
 const ROOT_CSS = css({
@@ -54,19 +56,23 @@ const ROOT_CSS = css({
   }
 });
 
-export default ({ count, onClick, value }) =>
-  <ul className={ ROOT_CSS }>
-    {
-      new Array(count).fill().map((_, index) =>
-        <li key={ index }>
-          <input
-            checked={ value === index }
-            onChange={ onClick && onClick.bind(null, index) }
-            type="checkbox"
-          >
-          </input>
-          <div />
-        </li>
-      )
+export default ({ count, onClick }) =>
+  <FilmContext.Consumer>
+    { context =>
+      <ul className={ ROOT_CSS }>
+        {
+          new Array(count).fill().map((_, index) =>
+            <li key={ index }>
+              <input
+                checked={ index === context.index }
+                onChange={ () => context.scrollTo(() => index) }
+                type="checkbox"
+              >
+              </input>
+              <div />
+            </li>
+          )
+        }
+      </ul>
     }
-  </ul>
+  </FilmContext.Consumer>

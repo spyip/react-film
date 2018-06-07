@@ -2,6 +2,8 @@ import { css } from 'glamor';
 import classNames from 'classnames';
 import React from 'react';
 
+import FilmContext from './FilmContext';
+
 const ROOT_CSS = css({
   alignItems: 'center',
   background: 'Transparent',
@@ -39,12 +41,16 @@ const ROOT_CSS = css({
   }
 });
 
-export default ({ children, className, onClick }) =>
-  <button
-    className={ classNames(ROOT_CSS + '', className) }
-    onClick={ onClick }
-  >
-    <div>
-      { children }
-    </div>
-  </button>
+export default ({ children, className, mode, onClick }) =>
+  <FilmContext.Consumer>
+    { context =>
+      <button
+        className={ classNames(ROOT_CSS + '', className) }
+        onClick={ mode === 'left' ? context.scrollToLeft : context.scrollToRight }
+      >
+        <div>
+          { children }
+        </div>
+      </button>
+    }
+  </FilmContext.Consumer>

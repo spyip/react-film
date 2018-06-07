@@ -23,3 +23,7 @@ This is carousel mimic film strip, not a fixed-width fade-in/out rollover carous
    * Item may resize itself from time to time (consider when the image is not loaded)
 * [x] Minimal styling as possible, let user customize it
 * [x] Support keyboard left/right arrow (supported natively)
+
+# Experiments
+
+* [x] Expose carousel data/API thru context object
