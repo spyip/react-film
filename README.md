@@ -26,4 +26,4 @@ This is carousel mimic film strip, not a fixed-width fade-in/out rollover carous
 
 # Experiments
 
-* [x] Expose carousel data/API thru context object
+* [x] Expose carousel data/API thru context object, "customization thru decomposition" concept
