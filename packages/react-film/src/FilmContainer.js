@@ -6,11 +6,11 @@ import FilmContext from './FilmContext';
 import ScrollSpy from './ScrollSpy';
 import ScrollTo from './ScrollTo';
 
-function getView(stripRef, scrollLeft) {
+function getView(stripRef, scrollingTo) {
   const target = ReactDOM.findDOMNode(stripRef);
 
   if (target) {
-    const scrollLeft = scrollLeft || target.scrollLeft;
+    const scrollLeft = scrollingTo || target.scrollLeft;
     const items = target.querySelectorAll('ul > li');
     const scrollCenter = scrollLeft + target.offsetWidth / 2;
     const index = best([].slice.call(items), item => {
@@ -78,7 +78,7 @@ export default class FilmContainer extends React.Component {
       scrollLeft: null,
       scrollTo: scrollTo => {
         this.setState(state => {
-          const view = getView(this.state.stripRef, this.state.scrollLeft);
+          const view = getView(state.stripRef, state.scrollLeft);
 
           if (view) {
             const { indexFraction } = view;
