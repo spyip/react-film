@@ -98,15 +98,17 @@ export default class FilmContainer extends React.Component {
   }
 
   handleScroll({ initial, left: scrollBarLeft, width: scrollBarWidth }) {
-    const { index, indexFraction } = getView(this.state.stripRef, this.state.scrollLeft);
+    this.setState(state => {
+      const { index, indexFraction } = getView(state.stripRef, state.scrollLeft);
 
-    this.setState(() => ({
-      index,
-      indexFraction,
-      scrolling: !initial,
-      scrollBarLeft,
-      scrollBarWidth
-    }));
+      return {
+        index,
+        indexFraction,
+        scrolling: !initial,
+        scrollBarLeft,
+        scrollBarWidth
+      };
+    });
 
     if (!initial) {
       clearTimeout(this.scrollTimeout);
