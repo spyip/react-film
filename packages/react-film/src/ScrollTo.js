@@ -1,7 +1,4 @@
-import { css } from 'glamor';
-import classNames from 'classnames';
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 function step(from, to, stepper, index) {
   let next = from;
@@ -33,41 +30,39 @@ export default class ScrollTo extends React.Component {
   }
 
   componentDidMount() {
-    const targetElement = ReactDOM.findDOMNode(this.props.target);
+    const { current } = this.props.targetRef;
 
-    if (targetElement) {
-      this.addEventListeners(targetElement);
-      this.animate('scrollLeft', targetElement.scrollLeft, this.props.scrollLeft, 1);
+    if (current) {
+      this.addEventListeners(current);
+      this.animate('scrollLeft', current.scrollLeft, this.props.scrollLeft, 1);
     }
   }
 
   componentDidUpdate(prevProps) {
     const scrollChanged = prevProps.scrollLeft !== this.props.scrollLeft;
-    const targetChanged = prevProps.target !== this.props.target;
+    const targetChanged = prevProps.targetRef !== this.props.targetRef;
 
     if (targetChanged) {
-      this.removeEventListeners(ReactDOM.findDOMNode(prevProps.target));
-      this.addEventListeners(ReactDOM.findDOMNode(this.props.target));
+      this.removeEventListeners(prevProps.targetRef);
+      this.addEventListeners(this.props.targetRef);
     }
 
-    if (scrollChanged || targetChanged) {
-      const targetElement = ReactDOM.findDOMNode(this.props.target);
-
-      this.animate('scrollLeft', targetElement.scrollLeft, this.props.scrollLeft, 1);
+    if ((scrollChanged || targetChanged) && this.props.targetRef.current) {
+      this.animate('scrollLeft', this.props.targetRef.current.scrollLeft, this.props.scrollLeft, 1);
     }
   }
 
   componentWillUnmount() {
-    this.removeEventListeners(ReactDOM.findDOMNode(this.props.target));
+    this.removeEventListeners(this.props.targetRef);
     cancelAnimationFrame(this.animator);
   }
 
-  addEventListeners(element) {
-    element && element.addEventListener('pointerdown', this.handleCancelAnimation, { passive: true });
+  addEventListeners({ current }) {
+    current && current.addEventListener('pointerdown', this.handleCancelAnimation, { passive: true });
   }
 
-  removeEventListeners(element) {
-    element && element.removeEventListener('pointerdown', this.handleCancelAnimation);
+  removeEventListeners({ current }) {
+    current && current.removeEventListener('pointerdown', this.handleCancelAnimation);
   }
 
   animate(name, from, to, index, start = Date.now()) {
@@ -75,16 +70,16 @@ export default class ScrollTo extends React.Component {
       cancelAnimationFrame(this.animator);
 
       this.animator = requestAnimationFrame(() => {
-        const element = ReactDOM.findDOMNode(this.props.target);
+        const { current } = this.props.targetRef;
 
-        if (element) {
+        if (current) {
           let nextValue = step(from, to, squareStepper, (Date.now() - start) / 5);
 
           if (Math.abs(to - nextValue) < .5) {
             nextValue = to;
           }
 
-          element[name] = nextValue;
+          current[name] = nextValue;
 
           if (to === nextValue) {
             this.props.onEnd && this.props.onEnd(true);

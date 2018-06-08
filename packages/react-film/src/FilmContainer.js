@@ -1,18 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import best from './best';
 import FilmContext from './FilmContext';
 import ScrollSpy from './ScrollSpy';
 import ScrollTo from './ScrollTo';
 
-function getView(stripRef, scrollingTo) {
-  const target = ReactDOM.findDOMNode(stripRef);
-
-  if (target) {
-    const scrollLeft = scrollingTo || target.scrollLeft;
-    const items = target.querySelectorAll('ul > li');
-    const scrollCenter = scrollLeft + target.offsetWidth / 2;
+function getView({ current }, scrollingTo) {
+  if (current) {
+    const scrollLeft = scrollingTo || current.scrollLeft;
+    const items = current.querySelectorAll('ul > li');
+    const scrollCenter = scrollLeft + current.offsetWidth / 2;
     const index = best([].slice.call(items), item => {
       const offsetCenter = item.offsetLeft + item.offsetWidth / 2;
 
@@ -30,9 +27,9 @@ function getView(stripRef, scrollingTo) {
 
       let selectedIndex;
 
-      if (scrollCenter <= target.offsetWidth / 2) {
+      if (scrollCenter <= current.offsetWidth / 2) {
         selectedIndex = 0;
-      } else if (scrollCenter >= target.scrollWidth - target.offsetWidth / 2) {
+      } else if (scrollCenter >= current.scrollWidth - current.offsetWidth / 2) {
         selectedIndex = items.length - 1;
       } else {
         selectedIndex = Math.round(indexFraction);
@@ -42,23 +39,21 @@ function getView(stripRef, scrollingTo) {
         index: selectedIndex,
         indexFraction,
         items,
-        target
+        current
       };
     }
   }
 }
 
-function getScrollLeft(stripRef, index) {
-  const target = ReactDOM.findDOMNode(stripRef);
-
-  if (target) {
-    const items = target.querySelectorAll('ul > li');
+function getScrollLeft({ current }, index) {
+  if (current) {
+    const items = current.querySelectorAll('ul > li');
     const item = items[Math.max(0, Math.min(items.length - 1, index))];
 
     if (item) {
       const itemOffsetCenter = item.offsetLeft + item.offsetWidth / 2;
 
-      return itemOffsetCenter - target.offsetWidth / 2;
+      return itemOffsetCenter - current.offsetWidth / 2;
     }
   }
 }
@@ -71,19 +66,18 @@ export default class FilmContainer extends React.Component {
     this.handleScrollToEnd = this.handleScrollToEnd.bind(this);
 
     this.state = {
-      saveStripRef: stripRef => this.setState(() => ({ stripRef })),
       scrollBarLeft: '0%',
       scrollBarWidth: '0%',
       scrolling: false,
       scrollLeft: null,
       scrollTo: scrollTo => {
         this.setState(state => {
-          const view = getView(state.stripRef, state.scrollLeft);
+          const view = getView(state.filmStripRef, state.scrollLeft);
 
           if (view) {
             const { indexFraction } = view;
 
-            return { scrollLeft: getScrollLeft(state.stripRef, scrollTo({ indexFraction })) };
+            return { scrollLeft: getScrollLeft(state.filmStripRef, scrollTo({ indexFraction })) };
           }
         });
       },
@@ -93,13 +87,13 @@ export default class FilmContainer extends React.Component {
       scrollToRight: () => {
         this.state.scrollTo(({ indexFraction }) => Math.floor(indexFraction) + 1);
       },
-      stripRef: null
+      filmStripRef: React.createRef()
     };
   }
 
   handleScroll({ initial, left: scrollBarLeft, width: scrollBarWidth }) {
     this.setState(state => {
-      const { index, indexFraction } = getView(state.stripRef, state.scrollLeft);
+      const { index, indexFraction } = getView(state.filmStripRef, state.scrollLeft);
 
       return {
         index,
@@ -127,20 +121,20 @@ export default class FilmContainer extends React.Component {
       <FilmContext.Provider value={ state }>
         { this.props.children }
         {
-          !!state.stripRef &&
+          !!state.filmStripRef &&
             <ScrollSpy
               onScroll={ this.handleScroll }
-              target={ state.stripRef }
+              targetRef={ state.filmStripRef }
             />
         }
         {
           typeof state.scrollLeft === 'number'
-          && !!state.stripRef
+          && !!state.filmStripRef
           &&
             <ScrollTo
               onEnd={ this.handleScrollToEnd }
               scrollLeft={ state.scrollLeft }
-              target={ state.stripRef }
+              targetRef={ state.filmStripRef }
             />
         }
       </FilmContext.Provider>

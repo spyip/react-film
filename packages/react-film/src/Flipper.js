@@ -41,7 +41,7 @@ const ROOT_CSS = css({
   }
 });
 
-export default ({ children, className, mode, onClick }) =>
+export default ({ children, className, mode }) =>
   <FilmContext.Consumer>
     { context =>
       <button
