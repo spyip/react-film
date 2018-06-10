@@ -2,6 +2,7 @@ import { css } from 'glamor';
 import classNames from 'classnames';
 import React from 'react';
 
+import AutoCenter from './AutoCenter';
 import Dots from './Dots';
 import FilmContainer from './FilmContainer';
 import FilmContext from './FilmContext';
@@ -84,6 +85,7 @@ export default props =>
             scrollBarWidth !== '100%' &&
               <Dots count={ React.Children.count(props.children) } />
           }
+          <AutoCenter delay={ 500 } />
         </div>
       }
     </FilmContext.Consumer>
