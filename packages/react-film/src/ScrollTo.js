@@ -30,39 +30,39 @@ export default class ScrollTo extends React.Component {
   }
 
   componentDidMount() {
-    const { current } = this.props.targetRef;
+    const { target } = this.props;
 
-    if (current) {
-      this.addEventListeners(current);
-      this.animate('scrollLeft', current.scrollLeft, this.props.scrollLeft, 1);
+    if (target) {
+      this.addEventListeners(target);
+      this.animate('scrollLeft', target.scrollLeft, this.props.scrollLeft, 1);
     }
   }
 
   componentDidUpdate(prevProps) {
     const scrollChanged = prevProps.scrollLeft !== this.props.scrollLeft;
-    const targetChanged = prevProps.targetRef !== this.props.targetRef;
+    const targetChanged = prevProps.target !== this.props.target;
 
     if (targetChanged) {
-      this.removeEventListeners(prevProps.targetRef);
-      this.addEventListeners(this.props.targetRef);
+      this.removeEventListeners(prevProps.target);
+      this.addEventListeners(this.props.target);
     }
 
-    if ((scrollChanged || targetChanged) && this.props.targetRef.current) {
-      this.animate('scrollLeft', this.props.targetRef.current.scrollLeft, this.props.scrollLeft, 1);
+    if ((scrollChanged || targetChanged) && this.props.target) {
+      this.animate('scrollLeft', this.props.target.scrollLeft, this.props.scrollLeft, 1);
     }
   }
 
   componentWillUnmount() {
-    this.removeEventListeners(this.props.targetRef);
+    this.removeEventListeners(this.props.target);
     cancelAnimationFrame(this.animator);
   }
 
-  addEventListeners({ current }) {
-    current && current.addEventListener('pointerdown', this.handleCancelAnimation, { passive: true });
+  addEventListeners(target) {
+    target && target.addEventListener('pointerdown', this.handleCancelAnimation, { passive: true });
   }
 
-  removeEventListeners({ current }) {
-    current && current.removeEventListener('pointerdown', this.handleCancelAnimation);
+  removeEventListeners(target) {
+    target && target.removeEventListener('pointerdown', this.handleCancelAnimation);
   }
 
   animate(name, from, to, index, start = Date.now()) {
@@ -70,16 +70,16 @@ export default class ScrollTo extends React.Component {
       cancelAnimationFrame(this.animator);
 
       this.animator = requestAnimationFrame(() => {
-        const { current } = this.props.targetRef;
+        const { target } = this.props;
 
-        if (current) {
+        if (target) {
           let nextValue = step(from, to, squareStepper, (Date.now() - start) / 5);
 
           if (Math.abs(to - nextValue) < .5) {
             nextValue = to;
           }
 
-          current[name] = nextValue;
+          target[name] = nextValue;
 
           if (to === nextValue) {
             this.props.onEnd && this.props.onEnd(true);

@@ -37,7 +37,7 @@ export default props =>
   <FilmContext.Consumer>
     { context =>
       <div className={ classNames(ROOT_CSS + '', props.className) }>
-        <div className="strip" ref={ context.filmStripRef }>
+        <div className="strip" ref={ context.setFilmStripRef }>
           <ul>
             { React.Children.map(props.children, child => <li>{ child }</li>) }
           </ul>
