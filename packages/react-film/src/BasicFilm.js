@@ -4,7 +4,7 @@ import React from 'react';
 
 import AutoCenter from './AutoCenter';
 import Dots from './Dots';
-import FilmContainer from './FilmContainer';
+import FilmContainer from './FilmComposer';
 import FilmContext from './FilmContext';
 import FilmStrip from './FilmStrip';
 import Flipper from './Flipper';

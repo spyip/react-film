@@ -59,8 +59,8 @@ function getScrollLeft(current, index) {
 }
 
 export default class FilmContainer extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
 
     this.handleScroll = this.handleScroll.bind(this);
     this.handleScrollToEnd = this.handleScrollToEnd.bind(this);

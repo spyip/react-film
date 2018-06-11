@@ -33,22 +33,17 @@ const ROOT_CSS = css({
   }
 });
 
-class SetNumItems extends React.Component {
+class Call extends React.Component {
   componentDidMount() {
-    const { props: { count, setNumItems } } = this;
+    const { props: { arg, fn } } = this;
 
-    setNumItems && setNumItems(count);
+    fn && fn(arg);
   }
 
   componentDidUpdate(prevProps) {
-    const { props: { count, setNumItems } } = this;
+    const { props: { arg, fn } } = this;
 
-    if (
-      count !== prevProps.count
-      || setNumItems !== prevProps.setNumItems
-    ) {
-      setNumItems(count);
-    }
+    (arg !== prevProps.arg || fn !== prevProps.fn) && fn(arg);
   }
 
   render() {
@@ -65,9 +60,9 @@ export default props =>
             { React.Children.map(props.children, child => <li>{ child }</li>) }
           </ul>
         </div>
-        <SetNumItems
-          count={ React.Children.count(props.children) }
-          setNumItems={ context.setNumItems }
+        <Call
+          arg={ React.Children.count(props.children) }
+          fn={ context.setNumItems }
         />
       </div>
     }
