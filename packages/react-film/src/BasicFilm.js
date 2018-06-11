@@ -82,8 +82,7 @@ export default props =>
             }
           </div>
           {
-            scrollBarWidth !== '100%' &&
-              <Dots count={ React.Children.count(props.children) } />
+            scrollBarWidth !== '100%' && <Dots />
           }
           <AutoCenter delay={ 500 } />
         </div>

@@ -56,12 +56,12 @@ const ROOT_CSS = css({
   }
 });
 
-export default ({ count, onClick }) =>
+export default ({ onClick }) =>
   <FilmContext.Consumer>
     { context =>
       <ul className={ ROOT_CSS }>
         {
-          new Array(count).fill().map((_, index) =>
+          new Array(context.numItems).fill().map((_, index) =>
             <li key={ index }>
               <input
                 checked={ index === context.index }

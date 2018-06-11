@@ -67,6 +67,7 @@ export default class FilmContainer extends React.Component {
 
     this.state = {
       filmStrip: null,
+      numItems: 0,
       scrollBarLeft: '0%',
       scrollBarWidth: '0%',
       scrolling: false,
@@ -88,7 +89,8 @@ export default class FilmContainer extends React.Component {
       scrollToRight: () => {
         this.state.scrollTo(({ indexFraction }) => Math.floor(indexFraction) + 1);
       },
-      setFilmStripRef: filmStrip => this.setState(() => ({ filmStrip }))
+      setFilmStripRef: filmStrip => this.setState(() => ({ filmStrip })),
+      setNumItems: numItems => this.setState(() => ({ numItems }))
     };
   }
 

@@ -10,9 +10,9 @@ const ROOT_CSS = css({
 
   '& > .strip': {
     height: '100%',
+    MsOverflowStyle: 'none',
     overflowX: 'scroll',
     overflowY: 'hidden',
-    MsOverflowStyle: 'none',
     touchAction: 'pan-x',
     WebkitOverflowScrolling: 'touch',
 
@@ -33,6 +33,29 @@ const ROOT_CSS = css({
   }
 });
 
+class SetNumItems extends React.Component {
+  componentDidMount() {
+    const { props: { count, setNumItems } } = this;
+
+    setNumItems && setNumItems(count);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { props: { count, setNumItems } } = this;
+
+    if (
+      count !== prevProps.count
+      || setNumItems !== prevProps.setNumItems
+    ) {
+      setNumItems(count);
+    }
+  }
+
+  render() {
+    return false;
+  }
+}
+
 export default props =>
   <FilmContext.Consumer>
     { context =>
@@ -42,6 +65,10 @@ export default props =>
             { React.Children.map(props.children, child => <li>{ child }</li>) }
           </ul>
         </div>
+        <SetNumItems
+          count={ React.Children.count(props.children) }
+          setNumItems={ context.setNumItems }
+        />
       </div>
     }
   </FilmContext.Consumer>

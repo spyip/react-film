@@ -37,10 +37,6 @@ class Delay extends React.Component {
 }
 
 export default class AutoCenter extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <FilmContext.Consumer>

@@ -2,6 +2,7 @@ import React from 'react';
 
 const FilmContext = React.createContext({
   filmStrip: null,
+  numItems: 0,
   scrollBarLeft: '0%',
   scrollBarWidth: '0%',
   scrolling: false,
@@ -9,7 +10,8 @@ const FilmContext = React.createContext({
   scrollTo: () => 0,
   scrollToLeft: () => 0,
   scrollToRight: () => 0,
-  setFilmStripRef: () => 0
+  setFilmStripRef: () => 0,
+  setNumItems: () => 0
 });
 
 export default FilmContext
