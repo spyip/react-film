@@ -2,6 +2,7 @@ import { css } from 'glamor';
 import classNames from 'classnames';
 import React from 'react';
 
+import CallFunction from './CallFunction';
 import FilmContext from './FilmContext';
 
 const ROOT_CSS = css({
@@ -27,24 +28,6 @@ const ROOT_CSS = css({
     }
   }
 });
-
-class CallFunction extends React.Component {
-  componentDidMount() {
-    const { props: { arg, fn } } = this;
-
-    fn && fn(arg);
-  }
-
-  componentDidUpdate(prevProps) {
-    const { props: { arg, fn } } = this;
-
-    (arg !== prevProps.arg || fn !== prevProps.fn) && fn(arg);
-  }
-
-  render() {
-    return false;
-  }
-}
 
 export default props =>
   <FilmContext.Consumer>
