@@ -1,6 +1,7 @@
 import BasicFilm from './BasicFilm';
+import BasicFilmWithAutoHide from './BasicFilmWithAutoHide';
 import Dots from './Dots';
-import FilmContainer from './FilmContainer';
+import FilmComposer from './FilmComposer';
 import FilmContext from './FilmContext';
 import FilmStrip from './FilmStrip';
 import Flipper from './Flipper';
@@ -10,8 +11,9 @@ import ScrollBar from './ScrollBar';
 export default BasicFilm
 
 export {
+  BasicFilmWithAutoHide,
   Dots,
-  FilmContainer,
+  FilmComposer,
   FilmContext,
   FilmStrip,
   Flipper,

@@ -58,7 +58,7 @@ function getScrollLeft(current, index) {
   }
 }
 
-export default class FilmContainer extends React.Component {
+export default class FilmComposer extends React.Component {
   constructor(props) {
     super(props);
 
