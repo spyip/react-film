@@ -2,11 +2,15 @@
 
 [![npm version](https://badge.fury.io/js/react-film.svg)](https://badge.fury.io/js/react-film) [![Build Status](https://travis-ci.org/spyip/react-film.svg?branch=master)](https://travis-ci.org/spyip/react-film)
 
-React component for showing carousel just like a film strip
+React component for showing carousel just like a film strip.
+
+This project scaffolding is from [react-component-template](https://github.com/compulim/react-component-template).
+
+# Demo
+
+Try out our demo at https://spyip.github.io/react-film/.
 
 # Sample code
-
-You can play with our demo at https://spyip.github.io/react-film/.
 
 ```jsx
 <BasicFilm height={ 316 }>
@@ -16,7 +20,7 @@ You can play with our demo at https://spyip.github.io/react-film/.
 </BasicFilm>
 ```
 
-> Note: we need to set a `height` here to hide scroll bar in Firefox.
+> Note: we need to specify `height` here because there are no CSS rule one can use to [hide scroll bars in Firefox](https://stackoverflow.com/questions/19580366/hide-scrollbar-in-firefox).
 
 # Features
 
@@ -39,6 +43,28 @@ You can play with our demo at https://spyip.github.io/react-film/.
    * Item may resize itself from time to time (consider when the image is not loaded)
 * [x] Minimal styling as possible, let user customize it
 * [x] Support keyboard left/right arrow (supported natively)
+
+# Props
+
+| Name | Default | Description |
+| - | - | - |
+| `height` | `number` | Height of the carousel |
+
+# Context
+
+| Name | Type | Description |
+| - | - | - |
+| `filmStrip` | `DOMElement` | Internal use: DOM element for the film strip |
+| `numItems` | `number` | Number of items in the carousel |
+| `scrollBarLeft` | `string` | Offset left (in percentage) of the scroll bar |
+| `scrollBarWidth` | `string` | Width (in percentage) of the scroll bar, respective to its total content |
+| `scrolling` | `boolean` | `true` if the user is scrolling (debounced from `onScroll` event), otherwise, `false` |
+| `scrollLeft` | `number` | Internal use: offset left to scroll to |
+| `scrollTo` | `(({ indexFraction: number }) => {}) => {}` | Scroll to a specified index, given the current index (in fraction) |
+| `scrollToLeft` | `() => {}` | Scroll one element left |
+| `scrollToRight` | `() => {}` | Scroll one element right |
+| `setFilmStripRef` | `(DOMElement) => {}` | Internal use: set the DOM element for the film strip |
+| `setNumItems` | `(number) => {}` | Internal use: set the number of items in the carousel |
 
 # Contributions
 
