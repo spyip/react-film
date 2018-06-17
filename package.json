@@ -1,24 +1,29 @@
 {
-  "name": "react-film-packages",
-  "version": "1.0.0",
-  "description": "",
-  "private": true,
+  "name": "react-film",
+  "version": "0.0.1-0",
+  "description": "React component for showing carousel just like a film strip",
+  "keywords": [
+    "carousel",
+    "film",
+    "react",
+    "slideshow",
+    "slide show"
+  ],
+  "main": "lib/index.js",
+  "files": [
+    "lib/**/*"
+  ],
   "scripts": {
     "bootstrap": "lerna bootstrap --hoist",
     "build": "lerna run build",
-    "test": "jest"
+    "test": "lerna run test"
   },
+  "author": "Ping Yip (ping.yip@hotmail.com)",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/spyip/react-film.git"
   },
-  "keywords": [
-    "carousel",
-    "film",
-    "react"
-  ],
-  "author": "Ping Yip (ping.yip@hotmail.com)",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/spyip/react-film/issues"
   },
@@ -31,6 +36,14 @@
     "babel-preset-stage-3": "^6.24.1",
     "jest": "^22.4.4",
     "lerna": "^2.11.0",
+    "react": "^16.4.1",
     "rimraf": "^2.6.2"
+  },
+  "dependencies": {
+    "classnames": "^2.2.6",
+    "glamor": "^2.20.40"
+  },
+  "peerDependencies": {
+    "react": "^16.4.1"
   }
 }

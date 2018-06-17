@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from 'glamor';
 
-import BasicFilm, { BasicFilmWithAutoHide } from 'react-film';
+import BasicFilm, { BasicFilmWithAutoHide } from 'component';
 
 const SMALL_FILM_CSS = css({
   maxWidth: 474 * 2
