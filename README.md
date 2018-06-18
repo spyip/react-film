@@ -57,10 +57,10 @@ Try out our demo at https://spyip.github.io/react-film/.
 | `numItems` | `number` | Number of items in the carousel |
 | `scrollBarLeft` | `string` | Offset left (in percentage) of the scroll bar |
 | `scrollBarWidth` | `string` | Width (in percentage) of the scroll bar, respective to its total content |
-| `scrolling` | `boolean` | `true` if the user is scrolling (debounced from `onScroll` event), otherwise, `false` |
+| `scrolling` | `boolean` | `true` if the user is scrolling (debounced 500ms after last `onScroll` event), otherwise, `false` |
 | `scrollOneLeft` | `() => {}` | Scroll one item to the left |
 | `scrollOneRight` | `() => {}` | Scroll one item to the right |
-| `scrollTo` | `(({ indexFraction: number }) => {}) => {}` | Scroll to a specified index, given the current index (in fraction) |
+| `scrollTo` | `(({ indexFraction: number }) => {}) => {}` | Scroll to a specified index, see [sample below](#sample-scrollto-code) |
 
 ## Sample `scrollTo` code
 
@@ -78,6 +78,12 @@ context.scrollTo(({ indexFraction }) => {
 > The code is for elaboration only, `context` is usually called within JSX
 
 # Road map
+
+* Move styles out of primitive components (`Dots`, `FilmStrip`, `Flipper`, `ScrollBar`) into `BasicFilm`
+* Add feature switches to `BasicFilm`
+   * Show/hide dots
+   * Show/hide flipper
+   * Show/hide scroll bar
 
 ## Features not planned to support
 
