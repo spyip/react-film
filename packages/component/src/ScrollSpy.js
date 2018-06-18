@@ -60,6 +60,7 @@ export default class ScrollSpy extends React.Component {
 
   handlePointerOver() {
     // We need to send "onScroll" because "scrollWidth" might have changed
+    // For example, the container resized, the scroll width will be incorrect
     // We will debounce to prevent "pointerOver" calculating too often
     // We will memoize to prevent firing unnecessary "onScroll"
     const { target } = this.props;
