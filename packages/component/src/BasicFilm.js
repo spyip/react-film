@@ -3,10 +3,10 @@ import classNames from 'classnames';
 import React from 'react';
 
 import AutoCenter from './AutoCenter';
+import Composer from './Composer';
+import Context from './Context';
 import createBasicStyles from './createBasicStyleSet';
 import Dots from './Dots';
-import FilmComposer from './FilmComposer';
-import FilmContext from './FilmContext';
 import FilmStrip from './FilmStrip';
 import Flipper from './Flipper';
 import memoize from './memoize';
@@ -48,8 +48,8 @@ export default class BasicFilm extends React.Component {
     } = props;
 
     return (
-      <FilmComposer>
-        <FilmContext.Consumer>
+      <Composer>
+        <Context.Consumer>
           { ({ scrolling, scrollBarWidth }) =>
             <div className={ props.className }>
               <div
@@ -91,9 +91,9 @@ export default class BasicFilm extends React.Component {
               }
             </div>
           }
-        </FilmContext.Consumer>
+        </Context.Consumer>
         { props.autoCenter !== false && <AutoCenter /> }
-      </FilmComposer>
+      </Composer>
     );
   }
 }

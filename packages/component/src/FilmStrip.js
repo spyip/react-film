@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import CallFunction from './CallFunction';
-import FilmContext from './FilmContext';
+import Context from './Context';
 
 const ROOT_CSS = css({
   MsOverflowStyle: 'none',
@@ -25,7 +25,7 @@ const ROOT_CSS = css({
 });
 
 export default props =>
-  <FilmContext.Consumer>
+  <Context.Consumer>
     { context =>
       <React.Fragment>
         <div
@@ -42,4 +42,4 @@ export default props =>
         />
       </React.Fragment>
     }
-  </FilmContext.Consumer>
+  </Context.Consumer>

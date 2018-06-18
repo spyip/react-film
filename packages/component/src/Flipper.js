@@ -2,7 +2,7 @@ import { css } from 'glamor';
 import classNames from 'classnames';
 import React from 'react';
 
-import FilmContext from './FilmContext';
+import Context from './Context';
 
 const ROOT_CSS = css({
   border: 0,
@@ -11,7 +11,7 @@ const ROOT_CSS = css({
 });
 
 export default ({ children, className, mode }) =>
-  <FilmContext.Consumer>
+  <Context.Consumer>
     { context =>
       <button
         className={ classNames(ROOT_CSS + '', className) }
@@ -20,4 +20,4 @@ export default ({ children, className, mode }) =>
         { children }
       </button>
     }
-  </FilmContext.Consumer>
+  </Context.Consumer>

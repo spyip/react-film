@@ -91,9 +91,9 @@ export default props =>
   </BasicFilm>
 ```
 
-### Options for basic styles
+### Presets for style set
 
-When creating the style set, you can specify the following options:
+Sometimes, just increasing some paddings are more than enough for you styling need. When calling `createBasicStyleSet(options)`, you can specify the following options:
 
 | Name | Default | Description |
 | - | - | - |
@@ -105,42 +105,20 @@ When creating the style set, you can specify the following options:
 | `scrollBarHeight` | `8` | Scroll bar handler height |
 | `scrollBarMargin` | `4` | Margin around scroll bar |
 
-# Features
-
-* [x] Native horizontal scrolling
-   * [x] Virtual scroll bar
-   * [x] Show when hover
-   * [x] Support touch scrolling
-* [x] Bring your own flipper
-   * [x] Show only when overflow
-   * [x] Show when hover
-* [x] Bring your own scrollbar
-   * [x] Show only when overflow
-   * [x] Show when hover
-* [x] Bring your own dots
-   * [x] Show only when overflow
-* [x] Variable container width
-   * Users can resize the container width any time they want
-* [x] Variable item width:
-   * Users can resize item width any time they want
-   * Item may resize itself from time to time (consider when the image is not loaded)
-* [x] Minimal styling as possible, let user customize it
-* [x] Support keyboard left/right arrow (supported natively)
-
 # Deep-customization
 
 Sometimes, CSS themeing is not enough for deep-customization. You may need to rebuild part of the carousel to achieve your customization goals.
 
 Instead of forking our repository and building your carousel, you can rebuild `react-film` using composer/context pattern.
 
-You can start from copying the following code:
+You can start from copying the following code, our `<BasicFilm>` start from here too.
 
 ```jsx
 import React from 'react';
-import { AutoCenter, Dots, FilmComposer, FilmStrip, Flipper, ScrollBar } from 'react-film';
+import { AutoCenter, Composer, Dots, FilmStrip, Flipper, ScrollBar } from 'react-film';
 
 export default ({ children }) =>
-  <FilmComposer>
+  <Composer>
     <div>
       <FilmStrip>
         { children }
@@ -153,7 +131,7 @@ export default ({ children }) =>
       { () => '.' }
     </Dots>
     <AutoCenter />
-  </FilmComposer>
+  </Composer>
 ```
 
 ## Context
@@ -184,6 +162,26 @@ context.scrollTo(({ indexFraction }) => {
 ```
 
 # Road map
+
+* [x] Native horizontal scrolling
+   * [x] Virtual scroll bar
+   * [x] Show when hover
+   * [x] Support touch scrolling
+* [x] Bring your own flipper
+   * [x] Show only when overflow
+   * [x] Show when hover
+* [x] Bring your own scrollbar
+   * [x] Show only when overflow
+   * [x] Show when hover
+* [x] Bring your own dots
+   * [x] Show only when overflow
+* [x] Variable container width
+   * Users can resize the container width any time they want
+* [x] Variable item width:
+   * Users can resize item width any time they want
+   * Item may resize itself from time to time (consider when the image is not loaded)
+* [x] Minimal styling as possible, let user customize it
+* [x] Support keyboard left/right arrow (supported natively)
 
 ## Features not planned to support
 

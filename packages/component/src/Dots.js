@@ -2,7 +2,7 @@ import { css } from 'glamor';
 import classNames from 'classnames';
 import React from 'react';
 
-import FilmContext from './FilmContext';
+import Context from './Context';
 
 const ROOT_CSS = css({
   display: 'flex',
@@ -27,7 +27,7 @@ const ROOT_CSS = css({
 });
 
 export default ({ children, className, itemClassName }) =>
-  <FilmContext.Consumer>
+  <Context.Consumer>
     { context =>
       <ul className={ classNames(ROOT_CSS + '', className) }>
         {
@@ -45,4 +45,4 @@ export default ({ children, className, itemClassName }) =>
         }
       </ul>
     }
-  </FilmContext.Consumer>
+  </Context.Consumer>

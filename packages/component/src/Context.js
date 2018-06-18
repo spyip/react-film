@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FilmContext = React.createContext({
+export default React.createContext({
   _setFilmStripRef: () => 0,
   _setNumItems: () => 0,
   numItems: 0,
@@ -11,5 +11,3 @@ const FilmContext = React.createContext({
   scrollOneRight: () => 0,
   scrollTo: () => 0
 });
-
-export default FilmContext

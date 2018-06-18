@@ -2,14 +2,14 @@ import { css } from 'glamor';
 import classNames from 'classnames';
 import React from 'react';
 
-import FilmContext from './FilmContext';
+import Context from './Context';
 
 const ROOT_CSS = css({
   boxSizing: 'border-box'
 });
 
 export default ({ className, handlerClassName }) =>
-  <FilmContext.Consumer>
+  <Context.Consumer>
     { ({ scrollBarPercentage, scrollBarWidth }) =>
       <div className={ classNames(ROOT_CSS + '', className) }>
         <div
@@ -21,4 +21,4 @@ export default ({ className, handlerClassName }) =>
         />
       </div>
     }
-  </FilmContext.Consumer>
+  </Context.Consumer>

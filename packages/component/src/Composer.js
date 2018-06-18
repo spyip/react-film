@@ -1,7 +1,7 @@
 import React from 'react';
 
 import best from './best';
-import FilmContext from './FilmContext';
+import Context from './Context';
 import ScrollSpy from './ScrollSpy';
 import ScrollTo from './ScrollTo';
 
@@ -139,7 +139,7 @@ export default class FilmComposer extends React.Component {
     const { state } = this;
 
     return (
-      <FilmContext.Provider value={ state.context }>
+      <Context.Provider value={ state.context }>
         { this.props.children }
         {
           !!state.filmStrip &&
@@ -158,7 +158,7 @@ export default class FilmComposer extends React.Component {
               target={ state.filmStrip }
             />
         }
-      </FilmContext.Provider>
+      </Context.Provider>
     );
   }
 }

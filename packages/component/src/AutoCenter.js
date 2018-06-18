@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FilmContext from './FilmContext';
+import Context from './Context';
 
 class Delay extends React.Component {
   constructor(props) {
@@ -38,7 +38,7 @@ class Delay extends React.Component {
 }
 
 export default ({ delay }) =>
-  <FilmContext.Consumer>
+  <Context.Consumer>
     { context =>
       <Delay
         duration={ delay }
@@ -46,4 +46,4 @@ export default ({ delay }) =>
         start={ !context.scrolling }
       />
     }
-  </FilmContext.Consumer>
+  </Context.Consumer>
