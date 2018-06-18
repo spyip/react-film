@@ -10,12 +10,12 @@ const ROOT_CSS = css({
 
 export default ({ className, handlerClassName }) =>
   <FilmContext.Consumer>
-    { ({ scrollBarFraction, scrollBarWidth }) =>
+    { ({ scrollBarPercentage, scrollBarWidth }) =>
       <div className={ classNames(ROOT_CSS + '', className) }>
         <div
           className={ handlerClassName }
           style={{
-            marginLeft: `${ (1 - parseFloat(scrollBarWidth) / 100) * parseFloat(scrollBarFraction) }%`,
+            marginLeft: `${ (1 - parseFloat(scrollBarWidth) / 100) * parseFloat(scrollBarPercentage) }%`,
             width: scrollBarWidth
           }}
         />

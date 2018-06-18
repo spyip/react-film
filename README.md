@@ -34,43 +34,66 @@ You can control `<BasicFilm>` using props listed below.
 | `showDots` | `true` | `true` to show dots below the carousel, otherwise, `false` |
 | `showFlipper` | `true` | `true` to show flippers (side buttons), otherwise, `false` |
 | `showScrollBar` | `true` | `true` to show scroll bar, otherwise, `false` |
-| `carouselClassName` | | Class name for carousel component |
-| `dotsBoxClassName` | | Class name for dots container |
-| `dotsItemClassName` | | Class name for individual dot |
-| `leftFlipperClassName` | | Class name for left flipper |
-| `rightFlipperClassName` | | Class name for right flipper |
-| `scrollBarBoxClassName` | | Class name for scroll bar container |
-| `scrollBarHandlerClassName` | | Class name for scroll bar handler |
+| `styleSet.carousel` | | Class name for carousel component |
+| `styleSet.dotsBox` | | Class name for dots container |
+| `styleSet.dotsItem` | | Class name for every dot |
+| `styleSet.leftFlipper` | | Class name for left flipper |
+| `styleSet.rightFlipper` | | Class name for right flipper |
+| `styleSet.scrollBarBox` | | Class name for scroll bar container |
+| `styleSet.scrollBarHandler` | | Class name for scroll bar handler |
 
-## Basic styles
+## Basic style set
 
-To better assist designer to style the component, when a class name is passed, the default styles are replaced. This is by design and help designers to create their unique styles without the need to overcome the effect of existing styles.
+To better assist designer to style the component, we introduce style set, a clean way to override or replace existing styles. This help designers to create their unique styles without the need to overcome the effect of existing styles.
 
-To append to the default styles, copy the following code.
+To start with the basic style set, just copy the following code:
+
+```css
+.my-scroll-bar-class { background: Red; }
+```
+
+```js
+import BasicFilm, { createBasicStyleSet } from 'react-film';
+
+const originalStyleSet = createBasicStyleSet();
+const myStyleSet = {
+  ...originalStyleSet,
+  scrollBarHandler: originalStyleSet.scrollBarHandler + ' my-scroll-bar-class'
+};
+
+export default props =>
+  <BasicFilm styleSet={ myStyleSet }>
+    <img alt="Cat 01" src="image/01.jpg" />
+    <img alt="Cat 02" src="image/02.jpg" />
+    <img alt="Cat 03" src="image/03.jpg" />
+  </BasicFilm>
+```
+
+### Styling using glamor
+
+If you are familiar with [`glamor`](https://github.com/threepointone/glamor/), you can also use `glamor` to theme.
 
 ```js
 import { css } from 'glamor';
-import BasicFilm, { createBasicStyles } from 'react-film';
+import BasicFilm, { createBasicStyleSet } from 'react-film';
 
-const originalStyles = createBasicStyles();
-const customScrollBarHandler = css(originalStyles.scrollBarHandler, {
-  backgroundColor: 'Red'
-});
+const originalStyleSet = createBasicStyleSet();
+const myStyleSet = {
+  ...originalStyleSet,
+  scrollBarHandler: css(originalStyleSet.scrollBarHandler, { backgroundColor: 'Red' })
+};
 
-render() {
-  return (
-    <BasicFilm scrollBarHandlerClassName={ customScrollBarHandler + '' }>
-      <img alt="Cat 01" src="image/01.jpg" />
-      <img alt="Cat 02" src="image/02.jpg" />
-      <img alt="Cat 03" src="image/03.jpg" />
-    </BasicFilm>
-  );
-}
+export default props =>
+  <BasicFilm styleSet={ myStyleSet }>
+    <img alt="Cat 01" src="image/01.jpg" />
+    <img alt="Cat 02" src="image/02.jpg" />
+    <img alt="Cat 03" src="image/03.jpg" />
+  </BasicFilm>
 ```
 
 ### Options for basic styles
 
-You can specify options when creating a style set thru `createBasicStyles(options)`.
+When creating the style set, you can specify the following options:
 
 | Name | Default | Description |
 | - | - | - |
@@ -104,21 +127,21 @@ You can specify options when creating a style set thru `createBasicStyles(option
 * [x] Minimal styling as possible, let user customize it
 * [x] Support keyboard left/right arrow (supported natively)
 
-# Advanced customization
+# Deep-customization
 
-Sometimes, CSS themeing is not enough for deep-customization. You might need to rebuild part of the carousel to achieve your customization goals.
+Sometimes, CSS themeing is not enough for deep-customization. You may need to rebuild part of the carousel to achieve your customization goals.
 
-Instead of building your carousel, you can rebuild `react-film` using composer/context pattern.
+Instead of forking our repository and building your carousel, you can rebuild `react-film` using composer/context pattern.
 
-You can start from copying the following code.
+You can start from copying the following code:
 
 ```jsx
 import React from 'react';
 import { AutoCenter, Dots, FilmComposer, FilmStrip, Flipper, ScrollBar } from 'react-film';
 
-export default ({ children, height }) =>
+export default ({ children }) =>
   <FilmComposer>
-    <div style={{ height }}>
+    <div>
       <FilmStrip>
         { children }
       </FilmStrip>
@@ -140,7 +163,7 @@ The context object provides API for interfacing the carousel.
 | Name | Type | Description |
 | - | - | - |
 | `numItems` | `number` | Number of items in the carousel |
-| `scrollBarFraction` | `string` | Percentage of the scroll bar, from `0%` to `100%` |
+| `scrollBarPercentage` | `string` | Percentage of the scroll bar position |
 | `scrollBarWidth` | `string` | Width (in percentage) of the scroll bar, respective to its total content |
 | `scrolling` | `boolean` | `true` if the user is scrolling (debounced 500ms after last `onScroll` event), otherwise, `false` |
 | `scrollOneLeft` | `() => {}` | Scroll one item to the left |
@@ -161,8 +184,6 @@ context.scrollTo(({ indexFraction }) => {
 ```
 
 # Road map
-
-* Style set, instead of providing each class name
 
 ## Features not planned to support
 

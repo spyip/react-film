@@ -1,16 +1,17 @@
 import React from 'react';
 import { css } from 'glamor';
 
-import BasicFilm, { createBasicStyles } from 'component';
+import BasicFilm, { createBasicStyleSet } from 'component';
 
 const SMALL_FILM_CSS = css({
   maxWidth: 474 * 2
 });
 
-const styles = createBasicStyles();
-const customScrollBarHandler = css(styles.scrollBarHandler, {
-  backgroundColor: 'Red'
-});
+const styleSet = createBasicStyleSet({ autoHide: false });
+const myStyleSet = {
+  ...styleSet,
+  scrollBarHandler: styleSet.scrollBarHandler + ' ' + css({ backgroundColor: 'Red' })
+};
 
 export default props =>
   <div>
@@ -40,7 +41,7 @@ export default props =>
       autoCenter={ false }
       autoHide={ false }
       height={ 316 }
-      scrollBarHandlerClassName={ customScrollBarHandler + '' }
+      styleSet={ myStyleSet }
     >
       <img alt="Cat 01" src="image/01.jpg" />
       <img alt="Cat 02" src="image/02.jpg" />

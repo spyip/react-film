@@ -1,10 +1,5 @@
 import { css } from 'glamor';
 
-const CAROUSEL_CSS = css({
-  overflow: 'hidden',
-  position: 'relative'
-});
-
 const DOT_BOX_SIZE = 20;
 const DOT_SIZE = 6;
 
@@ -136,7 +131,7 @@ export default function ({
   scrollBarMargin = SCROLL_BAR_MARGIN
 } = {}) {
   const styles = {
-    carousel        : CAROUSEL_CSS,
+    carousel        : '',
     dotsBox         : createDotsBoxCSS({ height: dotBoxSize }),
     dotsItem        : createDotsItemCSS({ boxSize: dotBoxSize, size: dotSize }),
     leftFlipper     : createLeftFlipperCSS({ boxWidth: flipperBoxWidth, size: flipperSize }),
@@ -174,7 +169,7 @@ export default function ({
     });
 
     // The auto-hide state is defined in arch-style (carousel) for its `hover` pseudo class
-    styles.carousel = css(styles.carousel, {
+    styles.carousel = css({
       '&:hover, &.scrolling': {
         [`& .${ styles.scrollBarBox + '' }, & .${ styles.leftFlipper + '' }, & .${ styles.rightFlipper + '' }`]: {
           // Controls show up as soon as the user hover on it

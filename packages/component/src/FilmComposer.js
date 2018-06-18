@@ -75,7 +75,7 @@ export default class FilmComposer extends React.Component {
           }));
         },
         numItems: 0,
-        scrollBarFraction: '0%',
+        scrollBarPercentage: '0%',
         scrollBarWidth: '0%',
         scrolling: false,
         scrollTo: scrollTo => {
@@ -102,7 +102,7 @@ export default class FilmComposer extends React.Component {
     };
   }
 
-  handleScroll({ fraction: scrollBarFraction, initial, width: scrollBarWidth }) {
+  handleScroll({ fraction: scrollBarPercentage, initial, width: scrollBarWidth }) {
     this.setState(({ context, filmStrip, scrollLeft }) => {
       const { index, indexFraction } = getView(filmStrip, scrollLeft);
 
@@ -112,7 +112,7 @@ export default class FilmComposer extends React.Component {
           index,
           indexFraction,
           scrolling: !initial,
-          scrollBarFraction,
+          scrollBarPercentage,
           scrollBarWidth
         }
       };

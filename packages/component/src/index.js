@@ -1,5 +1,5 @@
 import BasicFilm from './BasicFilm';
-import createBasicStyles from './createBasicStyles';
+import createBasicStyleSet from './createBasicStyleSet';
 import Dots from './Dots';
 import FilmComposer from './FilmComposer';
 import FilmContext from './FilmContext';
@@ -10,7 +10,7 @@ import ScrollBar from './ScrollBar';
 export default BasicFilm
 
 export {
-  createBasicStyles,
+  createBasicStyleSet,
   Dots,
   FilmComposer,
   FilmContext,
