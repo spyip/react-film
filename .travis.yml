@@ -3,8 +3,8 @@ node_js:
   - "10"
 before_script:
   - npx version-from-git --travis --no-git-tag-version
-  - node scripts/syncVersion
   - npm run bootstrap
+  - node scripts/syncVersion
   - npm run build
 before_deploy:
   - cp -r packages/component/lib .
