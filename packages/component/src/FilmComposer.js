@@ -96,7 +96,7 @@ export default class FilmComposer extends React.Component {
         scrollOneLeft: () => {
           this.state.context.scrollTo(({ indexFraction }) => Math.ceil(indexFraction) - 1);
         },
-        scrollToRight: () => {
+        scrollOneRight: () => {
           this.state.context.scrollTo(({ indexFraction }) => Math.floor(indexFraction) + 1);
         }
       }
