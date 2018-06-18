@@ -23,16 +23,30 @@ function getView(current, scrollingTo) {
 
       // We "fix" indexFraction if the viewport is at the start/end of the content
       // This is to simplify code that use Math.round(indexFraction) to find the current index
-      if (scrollLeft === 0) {
-        indexFraction = 0;
-      } else if (scrollLeft >= current.scrollWidth - current.offsetWidth) {
-        indexFraction = items.length - 1;
-      } else if (indexFraction % 1 > .99 || indexFraction % 1 < .01) {
+      // if (scrollLeft === 0) {
+      //   indexFraction = 0;
+      // } else if (scrollLeft >= current.scrollWidth - current.offsetWidth) {
+      //   indexFraction = items.length - 1;
+      // } else if (indexFraction % 1 > .99 || indexFraction % 1 < .01) {
+      //   indexFraction = Math.round(indexFraction);
+      // }
+
+      if (indexFraction % 1 > .99 || indexFraction % 1 < .01) {
         indexFraction = Math.round(indexFraction);
       }
 
+      let selectedIndex;
+
+      if (scrollLeft === 0) {
+        selectedIndex = 0;
+      } else if (scrollLeft >= current.scrollWidth - current.offsetWidth) {
+        selectedIndex = items.length - 1;
+      } else {
+        selectedIndex = Math.round(indexFraction);
+      }
+
       return {
-        index: Math.round(indexFraction),
+        index: selectedIndex,
         indexFraction,
         items,
         current

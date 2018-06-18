@@ -172,6 +172,8 @@ Maybe you want to create a new flipper to control the carousel, the [context obj
 
 | Name | Type | Description |
 | - | - | - |
+| `index` | `number` | Index of the current item |
+| `indexFraction` | `number` | Index of the current item, in fraction (1.5 means 50% between 2nd and 3rd item) |
 | `numItems` | `number` | Number of items in the carousel |
 | `scrollBarPercentage` | `string` | Percentage of the scroll bar position |
 | `scrollBarWidth` | `string` | Width (in percentage) of the scroll bar, respective to its total content |
