@@ -18,3 +18,12 @@ export {
   Flipper,
   ScrollBar
 }
+
+if (document && document.head) {
+  const meta = document.createElement('meta');
+
+  meta.setAttribute('name', 'react-film');
+  meta.setAttribute('content', `version=${ VERSION }`);
+
+  document.head.appendChild(meta);
+}

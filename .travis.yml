@@ -2,10 +2,11 @@ language: node_js
 node_js:
   - "10"
 before_script:
+  - npx version-from-git --travis --no-git-tag-version
+  - node scripts/syncVersion
   - npm run bootstrap
   - npm run build
 before_deploy:
-  - npx version-from-git --travis --no-git-tag-version
   - cp -r packages/component/lib .
 deploy:
   - provider: npm
