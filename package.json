@@ -19,7 +19,6 @@
     "test": "lerna run test"
   },
   "author": "Ping Yip (ping.yip@hotmail.com)",
-  "homepage": "https://spyip.github.io/react-film/",
   "license": "MIT",
   "repository": {
     "type": "git",
