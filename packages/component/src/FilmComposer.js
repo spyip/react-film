@@ -21,22 +21,18 @@ function getView(current, scrollingTo) {
       const offsetCenter = item.offsetLeft + item.offsetWidth / 2;
       let indexFraction = index + (scrollCenter - offsetCenter) / item.offsetWidth;
 
-      if (indexFraction % 1 > .99 || indexFraction % 1 < .01) {
+      // We "fix" indexFraction if the viewport is at the start/end of the content
+      // This is to simplify code that use Math.round(indexFraction) to find the current index
+      if (scrollLeft === 0) {
+        indexFraction = 0;
+      } else if (scrollLeft >= current.scrollWidth - current.offsetWidth) {
+        indexFraction = items.length - 1;
+      } else if (indexFraction % 1 > .99 || indexFraction % 1 < .01) {
         indexFraction = Math.round(indexFraction);
       }
 
-      let selectedIndex;
-
-      if (scrollCenter <= current.offsetWidth / 2) {
-        selectedIndex = 0;
-      } else if (scrollCenter >= current.scrollWidth - current.offsetWidth / 2) {
-        selectedIndex = items.length - 1;
-      } else {
-        selectedIndex = Math.round(indexFraction);
-      }
-
       return {
-        index: selectedIndex,
+        index: Math.round(indexFraction),
         indexFraction,
         items,
         current
@@ -87,8 +83,8 @@ export default class FilmComposer extends React.Component {
             const view = getView(state.filmStrip, state.scrollLeft);
 
             if (view) {
-              const { indexFraction } = view;
-              const targetIndex = scrollTo({ indexFraction });
+              const { index, indexFraction } = view;
+              const targetIndex = scrollTo({ index, indexFraction });
 
               if (typeof targetIndex === 'number') {
                 return { scrollLeft: getScrollLeft(state.filmStrip, targetIndex) };
