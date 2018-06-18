@@ -22,6 +22,16 @@ Try out our demo at https://spyip.github.io/react-film/.
 
 > Note: we need to specify `height` here because there are no CSS rule one can use to [hide scroll bars in Firefox](https://stackoverflow.com/questions/19580366/hide-scrollbar-in-firefox).
 
+## Customization
+
+When we design `react-film`, customization is our top priority. From shallow to deep, we support these customizations:
+
+* [Toggle features](#props) (auto-center/dots/flipper/scrollbar)
+* [Simple styling](#presets-for-style-set) each feature (dot size, flipper width, etc)
+* [Replace or enhance](#basic-style-set) themeing for each feature
+* [Add new controls](#context), including headless component like auto-play
+* [Rebuild](#deep-customization) the whole component, without forking the code
+
 # Props
 
 You can control `<BasicFilm>` using props listed below.
