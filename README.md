@@ -24,24 +24,29 @@ Try out our demo at https://spyip.github.io/react-film/.
 
 # Props
 
+You can control `<BasicFilm>` using props listed below.
+
 | Name | Default | Description |
 | - | - | - |
 | `autoCenter` | `true` | `true` will enable auto-center after scroll stopped for a second, otherwise, `false` |
 | `autoHide` | `true` | `true` to auto hide controls after pointer leave or scroll stopped, otherwise, `false` |
-| `carouselClassName` | `undefined` | Class name of styles to override carousel component |
-| `dotsBoxClassName` | `undefined` | Class name of styles to override dots container |
-| `dotsItemClassName` | `undefined` | Class name of styles to override individual dot |
 | `height` | | Height of the carousel, in `number` (required for Firefox) |
-| `leftFlipperClassName` | `undefined` | Class name of styles to override left flipper |
-| `rightFlipperClassName` | `undefined` | Class name of styles to override right flipper |
-| `scrollBarBoxClassName` | `undefined` | Class name of styles to override scroll bar container |
-| `scrollBarHandlerClassName` | `undefined` | Class name of styles to override scroll bar handler |
+| `showDots` | `true` | `true` to show dots below the carousel, otherwise, `false` |
+| `showFlipper` | `true` | `true` to show flippers (side buttons), otherwise, `false` |
+| `showScrollBar` | `true` | `true` to show scroll bar, otherwise, `false` |
+| `carouselClassName` | | Class name for carousel component |
+| `dotsBoxClassName` | | Class name for dots container |
+| `dotsItemClassName` | | Class name for individual dot |
+| `leftFlipperClassName` | | Class name for left flipper |
+| `rightFlipperClassName` | | Class name for right flipper |
+| `scrollBarBoxClassName` | | Class name for scroll bar container |
+| `scrollBarHandlerClassName` | | Class name for scroll bar handler |
 
 ## Basic styles
 
-By default, when you pass a class name for themeing, the original style will be replaced. This is by design and help designer to create their genuine unique style without the need to override the default styles.
+To better assist designer to style the component, when a class name is passed, the default styles are replaced. This is by design and help designers to create their unique styles without the need to overcome the effect of existing styles.
 
-To override the default styles, copy the following code.
+To append to the default styles, copy the following code.
 
 ```js
 import { css } from 'glamor';
@@ -63,11 +68,9 @@ render() {
 }
 ```
 
-> Some animation styles may requires change to multiple rules.
-
 ### Options for basic styles
 
-You can specify options when creating a styles thru `createBasicStyles(options)`.
+You can specify options when creating a style set thru `createBasicStyles(options)`.
 
 | Name | Default | Description |
 | - | - | - |
@@ -83,7 +86,7 @@ You can specify options when creating a styles thru `createBasicStyles(options)`
 
 * [x] Native horizontal scrolling
    * [x] Virtual scroll bar
-   * [x] Optionally, show when hover
+   * [x] Show when hover
    * [x] Support touch scrolling
 * [x] Bring your own flipper
    * [x] Show only when overflow
@@ -101,7 +104,38 @@ You can specify options when creating a styles thru `createBasicStyles(options)`
 * [x] Minimal styling as possible, let user customize it
 * [x] Support keyboard left/right arrow (supported natively)
 
-# Context
+# Advanced customization
+
+Sometimes, CSS themeing is not enough for deep-customization. You might need to rebuild part of the carousel to achieve your customization goals.
+
+Instead of building your carousel, you can rebuild `react-film` using composer/context pattern.
+
+You can start from copying the following code.
+
+```jsx
+import React from 'react';
+import { AutoCenter, Dots, FilmComposer, FilmStrip, Flipper, ScrollBar } from 'react-film';
+
+export default ({ children, height }) =>
+  <FilmComposer>
+    <div style={{ height }}>
+      <FilmStrip>
+        { children }
+      </FilmStrip>
+      <ScrollBar />
+      <Flipper mode="left">&lt;</Flipper>
+      <Flipper mode="right">&gt;</Flipper>
+    </div>
+    <Dots>
+      { () => '.' }
+    </Dots>
+    <AutoCenter />
+  </FilmComposer>
+```
+
+## Context
+
+The context object provides API for interfacing the carousel.
 
 | Name | Type | Description |
 | - | - | - |
@@ -111,13 +145,13 @@ You can specify options when creating a styles thru `createBasicStyles(options)`
 | `scrolling` | `boolean` | `true` if the user is scrolling (debounced 500ms after last `onScroll` event), otherwise, `false` |
 | `scrollOneLeft` | `() => {}` | Scroll one item to the left |
 | `scrollOneRight` | `() => {}` | Scroll one item to the right |
-| `scrollTo` | `(({ indexFraction: number }) => {}) => {}` | Scroll to a specified index, see [sample below](#sample-scrollto-code) |
+| `scrollTo` | `(({ index: number, indexFraction: number }) => {}) => {}` | Scroll to a specified index, see [sample below](#sample-scrollto-code) |
 
-## Sample `scrollTo` code
+### Sample `scrollTo` code
 
-To scroll one item to the left, we call `scrollTo` like this:
+`scrollTo` is a generic function that you can use to jump to specific items in the carousel. To scroll one item to the left:
 
-```js
+```jsx
 context.scrollTo(({ indexFraction }) => {
   // indexFraction = 0 means it is on the first item
   // indexFraction = 0.5 means it is 50% between the first item and the second item
@@ -126,15 +160,9 @@ context.scrollTo(({ indexFraction }) => {
 });
 ```
 
-> The code is for elaboration only, `context` is usually called within JSX
-
 # Road map
 
-* Move styles out of primitive components (`Dots`, `FilmStrip`, `Flipper`, `ScrollBar`) into `BasicFilm`
-* Add feature switches to `BasicFilm`
-   * Show/hide dots
-   * Show/hide flipper
-   * Show/hide scroll bar
+* Style set, instead of providing each class name
 
 ## Features not planned to support
 

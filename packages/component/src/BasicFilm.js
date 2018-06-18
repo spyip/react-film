@@ -30,6 +30,11 @@ export default class BasicFilm extends React.Component {
       scrollBarBox,
       scrollBarHandler
     } = this.createStyles(props);
+    const {
+      showDots = true,
+      showFlipper = true,
+      showScrollBar = true
+    } = props;
 
     return (
       <FilmComposer>
@@ -43,28 +48,29 @@ export default class BasicFilm extends React.Component {
                 <FilmStrip>
                   { props.children }
                 </FilmStrip>
-                {
-                  scrollBarWidth !== '100%' &&
-                    <React.Fragment>
-                      <ScrollBar
-                        className={ props.scrollBarBoxClassName || scrollBarBox + '' }
-                        handlerClassName={ props.scrollBarHandlerClassName || scrollBarHandler + '' }
-                      />
-                      <Flipper className={ props.leftFlipperClassName || leftFlipper + '' } mode="left">
-                        <div>
-                          &lt;
-                        </div>
-                      </Flipper>
-                      <Flipper className={ props.rightFlipperClassName || rightFlipper + '' } mode="right">
-                        <div>
-                          &gt;
-                        </div>
-                      </Flipper>
-                    </React.Fragment>
+                { scrollBarWidth !== '100%' && !!showScrollBar &&
+                  <ScrollBar
+                    className={ props.scrollBarBoxClassName || scrollBarBox + '' }
+                    handlerClassName={ props.scrollBarHandlerClassName || scrollBarHandler + '' }
+                  />
+                }
+                { scrollBarWidth !== '100%' && !!showFlipper &&
+                  <React.Fragment>
+                    <Flipper className={ props.leftFlipperClassName || leftFlipper + '' } mode="left">
+                      <div>
+                        &lt;
+                      </div>
+                    </Flipper>
+                    <Flipper className={ props.rightFlipperClassName || rightFlipper + '' } mode="right">
+                      <div>
+                        &gt;
+                      </div>
+                    </Flipper>
+                  </React.Fragment>
                 }
               </div>
               {
-                scrollBarWidth !== '100%' &&
+                scrollBarWidth !== '100%' && !!showDots &&
                   <Dots
                     className={ props.dotsBoxClassName || dotsBox + '' }
                     itemClassName={ props.dotsItemClassName || dotsItem + ''}
