@@ -81,7 +81,7 @@ export default props =>
   </BasicFilm>
 ```
 
-### Styling using glamor
+### Style using glamor
 
 If you are familiar with [`glamor`](https://github.com/threepointone/glamor/), you can also use it to style.
 
@@ -123,7 +123,7 @@ Sometimes, CSS themeing is not enough for deep-customization. You may need to re
 
 Instead of forking our repository and building your carousel, you can rebuild `react-film` using composer/context pattern.
 
-You can start from copying the following code, an absolute minimal without any non-essential styling. Our [`<BasicFilm>`](packages/component/src/BasicFilm.js) starts from here too.
+You can start from copying the following code, an absolute minimal without any non-essential styles. Our [`<BasicFilm>`](packages/component/src/BasicFilm.js) starts from here too.
 
 ```jsx
 import React from 'react';
