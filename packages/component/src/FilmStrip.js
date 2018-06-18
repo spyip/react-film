@@ -10,7 +10,7 @@ const ROOT_CSS = css({
   MsOverflowStyle: 'none',
   overflowX: 'scroll',
   overflowY: 'hidden',
-  touchAction: 'pan-x',
+  touchAction: 'manipulation',
   WebkitOverflowScrolling: 'touch',
 
   '&::-webkit-scrollbar': {
