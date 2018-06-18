@@ -1,4 +1,5 @@
 import React from 'react';
+
 import FilmContext from './FilmContext';
 
 class Delay extends React.Component {
