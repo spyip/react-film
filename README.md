@@ -83,7 +83,7 @@ export default props =>
 
 ### Styling using glamor
 
-If you are familiar with [`glamor`](https://github.com/threepointone/glamor/), you can also use `glamor` to style.
+If you are familiar with [`glamor`](https://github.com/threepointone/glamor/), you can also use it to style.
 
 ```js
 import { css } from 'glamor';
@@ -146,9 +146,11 @@ export default ({ children }) =>
   </Composer>
 ```
 
+> You can also copy [`<BasicFilm>`](packages/component/src/BasicFilm.js) as your base template. There are no logic in it, so you can easily rebase latest changes from us without breaking your code.
+
 ## Creating a new control
 
-You can refer to [`Flipper.js`](packages/component/src/Flipper.js) to start creating your own control, or copy the simpler version below:
+You can copy [`Flipper.js`](packages/component/src/Flipper.js) to start creating your own control, or from the simpler version below:
 
 ```jsx
 import React from 'react';
@@ -178,7 +180,7 @@ Maybe you want to create a new flipper to control the carousel, the [context obj
 | `scrollOneRight` | `() => {}` | Helper function to scroll one item to the right |
 | `scrollTo` | `(({ index: number, indexFraction: number }) => {}) => {}` | Scroll to a specified index, see [sample below](#sample-scrollto-code) |
 
-> If the context object lack of features you want to use, just [file us an issue](https://github.com/spyip/react-film/issues) and tell us about your idea.
+> If the context object lack of features you want to use, just [tell us your idea](https://github.com/spyip/react-film/issues).
 
 ### Sample `scrollTo` code
 
@@ -217,7 +219,7 @@ context.scrollTo(({ indexFraction }) => {
 
 ## Features not planned to support
 
-While you can dream about everything, engineering a piece of software that works well requires some opinions.
+While you can dream about everything, engineering a piece of software that works great requires some opinions and it may not please everyone.
 
 * Non-native scrolling
    * Physics model are different across browsers
