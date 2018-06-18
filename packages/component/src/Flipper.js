@@ -46,7 +46,7 @@ export default ({ children, className, mode }) =>
     { context =>
       <button
         className={ classNames(ROOT_CSS + '', className) }
-        onClick={ mode === 'left' ? context.scrollToLeft : context.scrollToRight }
+        onClick={ mode === 'left' ? context.scrollOneLeft : context.scrollOneRight }
       >
         <div>
           { children }

@@ -54,17 +54,44 @@ Try out our demo at https://spyip.github.io/react-film/.
 
 | Name | Type | Description |
 | - | - | - |
-| `filmStrip` | `DOMElement` | Internal use: DOM element for the film strip |
 | `numItems` | `number` | Number of items in the carousel |
 | `scrollBarLeft` | `string` | Offset left (in percentage) of the scroll bar |
 | `scrollBarWidth` | `string` | Width (in percentage) of the scroll bar, respective to its total content |
 | `scrolling` | `boolean` | `true` if the user is scrolling (debounced from `onScroll` event), otherwise, `false` |
-| `scrollLeft` | `number` | Internal use: offset left to scroll to |
+| `scrollOneLeft` | `() => {}` | Scroll one item to the left |
+| `scrollOneRight` | `() => {}` | Scroll one item to the right |
 | `scrollTo` | `(({ indexFraction: number }) => {}) => {}` | Scroll to a specified index, given the current index (in fraction) |
-| `scrollToLeft` | `() => {}` | Scroll one element left |
-| `scrollToRight` | `() => {}` | Scroll one element right |
-| `setFilmStripRef` | `(DOMElement) => {}` | Internal use: set the DOM element for the film strip |
-| `setNumItems` | `(number) => {}` | Internal use: set the number of items in the carousel |
+
+## Sample `scrollTo` code
+
+To scroll one item to the left, we call `scrollTo` like this:
+
+```js
+context.scrollTo(({ indexFraction }) => {
+  // indexFraction = 0 means it is on the first item
+  // indexFraction = 0.5 means it is 50% between the first item and the second item
+
+  return Math.ceil(indexFraction) - 1;
+});
+```
+
+> The code is for elaboration only, `context` is usually called within JSX
+
+# Road map
+
+## Features not planned to support
+
+* Non-native scrolling
+   * Physics model are different across browsers
+   * Too many inputs need to be handled, difficult to build a good model
+      * Mouse with physical wheel
+      * Mouse without capacitive wheel, or trackpoint devices
+      * Touchpad with precision scrolling
+      * Touchpad without precision scrolling
+      * Surface Pen
+      * Xbox controller
+* Infinite or "wrap-around" scrolling
+   * Does not play nice with browser native scrolling
 
 # Contributions
 

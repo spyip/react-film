@@ -67,49 +67,68 @@ export default class FilmComposer extends React.Component {
 
     this.state = {
       filmStrip: null,
-      numItems: 0,
-      scrollBarLeft: '0%',
-      scrollBarWidth: '0%',
-      scrolling: false,
       scrollLeft: null,
-      scrollTo: scrollTo => {
-        this.setState(state => {
-          const view = getView(state.filmStrip, state.scrollLeft);
+      context: {
+        _setFilmStripRef: filmStrip => this.setState(() => ({ filmStrip })),
+        _setNumItems: numItems => {
+          this.setState(({ context }) => ({
+            context: {
+              ...context,
+              numItems
+           }
+          }));
+        },
+        numItems: 0,
+        scrollBarLeft: '0%',
+        scrollBarWidth: '0%',
+        scrolling: false,
+        scrollTo: scrollTo => {
+          this.setState(state => {
+            const view = getView(state.filmStrip, state.scrollLeft);
 
-          if (view) {
-            const { indexFraction } = view;
+            if (view) {
+              const { indexFraction } = view;
 
-            return { scrollLeft: getScrollLeft(state.filmStrip, scrollTo({ indexFraction })) };
-          }
-        });
-      },
-      scrollToLeft: () => {
-        this.state.scrollTo(({ indexFraction }) => Math.ceil(indexFraction) - 1);
-      },
-      scrollToRight: () => {
-        this.state.scrollTo(({ indexFraction }) => Math.floor(indexFraction) + 1);
-      },
-      setFilmStripRef: filmStrip => this.setState(() => ({ filmStrip })),
-      setNumItems: numItems => this.setState(() => ({ numItems }))
+              return { scrollLeft: getScrollLeft(state.filmStrip, scrollTo({ indexFraction })) };
+            }
+          });
+        },
+        scrollOneLeft: () => {
+          this.state.context.scrollTo(({ indexFraction }) => Math.ceil(indexFraction) - 1);
+        },
+        scrollToRight: () => {
+          this.state.context.scrollTo(({ indexFraction }) => Math.floor(indexFraction) + 1);
+        }
+      }
     };
   }
 
   handleScroll({ initial, left: scrollBarLeft, width: scrollBarWidth }) {
-    this.setState(state => {
-      const { index, indexFraction } = getView(state.filmStrip, state.scrollLeft);
+    this.setState(({ context, filmStrip, scrollLeft }) => {
+      const { index, indexFraction } = getView(filmStrip, scrollLeft);
 
       return {
-        index,
-        indexFraction,
-        scrolling: !initial,
-        scrollBarLeft,
-        scrollBarWidth
+        context: {
+          ...context,
+          index,
+          indexFraction,
+          scrolling: !initial,
+          scrollBarLeft,
+          scrollBarWidth
+        }
       };
     });
 
     if (!initial) {
       clearTimeout(this.scrollTimeout);
-      this.scrollTimeout = setTimeout(() => this.setState(() => ({ scrolling: false })), 500);
+      this.scrollTimeout = setTimeout(() => {
+        this.setState(({ context }) => ({
+          context: {
+            ...context,
+            scrolling: false
+          }
+        }));
+      }, 500);
     }
   }
 
@@ -121,7 +140,7 @@ export default class FilmComposer extends React.Component {
     const { state } = this;
 
     return (
-      <FilmContext.Provider value={ state }>
+      <FilmContext.Provider value={ state.context }>
         { this.props.children }
         {
           !!state.filmStrip &&

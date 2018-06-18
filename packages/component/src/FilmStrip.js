@@ -33,14 +33,14 @@ export default props =>
   <FilmContext.Consumer>
     { context =>
       <React.Fragment>
-        <div className={ classNames(ROOT_CSS + '', props.className) } ref={ context.setFilmStripRef }>
+        <div className={ classNames(ROOT_CSS + '', props.className) } ref={ context._setFilmStripRef }>
           <ul>
             { React.Children.map(props.children, child => <li>{ child }</li>) }
           </ul>
         </div>
         <CallFunction
           arg={ React.Children.count(props.children) }
-          fn={ context.setNumItems }
+          fn={ context._setNumItems }
         />
       </React.Fragment>
     }
