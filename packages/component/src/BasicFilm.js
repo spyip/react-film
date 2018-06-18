@@ -1,59 +1,82 @@
-import { css } from 'glamor';
 import classNames from 'classnames';
 import React from 'react';
 
+import AutoCenter from './AutoCenter';
+import createBasicStyles from './createBasicStyles';
 import Dots from './Dots';
 import FilmComposer from './FilmComposer';
+import FilmContext from './FilmContext';
 import FilmStrip from './FilmStrip';
 import Flipper from './Flipper';
+import memoize from './memoize';
 import ScrollBar from './ScrollBar';
 
-const SCROLL_BAR_CSS = css({
-  bottom: 0,
-  transitionDelay: '1s',
-  transitionDuration: '300ms',
-  transitionProperty: 'bottom'
-});
+export default class BasicFilm extends React.Component {
+  constructor(props) {
+    super(props);
 
-const FLIPPER_CSS = css({
-  position: 'absolute',
-  top: 0,
-  transitionDelay: '1s',
-  transitionDuration: '300ms'
-});
-
-const LEFT_FLIPPER_CSS = css({
-  left: 0,
-  transitionProperty: 'left'
-}, FLIPPER_CSS);
-
-const RIGHT_FLIPPER_CSS = css({
-  right: 0,
-  transitionProperty: 'right'
-}, FLIPPER_CSS);
-
-const FILM_CSS = css({
-  '& > div': {
-    overflow: 'hidden',
-    position: 'relative'
+    this.createHeightStyle = memoize(height => ({ height }));
+    this.createStyles = memoize(({ autoHide }) => createBasicStyles({ autoHide }));
   }
-});
 
-export default props =>
-  <FilmComposer>
-    <div className={ classNames(FILM_CSS + '', props.className) }>
-      <div style={{ height: props.height }}>
-        <FilmStrip>
-          { props.children }
-        </FilmStrip>
-        <ScrollBar className={ SCROLL_BAR_CSS + '' } />
-        <Flipper className={ LEFT_FLIPPER_CSS + '' } mode="left">
-          &lt;
-        </Flipper>
-        <Flipper className={ RIGHT_FLIPPER_CSS + '' } mode="right">
-          &gt;
-        </Flipper>
-      </div>
-      <Dots />
-    </div>
-  </FilmComposer>
+  render() {
+    const { props } = this;
+    const {
+      carousel,
+      dotsBox,
+      dotsItem,
+      leftFlipper,
+      rightFlipper,
+      scrollBarBox,
+      scrollBarHandler
+    } = this.createStyles(props);
+
+    return (
+      <FilmComposer>
+        <FilmContext.Consumer>
+          { ({ scrolling, scrollBarWidth }) =>
+            <div className={ props.className }>
+              <div
+                className={ classNames({ scrolling }, props.carouselClassName || carousel + '') }
+                style={ this.createHeightStyle(props.height) }
+              >
+                <FilmStrip>
+                  { props.children }
+                </FilmStrip>
+                {
+                  scrollBarWidth !== '100%' &&
+                    <React.Fragment>
+                      <ScrollBar
+                        className={ props.scrollBarBoxClassName || scrollBarBox + '' }
+                        handlerClassName={ props.scrollBarHandlerClassName || scrollBarHandler + '' }
+                      />
+                      <Flipper className={ props.leftFlipperClassName || leftFlipper + '' } mode="left">
+                        <div>
+                          &lt;
+                        </div>
+                      </Flipper>
+                      <Flipper className={ props.rightFlipperClassName || rightFlipper + '' } mode="right">
+                        <div>
+                          &gt;
+                        </div>
+                      </Flipper>
+                    </React.Fragment>
+                }
+              </div>
+              {
+                scrollBarWidth !== '100%' &&
+                  <Dots
+                    className={ props.dotsBoxClassName || dotsBox + '' }
+                    itemClassName={ props.dotsItemClassName || dotsItem + ''}
+                  >
+                    { () => <div /> }
+                  </Dots>
+              }
+            </div>
+          }
+        </FilmContext.Consumer>
+        { props.autoCenter !== false && <AutoCenter /> }
+      </FilmComposer>
+    );
+  }
+}

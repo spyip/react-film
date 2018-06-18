@@ -6,7 +6,6 @@ import CallFunction from './CallFunction';
 import FilmContext from './FilmContext';
 
 const ROOT_CSS = css({
-  height: '100%',
   MsOverflowStyle: 'none',
   overflowX: 'scroll',
   overflowY: 'hidden',
@@ -21,11 +20,7 @@ const ROOT_CSS = css({
     display: 'flex',
     listStyleType: 'none',
     margin: 0,
-    padding: 0,
-
-    '& > li': {
-      display: 'flex'
-    }
+    padding: 0
   }
 });
 
@@ -33,7 +28,10 @@ export default props =>
   <FilmContext.Consumer>
     { context =>
       <React.Fragment>
-        <div className={ classNames(ROOT_CSS + '', props.className) } ref={ context._setFilmStripRef }>
+        <div
+          className={ classNames(ROOT_CSS + '', props.className) }
+          ref={ context._setFilmStripRef }
+        >
           <ul>
             { React.Children.map(props.children, child => <li>{ child }</li>) }
           </ul>

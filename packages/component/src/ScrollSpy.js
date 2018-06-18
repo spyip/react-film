@@ -65,6 +65,8 @@ export default class ScrollSpy extends React.Component {
     // We will memoize to prevent firing unnecessary "onScroll"
     const { target } = this.props;
 
+    console.log('pointer over');
+
     this.handleScroll({ target });
   }
 
