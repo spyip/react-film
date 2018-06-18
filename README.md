@@ -136,7 +136,7 @@ export default ({ children }) =>
 
 ## Context
 
-The context object provides API for interfacing the carousel.
+Maybe you want to create a new flipper to control the carousel, the [context object](blob/master/packages/component/src/Context.js) provides API for interfacing with the carousel.
 
 | Name | Type | Description |
 | - | - | - |
