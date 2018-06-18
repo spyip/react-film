@@ -106,7 +106,7 @@ You can specify options when creating a styles thru `createBasicStyles(options)`
 | Name | Type | Description |
 | - | - | - |
 | `numItems` | `number` | Number of items in the carousel |
-| `scrollBarLeft` | `string` | Offset left (in percentage) of the scroll bar |
+| `scrollBarFraction` | `string` | Percentage of the scroll bar, from `0%` to `100%` |
 | `scrollBarWidth` | `string` | Width (in percentage) of the scroll bar, respective to its total content |
 | `scrolling` | `boolean` | `true` if the user is scrolling (debounced 500ms after last `onScroll` event), otherwise, `false` |
 | `scrollOneLeft` | `() => {}` | Scroll one item to the left |

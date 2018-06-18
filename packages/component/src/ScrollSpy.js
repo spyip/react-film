@@ -10,8 +10,8 @@ export default class ScrollSpy extends React.Component {
     this.handlePointerOver = debounce(this.handlePointerOver.bind(this), 300);
     this.handleScroll = this.handleScroll.bind(this);
 
-    this.emitScroll = memoize((initial, left, width) => {
-      this.props.onScroll && this.props.onScroll({ initial, left, width });
+    this.emitScroll = memoize((initial, fraction, width) => {
+      this.props.onScroll && this.props.onScroll({ initial, fraction, width });
     });
   }
 
@@ -65,8 +65,6 @@ export default class ScrollSpy extends React.Component {
     // We will memoize to prevent firing unnecessary "onScroll"
     const { target } = this.props;
 
-    console.log('pointer over');
-
     this.handleScroll({ target });
   }
 
@@ -75,7 +73,7 @@ export default class ScrollSpy extends React.Component {
 
     this.emitScroll(
       initial,
-      `${ scrollLeft / scrollWidth * 100 }%`,
+      `${ scrollWidth === offsetWidth ? 0 : scrollLeft / (scrollWidth - offsetWidth) * 100 }%`,
       `${ offsetWidth / scrollWidth * 100 }%`
     );
   }

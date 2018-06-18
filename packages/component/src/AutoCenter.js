@@ -37,18 +37,19 @@ class Delay extends React.Component {
   }
 }
 
-export default class AutoCenter extends React.Component {
-  render() {
-    return (
-      <FilmContext.Consumer>
-        { context =>
-          <Delay
-            duration={ this.props.delay }
-            onTrigger={ () => context.scrollTo(({ indexFraction }) => Math.round(indexFraction)) }
-            start={ !context.scrolling }
-          />
-        }
-      </FilmContext.Consumer>
-    );
-  }
-}
+export default ({ delay }) =>
+  <FilmContext.Consumer>
+    { context =>
+      <Delay
+        duration={ delay }
+        onTrigger={ () => context.scrollTo(({ indexFraction }) => {
+          const { scrollBarFraction } = context;
+
+          if (scrollBarFraction && scrollBarFraction !== '0%' && scrollBarFraction !== '100%') {
+            return Math.round(indexFraction);
+          }
+        }) }
+        start={ !context.scrolling }
+      />
+    }
+  </FilmContext.Consumer>
