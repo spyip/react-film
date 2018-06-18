@@ -46,13 +46,13 @@ You can control `<BasicFilm>` using props listed below.
 | `showDots` | `true` | `true` to show dots below the carousel, otherwise, `false` |
 | `showFlipper` | `true` | `true` to show flippers (side buttons), otherwise, `false` |
 | `showScrollBar` | `true` | `true` to show scroll bar, otherwise, `false` |
-| `styleSet.carousel` | `'css-*'` | Class name for carousel component |
-| `styleSet.dotsBox` | `'css-*'` | Class name for dots container |
-| `styleSet.dotsItem` | `'css-*'` | Class name for every dot |
-| `styleSet.leftFlipper` | `'css-*'` | Class name for left flipper |
-| `styleSet.rightFlipper` | `'css-*'` | Class name for right flipper |
-| `styleSet.scrollBarBox` | `'css-*'` | Class name for scroll bar container |
-| `styleSet.scrollBarHandler` | `'css-*'` | Class name for scroll bar handler |
+| `styleSet.carousel` | [`'css-*'`](https://github.com/threepointone/glamor/blob/master/docs/howto.md#apply-a-style-to-an-element) | Class name for carousel component |
+| `styleSet.dotsBox` | [`'css-*'`](https://github.com/threepointone/glamor/blob/master/docs/howto.md#apply-a-style-to-an-element) | Class name for dots container |
+| `styleSet.dotsItem` | [`'css-*'`](https://github.com/threepointone/glamor/blob/master/docs/howto.md#apply-a-style-to-an-element) | Class name for every dot |
+| `styleSet.leftFlipper` | [`'css-*'`](https://github.com/threepointone/glamor/blob/master/docs/howto.md#apply-a-style-to-an-element) | Class name for left flipper |
+| `styleSet.rightFlipper` | [`'css-*'`](https://github.com/threepointone/glamor/blob/master/docs/howto.md#apply-a-style-to-an-element) | Class name for right flipper |
+| `styleSet.scrollBarBox` | [`'css-*'`](https://github.com/threepointone/glamor/blob/master/docs/howto.md#apply-a-style-to-an-element) | Class name for scroll bar container |
+| `styleSet.scrollBarHandler` | [`'css-*'`](https://github.com/threepointone/glamor/blob/master/docs/howto.md#apply-a-style-to-an-element) | Class name for scroll bar handler |
 
 ## Basic style set
 
