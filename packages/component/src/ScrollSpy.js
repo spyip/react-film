@@ -45,7 +45,7 @@ export default class ScrollSpy extends React.Component {
 
   emitInitialScrollEvent(target, waited) {
     if (!waited && target.scrollWidth === target.offsetWidth) {
-      // HACK: Chrome 66 is buggy, scrollWidth is initially equals to offsetWidth, we need to wait until scrollWidth has been corrected
+      // HACK: Chrome 66 will initially say scrollWidth equals to offsetWidth, until some time later
       setTimeout(() => this.emitInitialScrollEvent(target, true));
     }
 
