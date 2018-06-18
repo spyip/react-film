@@ -42,6 +42,8 @@ export default class BasicFilm extends React.Component {
     };
 
     const {
+      leftFlipperText = '<',
+      rightFlipperText = '>',
       showDots = true,
       showFlipper = true,
       showScrollBar = true
@@ -68,14 +70,10 @@ export default class BasicFilm extends React.Component {
                 { scrollBarWidth !== '100%' && !!showFlipper &&
                   <React.Fragment>
                     <Flipper className={ leftFlipper + '' } mode="left">
-                      <div>
-                        &lt;
-                      </div>
+                      <div>{ leftFlipperText }</div>
                     </Flipper>
                     <Flipper className={ rightFlipper + '' } mode="right">
-                      <div>
-                        &gt;
-                      </div>
+                      <div>{ rightFlipperText }</div>
                     </Flipper>
                   </React.Fragment>
                 }

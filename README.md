@@ -39,8 +39,10 @@ You can control `<BasicFilm>` using props listed below.
 | Name | Default | Description |
 | - | - | - |
 | `autoCenter` | `true` | `true` will enable auto-center after scroll stopped for a second, otherwise, `false` |
-| `autoHide` | `true` | `true` to auto hide controls after pointer leave or scroll stopped, otherwise, `false` |
+| `autoHide` | `true` | `true` to auto hide controls after pointer leave or scroll stopped, otherwise, `false` (surfaced from [style set](#presets-for-style-set)) |
 | `height` | | Height of the carousel, in `number` (required for Firefox) |
+| `leftFlipperText` | `'<'` | Text for the left flipper |
+| `rightFlipperText` | `'>'` | Text for the right flipper |
 | `showDots` | `true` | `true` to show dots below the carousel, otherwise, `false` |
 | `showFlipper` | `true` | `true` to show flippers (side buttons), otherwise, `false` |
 | `showScrollBar` | `true` | `true` to show scroll bar, otherwise, `false` |
@@ -81,7 +83,7 @@ export default props =>
 
 ### Styling using glamor
 
-If you are familiar with [`glamor`](https://github.com/threepointone/glamor/), you can also use `glamor` to theme.
+If you are familiar with [`glamor`](https://github.com/threepointone/glamor/), you can also use `glamor` to style.
 
 ```js
 import { css } from 'glamor';
@@ -109,9 +111,9 @@ Sometimes, just increasing some paddings are more than enough for you styling ne
 | - | - | - |
 | `autoHide` | `true` | Auto-hide controls |
 | `dotBoxSize` | `20` | Hit box size of every dot |
-| `dotSize` | `6` | Actual dot size (circle) |
+| `dotSize` | `6` | Visible dot size |
 | `flipperBoxWidth` | `60` | Hit box size of flippers |
-| `flipperSize` | `40` | Actual flipper size (circle) |
+| `flipperSize` | `40` | Visible flipper size (circle) |
 | `scrollBarHeight` | `8` | Scroll bar handler height |
 | `scrollBarMargin` | `4` | Margin around scroll bar |
 

@@ -40,6 +40,8 @@ export default props =>
     <BasicFilm
       autoCenter={ false }
       autoHide={ false }
+      leftFlipperText="L"
+      rightFlipperText="R"
       height={ 316 }
       styleSet={ myStyleSet }
     >
