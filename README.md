@@ -121,7 +121,7 @@ Sometimes, CSS themeing is not enough for deep-customization. You may need to re
 
 Instead of forking our repository and building your carousel, you can rebuild `react-film` using composer/context pattern.
 
-You can start from copying the following code, our `<BasicFilm>` start from here too.
+You can start from copying the following code, an absolute minimal without any non-essential styling. Our [`<BasicFilm>`](packages/component/src/BasicFilm.js) starts from here too.
 
 ```jsx
 import React from 'react';
@@ -144,9 +144,27 @@ export default ({ children }) =>
   </Composer>
 ```
 
+## Creating a new control
+
+You can refer to [`Flipper.js`](packages/component/src/Flipper.js) to start creating your own control, or copy the simpler version below:
+
+```jsx
+import React from 'react';
+import { Context } from 'react-film';
+
+export default ({ mode }) =>
+  <Context.Consumer>
+    { context =>
+      <button onClick={ mode === 'left' ? context.scrollOneLeft : context.scrollOneRight }>
+        { mode === 'left' ? '<' : '>' }
+      </button>
+    }
+  </Context.Consumer>
+```
+
 ## Context
 
-Maybe you want to create a new flipper to control the carousel, the [context object](blob/master/packages/component/src/Context.js) provides API for interfacing with the carousel.
+Maybe you want to create a new flipper to control the carousel, the [context object](https://reactjs.org/docs/context.html) provides an API for interfacing with the carousel.
 
 | Name | Type | Description |
 | - | - | - |
@@ -154,13 +172,15 @@ Maybe you want to create a new flipper to control the carousel, the [context obj
 | `scrollBarPercentage` | `string` | Percentage of the scroll bar position |
 | `scrollBarWidth` | `string` | Width (in percentage) of the scroll bar, respective to its total content |
 | `scrolling` | `boolean` | `true` if the user is scrolling (debounced 500ms after last `onScroll` event), otherwise, `false` |
-| `scrollOneLeft` | `() => {}` | Scroll one item to the left |
-| `scrollOneRight` | `() => {}` | Scroll one item to the right |
+| `scrollOneLeft` | `() => {}` | Helper function to scroll one item to the left |
+| `scrollOneRight` | `() => {}` | Helper function to scroll one item to the right |
 | `scrollTo` | `(({ index: number, indexFraction: number }) => {}) => {}` | Scroll to a specified index, see [sample below](#sample-scrollto-code) |
+
+> If the context object lack of features you want to use, just [file us an issue](https://github.com/spyip/react-film/issues) and tell us about your idea.
 
 ### Sample `scrollTo` code
 
-`scrollTo` is a generic function that you can use to jump to specific items in the carousel. To scroll one item to the left:
+`scrollTo` is the core of the carousel. You call it to jump to specific items in the carousel. For example, to scroll one item to the left:
 
 ```jsx
 context.scrollTo(({ indexFraction }) => {
@@ -195,14 +215,16 @@ context.scrollTo(({ indexFraction }) => {
 
 ## Features not planned to support
 
+While you can dream about everything, engineering a piece of software that works well requires some opinions.
+
 * Non-native scrolling
    * Physics model are different across browsers
    * Too many inputs need to be handled, difficult to build a good model
-      * Mouse with physical wheel (<kbd>SHIFT</kbd> + wheel to scroll horizontally)
-      * Mouse without capacitive wheel, or trackpoint devices
-      * Touchpad with precision scrolling
+      * Mouse with physical wheel (some browsers support <kbd>SHIFT</kbd> + wheel to scroll horizontally)
+      * Mouse with [capacitive touch wheel](https://www.microsoft.com/accessories/en-us/products/mice/microsoft-arc-mouse), or trackpoint devices
+      * Precision Touchpad
       * Touchpad without precision scrolling
-      * Surface Pen
+      * Pen input
       * Xbox controller
 * Infinite or "wrap-around" scrolling
    * Does not play nice with browser native scrolling
