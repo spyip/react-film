@@ -5,7 +5,7 @@ import React from 'react';
 import AutoCenter from './AutoCenter';
 import Composer from './Composer';
 import Context from './Context';
-import createBasicStyles from './createBasicStyleSet';
+import createBasicStyleSet from './createBasicStyleSet';
 import Dots from './Dots';
 import FilmStrip from './FilmStrip';
 import Flipper from './Flipper';
@@ -22,7 +22,7 @@ export default class BasicFilm extends React.Component {
     super(props);
 
     this.createHeightStyle = memoize(height => ({ height }));
-    this.createBasicStyleSet = memoize(({ autoHide }) => createBasicStyles({ autoHide }));
+    this.createBasicStyleSet = memoize(({ autoHide }) => createBasicStyleSet({ autoHide }));
   }
 
   render() {

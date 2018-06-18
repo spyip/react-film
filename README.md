@@ -105,7 +105,7 @@ export default props =>
 
 ### Presets for style set
 
-Sometimes, just increasing some paddings are more than enough for you styling need. When calling `createBasicStyleSet(options)`, you can specify the following options:
+Sometimes, just increasing some paddings are more than enough for your styling need. When calling `createBasicStyleSet(options)`, you can specify the following options:
 
 | Name | Default | Description |
 | - | - | - |
