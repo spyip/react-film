@@ -34,13 +34,13 @@ You can control `<BasicFilm>` using props listed below.
 | `showDots` | `true` | `true` to show dots below the carousel, otherwise, `false` |
 | `showFlipper` | `true` | `true` to show flippers (side buttons), otherwise, `false` |
 | `showScrollBar` | `true` | `true` to show scroll bar, otherwise, `false` |
-| `styleSet.carousel` | | Class name for carousel component |
-| `styleSet.dotsBox` | | Class name for dots container |
-| `styleSet.dotsItem` | | Class name for every dot |
-| `styleSet.leftFlipper` | | Class name for left flipper |
-| `styleSet.rightFlipper` | | Class name for right flipper |
-| `styleSet.scrollBarBox` | | Class name for scroll bar container |
-| `styleSet.scrollBarHandler` | | Class name for scroll bar handler |
+| `styleSet.carousel` | `'css-*'` | Class name for carousel component |
+| `styleSet.dotsBox` | `'css-*'` | Class name for dots container |
+| `styleSet.dotsItem` | `'css-*'` | Class name for every dot |
+| `styleSet.leftFlipper` | `'css-*'` | Class name for left flipper |
+| `styleSet.rightFlipper` | `'css-*'` | Class name for right flipper |
+| `styleSet.scrollBarBox` | `'css-*'` | Class name for scroll bar container |
+| `styleSet.scrollBarHandler` | `'css-*'` | Class name for scroll bar handler |
 
 ## Basic style set
 
