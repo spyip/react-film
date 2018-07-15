@@ -232,6 +232,7 @@ While you can dream about everything, engineering a piece of software that works
       * Touchpad without precision scrolling
       * Pen input
       * Xbox controller
+   * If items are focusable, it is difficult to scroll it into view because it is difficult to detect focus
 * Infinite or "wrap-around" scrolling
    * Does not play nice with browser native scrolling
 
