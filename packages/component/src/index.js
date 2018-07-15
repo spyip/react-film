@@ -1,6 +1,6 @@
 import BasicFilm from './BasicFilm';
 import Composer from './Composer';
-import Context from './Cotext';
+import Context from './Context';
 import createBasicStyleSet from './createBasicStyleSet';
 import Dots from './Dots';
 import FilmStrip from './FilmStrip';
