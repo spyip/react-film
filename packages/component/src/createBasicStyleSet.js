@@ -53,8 +53,7 @@ const FLIPPER_BOX_WIDTH = 60;
 const FLIPPER_SIZE = 40;
 
 const createFlipperBoxCSS = ({ boxWidth, size }) => css({
-  // background: 'Transparent',
-  background: 'rgba(255, 0, 0, .4)',
+  background: 'Transparent',
   cursor: 'pointer',
   height: '100%',
   position: 'absolute',
