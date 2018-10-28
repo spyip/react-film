@@ -10,10 +10,11 @@ const ROOT_CSS = css({
   touchAction: 'none'
 });
 
-export default ({ children, className, mode }) =>
+export default ({ 'aria-label': ariaLabel, children, className, mode }) =>
   <Context.Consumer>
     { context =>
       <button
+        aria-label={ ariaLabel || (mode === 'left' ? 'left' : 'right') }
         className={ classNames(ROOT_CSS + '', className) }
         onClick={ mode === 'left' ? context.scrollOneLeft : context.scrollOneRight }
       >

@@ -38,6 +38,7 @@ const Dots = ({
     {
       new Array(numItems).fill().map((_, itemIndex) =>
         <Dot
+          aria-label={ itemIndex + 1 }
           checked={ itemIndex === index }
           className={ itemClassName }
           index={ itemIndex }
@@ -56,15 +57,17 @@ class Dot extends React.Component {
     super(props);
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   handleChange() {
     this.props.scrollTo(() => this.props.index);
   }
 
-  handleKeyDown(evt) {
-    if (evt.keyCode === 13) {
+  handleKeyPress(evt) {
+    const { keyCode } = evt;
+
+    if (keyCode === 13 || keyCode === 32) {
       evt.preventDefault();
       evt.stopPropagation();
 
@@ -74,7 +77,7 @@ class Dot extends React.Component {
 
   render() {
     const {
-      props: { checked, children, className }
+      props: { 'aria-label': ariaLabel, checked, children, className }
     } = this;
 
     return (
@@ -83,9 +86,11 @@ class Dot extends React.Component {
         (className || '') + ''
       ) }>
         <input
+          aria-label={ ariaLabel }
+          aria-pressed={ checked }
           checked={ checked }
           onChange={ this.handleChange }
-          onKeyDown={ this.handleKeyDown }
+          onKeyPress={ this.handleKeyPress }
           role="button"
           type="checkbox"
         />
