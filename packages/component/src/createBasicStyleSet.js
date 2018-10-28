@@ -36,12 +36,12 @@ const createDotsItemCSS = ({ boxSize, size }) => css({
     width: size
   },
 
-  '&:hover > div': {
-    background: 'rgba(0, 0, 0, .4)'
+  '&:hover > div, & > input:focus + div': {
+    background: 'rgba(0, 0, 0, .6)'
   },
 
   '&:active > div': {
-    background: 'rgba(0, 0, 0, .6)'
+    background: 'rgba(0, 0, 0, .8)'
   },
 
   '& > input:checked + div': {
@@ -53,39 +53,45 @@ const FLIPPER_BOX_WIDTH = 60;
 const FLIPPER_SIZE = 40;
 
 const createFlipperBoxCSS = ({ boxWidth, size }) => css({
-  alignItems: 'center',
-  background: 'Transparent',
+  // background: 'Transparent',
+  background: 'rgba(255, 0, 0, .4)',
   cursor: 'pointer',
-  display: 'flex',
   height: '100%',
   position: 'absolute',
-  justifyContent: 'center',
   top: 0,
-  transitionDelay: '1s',
-  transitionDuration: '300ms',
   width: boxWidth,
 
-  '& > div': {
-    backgroundColor: 'rgba(0, 0, 0, .2)',
-    borderRadius: '50%',
-    color: 'rgba(255, 255, 255, .6)',
-    fontFamily: ['Consolas', 'monospace'].map(font => `'${ font }'`).join(', '),
-    fontSize: 16,
-    height: size,
-    lineHeight: `${ size }px`,
-    transitionProperty: 'background-color',
-    transitionDuration: '100ms',
-    width: size
+  '& > div.slider': {
+    alignItems: 'center',
+    display: 'flex',
+    height: '100%',
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 0,
+    width: '100%',
+
+    '& > div': {
+      backgroundColor: 'rgba(0, 0, 0, .6)',
+      borderRadius: '50%',
+      color: 'rgba(255, 255, 255, .6)',
+      fontFamily: ['Consolas', 'monospace'].map(font => `'${ font }'`).join(', '),
+      fontSize: 16,
+      height: size,
+      lineHeight: `${ size }px`,
+      transitionProperty: 'background-color',
+      transitionDuration: '100ms',
+      width: size
+    }
   },
 
-  '&:hover > div': {
-    backgroundColor: 'rgba(0, 0, 0, .4)',
+  '&:hover, &:focus': { '& > div.slider > div': {
+    backgroundColor: 'rgba(0, 0, 0, .8)',
     color: 'rgba(255, 255, 255, .8)',
     transitionDuration: 0
-  },
+  } },
 
-  '&:active > div': {
-    backgroundColor: 'rgba(0, 0, 0, .6)',
+  '&:active > div.slider > div': {
+    backgroundColor: 'Black',
     color: 'White',
     transitionDuration: 0
   }
@@ -93,12 +99,18 @@ const createFlipperBoxCSS = ({ boxWidth, size }) => css({
 
 const createLeftFlipperCSS = options => css({
   left: 0,
-  transitionProperty: 'left'
+
+  '& > div.slider': {
+    left: 0
+  }
 }, createFlipperBoxCSS(options));
 
 const createRightFlipperCSS = options => css({
   right: 0,
-  transitionProperty: 'right'
+
+  '& > div.slider': {
+    right: 0
+  }
 }, createFlipperBoxCSS(options));
 
 const SCROLL_BAR_HEIGHT = 8;
@@ -150,15 +162,29 @@ export default function ({
     };
 
     styles.leftFlipper = css(styles.leftFlipper, {
-      ...flipperOverrides,
-      left: -50,
-      transitionProperty: 'left'
+      '& > div.slider': {
+        ...flipperOverrides,
+        left: -50,
+        transitionProperty: 'left',
+      },
+
+      '&:focus > div.slider': {
+        left: 0,
+        transitionDelay: '0s'
+      }
     });
 
     styles.rightFlipper = css(styles.rightFlipper, {
-      ...flipperOverrides,
-      right: -50,
-      transitionProperty: 'right'
+      '& > div.slider': {
+        ...flipperOverrides,
+        right: -50,
+        transitionProperty: 'right'
+      },
+
+      '&:focus > div.slider': {
+        right: 0,
+        transitionDelay: '0s'
+      }
     });
 
     styles.scrollBarBox = css(styles.scrollBarBox, {
@@ -171,7 +197,7 @@ export default function ({
     // The auto-hide state is defined in arch-style (carousel) for its `hover` pseudo class
     styles.carousel = css({
       '&:hover, &.scrolling': {
-        [`& .${ styles.scrollBarBox + '' }, & .${ styles.leftFlipper + '' }, & .${ styles.rightFlipper + '' }`]: {
+        [`& .${ styles.scrollBarBox + '' }, & .${ styles.leftFlipper + '' } > div.slider, & .${ styles.rightFlipper + '' } > div.slider`]: {
           // Controls show up as soon as the user hover on it
           transitionDelay: '0s'
         },
@@ -180,11 +206,11 @@ export default function ({
           bottom: 0
         },
 
-        [`& .${ styles.leftFlipper + '' }`]: {
+        [`& .${ styles.leftFlipper + '' } > div.slider`]: {
           left: 0
         },
 
-        [`& .${ styles.rightFlipper + '' }`]: {
+        [`& .${ styles.rightFlipper + '' } > div.slider`]: {
           right: 0
         }
       }
