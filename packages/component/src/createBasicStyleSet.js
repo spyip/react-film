@@ -37,15 +37,15 @@ const createDotsItemCSS = ({ boxSize, size }) => css({
   },
 
   '&:hover > div, & > input:focus + div': {
+    background: 'rgba(0, 0, 0, .4)'
+  },
+
+  '& > input:active + div': {
+    background: 'rgba(0, 0, 0, .8)'
+  },
+
+  '& > input:checked:not(:active) + div': {
     background: 'rgba(0, 0, 0, .6)'
-  },
-
-  '&:active > div': {
-    background: 'rgba(0, 0, 0, .8)'
-  },
-
-  '& > input:checked + div': {
-    background: 'rgba(0, 0, 0, .8)'
   }
 });
 
