@@ -17,7 +17,9 @@ export default ({ children, className, mode }) =>
         className={ classNames(ROOT_CSS + '', className) }
         onClick={ mode === 'left' ? context.scrollOneLeft : context.scrollOneRight }
       >
-        { children }
+        <div className="slider">
+          { children }
+        </div>
       </button>
     }
   </Context.Consumer>

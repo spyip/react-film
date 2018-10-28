@@ -58,24 +58,24 @@ export default class BasicFilm extends React.Component {
                 className={ classNames(CAROUSEL_CSS + '', { scrolling }, carousel + '') }
                 style={ this.createHeightStyle(props.height) }
               >
+                { scrollBarWidth !== '100%' && !!showFlipper &&
+                  <Flipper className={ leftFlipper + '' } mode="left">
+                    <div>{ leftFlipperText }</div>
+                  </Flipper>
+                }
                 <FilmStrip>
                   { props.children }
                 </FilmStrip>
+                { scrollBarWidth !== '100%' && !!showFlipper &&
+                  <Flipper className={ rightFlipper + '' } mode="right">
+                    <div>{ rightFlipperText }</div>
+                  </Flipper>
+                }
                 { scrollBarWidth !== '100%' && !!showScrollBar &&
                   <ScrollBar
                     className={ scrollBarBox + '' }
                     handlerClassName={ scrollBarHandler + '' }
                   />
-                }
-                { scrollBarWidth !== '100%' && !!showFlipper &&
-                  <React.Fragment>
-                    <Flipper className={ leftFlipper + '' } mode="left">
-                      <div>{ leftFlipperText }</div>
-                    </Flipper>
-                    <Flipper className={ rightFlipper + '' } mode="right">
-                      <div>{ rightFlipperText }</div>
-                    </Flipper>
-                  </React.Fragment>
                 }
               </div>
               {
