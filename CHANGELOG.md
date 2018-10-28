@@ -7,10 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Changes
 - Accessibility fixes
-   - Reorder DOM for keyboard navigation
-   - On auto-hide enabled, focus on flipper will pull it out
-   - Add focus indicator to dots
-   - Dot now behave like a button on keyboard navigation
+   - Dot: add focus indicator to dots
+   - Dot: now behave like a button on keyboard navigation
+   - Flipper: contrast ratio
+   - Flipper: reorder DOM for keyboard navigation
+   - Flipper: when auto-hide is enabled, focus on flipper will pull it out
 
 ## [1.0.0] - 2018-06-18
 ### Added
