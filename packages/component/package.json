@@ -1,23 +1,50 @@
 {
-  "name": "component",
-  "version": "1.0.0",
-  "description": "",
+  "name": "react-film",
+  "version": "0.0.0-0",
+  "description": "React component for showing carousel just like a film strip",
+  "keywords": [
+    "carousel",
+    "film",
+    "react",
+    "slideshow",
+    "slide show"
+  ],
   "main": "lib/index.js",
+  "files": [
+    "lib/**/*"
+  ],
   "scripts": {
-    "build": "babel --out-dir lib --ignore **/*.spec.js,**/*.test.js --source-maps inline src/",
+    "build": "babel --out-dir lib --ignore **/*.spec.js,**/*.test.js --source-maps inline --verbose src/",
     "clean": "rimraf lib",
-    "test": "jest"
+    "test": "jest",
+    "watch": "npm run build -- --watch"
   },
+  "author": "Ping Yip (ping.yip@hotmail.com)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spyip/react-film.git"
+  },
+  "bugs": {
+    "url": "https://github.com/spyip/react-film/issues"
+  },
+  "homepage": "https://github.com/spyip/react-film#readme",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
     "jest": "^22.4.4",
     "rimraf": "^2.6.2"
   },
   "dependencies": {
     "classnames": "^2.2.6",
     "glamor": "^2.20.40"
+  },
+  "peerDependencies": {
+    "react": "^16.4.1"
   }
 }

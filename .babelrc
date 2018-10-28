@@ -1,13 +1,14 @@
 {
-  "presets": [
-    "env",
-    "react",
-    "stage-0"
-  ],
   "plugins": [
-    "transform-class-properties",
-    "transform-decorators",
-    "transform-react-constant-elements",
-    "transform-react-inline-elements"
+    "@babel/plugin-proposal-object-rest-spread"
+  ],
+  "presets": [
+    ["@babel/env", {
+      "targets": {
+        "browsers": ["last 2 versions"]
+      },
+      "modules": "commonjs"
+    }],
+    "@babel/react"
   ]
 }
