@@ -116,6 +116,10 @@ export default class FilmComposer extends React.Component {
     };
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.scrollTimeout);
+  }
+
   handleScroll({ fraction: scrollBarPercentage, initial, width: scrollBarWidth }) {
     this.setState(({ context, filmStrip, scrollLeft }) => {
       const { index, indexFraction } = getView(filmStrip, scrollLeft);
