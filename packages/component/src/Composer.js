@@ -85,7 +85,7 @@ export default class FilmComposer extends React.Component {
             context: {
               ...context,
               numItems
-           }
+            }
           }));
         },
         numItems: 0,
@@ -122,18 +122,22 @@ export default class FilmComposer extends React.Component {
 
   handleScroll({ fraction: scrollBarPercentage, initial, width: scrollBarWidth }) {
     this.setState(({ context, filmStrip, scrollLeft }) => {
-      const { index, indexFraction } = getView(filmStrip, scrollLeft);
+      const view = getView(filmStrip, scrollLeft);
 
-      return {
-        context: {
-          ...context,
-          index,
-          indexFraction,
-          scrolling: !initial,
-          scrollBarPercentage,
-          scrollBarWidth
-        }
-      };
+      if (view) {
+        const { index, indexFraction } = view;
+
+        return {
+          context: {
+            ...context,
+            index,
+            indexFraction,
+            scrolling: !initial,
+            scrollBarPercentage,
+            scrollBarWidth
+          }
+        };
+      }
     });
 
     if (!initial) {
