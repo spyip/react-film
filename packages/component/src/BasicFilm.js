@@ -52,13 +52,13 @@ export default class BasicFilm extends React.Component {
     return (
       <Composer>
         <Context.Consumer>
-          { ({ scrolling, scrollBarWidth }) =>
+          { ({ numItems, scrollBarWidth, scrolling }) =>
             <div className={ props.className }>
               <div
                 className={ classNames(CAROUSEL_CSS + '', { scrolling }, carousel + '') }
                 style={ this.createHeightStyle(props.height) }
               >
-                { scrollBarWidth !== '100%' && !!showFlipper &&
+                { !!numItems && scrollBarWidth !== '100%' && !!showFlipper &&
                   <Flipper className={ leftFlipper + '' } mode="left">
                     <div>{ leftFlipperText }</div>
                   </Flipper>
@@ -66,12 +66,12 @@ export default class BasicFilm extends React.Component {
                 <FilmStrip>
                   { props.children }
                 </FilmStrip>
-                { scrollBarWidth !== '100%' && !!showFlipper &&
+                { !!numItems && scrollBarWidth !== '100%' && !!showFlipper &&
                   <Flipper className={ rightFlipper + '' } mode="right">
                     <div>{ rightFlipperText }</div>
                   </Flipper>
                 }
-                { scrollBarWidth !== '100%' && !!showScrollBar &&
+                { !!numItems && scrollBarWidth !== '100%' && !!showScrollBar &&
                   <ScrollBar
                     className={ scrollBarBox + '' }
                     handlerClassName={ scrollBarHandler + '' }
@@ -79,7 +79,7 @@ export default class BasicFilm extends React.Component {
                 }
               </div>
               {
-                scrollBarWidth !== '100%' && !!showDots &&
+                !!numItems && scrollBarWidth !== '100%' && !!showDots &&
                   <Dots
                     className={ dotsBox + '' }
                     itemClassName={ dotsItem + ''}
