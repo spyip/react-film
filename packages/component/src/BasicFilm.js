@@ -46,7 +46,8 @@ export default class BasicFilm extends React.Component {
       rightFlipperText = '>',
       showDots = true,
       showFlipper = true,
-      showScrollBar = true
+      showScrollBar = true,
+      hideFlipperWhenFirstOrLast = false
     } = props;
 
     return (
@@ -59,7 +60,7 @@ export default class BasicFilm extends React.Component {
                 style={ this.createHeightStyle(props.height) }
               >
                 { !!numItems && scrollBarWidth !== '100%' && !!showFlipper &&
-                  <Flipper className={ leftFlipper + '' } mode="left">
+                  <Flipper className={ leftFlipper + '' } mode="left" hideWhenFirstOrLast={hideFlipperWhenFirstOrLast } >
                     <div>{ leftFlipperText }</div>
                   </Flipper>
                 }
@@ -67,7 +68,7 @@ export default class BasicFilm extends React.Component {
                   { props.children }
                 </FilmStrip>
                 { !!numItems && scrollBarWidth !== '100%' && !!showFlipper &&
-                  <Flipper className={ rightFlipper + '' } mode="right">
+                  <Flipper className={ rightFlipper + '' } mode="right" hideWhenFirstOrLast={hideFlipperWhenFirstOrLast} >
                     <div>{ rightFlipperText }</div>
                   </Flipper>
                 }

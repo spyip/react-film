@@ -10,13 +10,14 @@ const ROOT_CSS = css({
   touchAction: 'none'
 });
 
-export default ({ 'aria-label': ariaLabel, children, className, mode }) =>
+export default ({ 'aria-label': ariaLabel, children, className, mode, hideWhenFirstOrLast }) =>
   <Context.Consumer>
-    { context =>
+      {({ scrollOneLeft, scrollOneRight, index, numItems }) =>
+      !(hideWhenFirstOrLast && index == 0 && mode == 'left') && !(hideWhenFirstOrLast && index == numItems - 1 && mode != 'left') &&
       <button
         aria-label={ ariaLabel || (mode === 'left' ? 'left' : 'right') }
         className={ classNames(ROOT_CSS + '', className) }
-        onClick={ mode === 'left' ? context.scrollOneLeft : context.scrollOneRight }
+        onClick={ (mode === 'left' ? scrollOneLeft : scrollOneRight) }
       >
         <div className="slider">
           { children }
@@ -24,3 +25,4 @@ export default ({ 'aria-label': ariaLabel, children, className, mode }) =>
       </button>
     }
   </Context.Consumer>
+

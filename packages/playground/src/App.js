@@ -70,6 +70,7 @@ export default class extends React.Component {
         }
         { !!key &&
           <BasicFilm
+            hideFlipperWhenFirstOrLast={ true }
             autoCenter={ false }
             autoHide={ false }
             height={ 316 }
