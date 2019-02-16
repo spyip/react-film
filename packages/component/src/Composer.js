@@ -8,7 +8,7 @@ import ScrollTo from './ScrollTo';
 function getView(current, scrollingTo) {
   if (current) {
     const scrollLeft = scrollingTo || current.scrollLeft;
-    const items = current.querySelectorAll('ul > li');
+    const items = current.children[0].children; // This will enumerate <li> inside <FilmStrip>
     const scrollCenter = scrollLeft + current.offsetWidth / 2;
     const index = best([].slice.call(items), item => {
       const offsetCenter = item.offsetLeft + item.offsetWidth / 2;
@@ -57,7 +57,7 @@ function getView(current, scrollingTo) {
 
 function getScrollLeft(current, index) {
   if (current) {
-    const items = current.querySelectorAll('ul > li');
+    const items = current.children[0].children; // This will enumerate <li> inside <FilmStrip>
     const item = items[Math.max(0, Math.min(items.length - 1, index))];
 
     if (item) {
