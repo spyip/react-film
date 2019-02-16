@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import CallFunction from './CallFunction';
-import Context from './Context';
+import InternalContext from './InternalContext';
 
 const ROOT_CSS = css({
   MsOverflowStyle: 'none',
@@ -25,12 +25,12 @@ const ROOT_CSS = css({
 });
 
 export default props =>
-  <Context.Consumer>
-    { context =>
+  <InternalContext.Consumer>
+    { ({ _setFilmStripRef, _setNumItems }) =>
       <React.Fragment>
         <div
           className={ classNames(ROOT_CSS + '', props.className) }
-          ref={ context._setFilmStripRef }
+          ref={ _setFilmStripRef }
         >
           <ul>
             { React.Children.map(props.children, child => <li>{ child }</li>) }
@@ -38,8 +38,8 @@ export default props =>
         </div>
         <CallFunction
           arg={ React.Children.count(props.children) }
-          fn={ context._setNumItems }
+          fn={ _setNumItems }
         />
       </React.Fragment>
     }
-  </Context.Consumer>
+  </InternalContext.Consumer>
