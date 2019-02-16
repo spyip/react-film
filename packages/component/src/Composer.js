@@ -2,6 +2,7 @@ import React from 'react';
 
 import best from './best';
 import Context from './Context';
+import InternalContext from './InternalContext';
 import ScrollSpy from './ScrollSpy';
 import ScrollTo from './ScrollTo';
 
@@ -79,15 +80,6 @@ export default class FilmComposer extends React.Component {
       filmStrip: null,
       scrollLeft: null,
       context: {
-        _setFilmStripRef: filmStrip => this.setState(() => ({ filmStrip })),
-        _setNumItems: numItems => {
-          this.setState(({ context }) => ({
-            context: {
-              ...context,
-              numItems
-            }
-          }));
-        },
         numItems: 0,
         scrollBarPercentage: '0%',
         scrollBarWidth: '0%',
@@ -112,6 +104,17 @@ export default class FilmComposer extends React.Component {
         scrollOneRight: () => {
           this.state.context.scrollTo(({ indexFraction }) => Math.floor(indexFraction) + 1);
         }
+      },
+      internalContext: {
+        _setFilmStripRef: filmStrip => this.setState(() => ({ filmStrip })),
+        _setNumItems: numItems => {
+          this.setState(({ context }) => ({
+            context: {
+              ...context,
+              numItems
+            }
+          }));
+        },
       }
     };
   }
@@ -161,26 +164,28 @@ export default class FilmComposer extends React.Component {
     const { state } = this;
 
     return (
-      <Context.Provider value={ state.context }>
-        { this.props.children }
-        {
-          !!state.filmStrip &&
-            <ScrollSpy
-              onScroll={ this.handleScroll }
-              target={ state.filmStrip }
-            />
-        }
-        {
-          typeof state.scrollLeft === 'number'
-          && !!state.filmStrip
-          &&
-            <ScrollTo
-              onEnd={ this.handleScrollToEnd }
-              scrollLeft={ state.scrollLeft }
-              target={ state.filmStrip }
-            />
-        }
-      </Context.Provider>
+      <InternalContext.Provider value={ state.internalContext }>
+        <Context.Provider value={ state.context }>
+          { this.props.children }
+          {
+            !!state.filmStrip &&
+              <ScrollSpy
+                onScroll={ this.handleScroll }
+                target={ state.filmStrip }
+              />
+          }
+          {
+            typeof state.scrollLeft === 'number'
+            && !!state.filmStrip
+            &&
+              <ScrollTo
+                onEnd={ this.handleScrollToEnd }
+                scrollLeft={ state.scrollLeft }
+                target={ state.filmStrip }
+              />
+          }
+        </Context.Provider>
+      </InternalContext.Provider>
     );
   }
 }
