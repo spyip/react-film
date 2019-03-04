@@ -2,7 +2,9 @@
 
 [![npm version](https://badge.fury.io/js/react-film.svg)](https://badge.fury.io/js/react-film) [![Build Status](https://travis-ci.org/spyip/react-film.svg?branch=master)](https://travis-ci.org/spyip/react-film)
 
-HTML component for showing carousel just like a film strip. It is lightweight and focus on performance and accessibility. It is built on top of React and can be used without React.
+HTML component for showing carousel just like a film strip. It is lightweight and focus on performance and accessibility.
+
+Although this component is built on top of React, it can be used outside of a React project.
 
 This project scaffolding is from [react-component-template](https://github.com/compulim/react-component-template).
 
@@ -14,14 +16,16 @@ Try out our demo at https://spyip.github.io/react-film/.
 
 ## Retrofitting DOM element without React
 
-You can use `react-film` to retrofit existing DOM element without loading React.
+You can use `react-film` to retrofit existing DOM element outside of a React project.
+
+Every children in the target element will become an individual carousel item.
 
 ```html
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
     <title>React Film</title>
-    <script src="https://unpkg.com/react-film/latest/umd/react-film.production.min.js"></script>
+    <script src="https://unpkg.com/react-film@latest/umd/react-film.production.min.js"></script>
   </head>
   <body>
     <div id="film">
