@@ -1,14 +1,25 @@
 {
-  "name": "react-film",
+  "name": "root",
   "version": "1.1.3-0",
   "description": "React component for showing carousel just like a film strip",
+  "private": true,
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "build": "lerna run build --stream",
-    "test": "lerna run test",
-    "watch": "lerna run watch --parallel --stream"
+    "build": "npm run build:babel && concurrently --names=\"bundle,playground\" \"npm run build:bundle\" \"npm run build:playground\"",
+    "build:babel": "cd packages/component && npm run build",
+    "build:bundle": "cd packages/bundle && npm run build",
+    "build:playground": "cd packages/playground && npm run build",
+    "clean": "lerna run clean --parallel --stream",
+    "prepublishOnly": "npm run build",
+    "start": "npm run build:babel && concurrently --kill-others --names \"babel,bundle,server\" \"npm run start:babel\" \"npm run start:bundle\" \"npm run start:server\"",
+    "start:babel": "cd packages/component && npm start",
+    "start:bundle": "cd packages/bundle && npm start",
+    "start:server": "serve -p 5000",
+    "test": "lerna run test"
   },
   "devDependencies": {
-    "lerna": "^3.4.3"
+    "concurrently": "^4.1.0",
+    "lerna": "^3.13.1",
+    "serve": "^10.1.0"
   }
 }

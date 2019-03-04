@@ -11,16 +11,20 @@
     "react-film": ">= 0.0.0-0",
     "react-scripts": "^2.0.5"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "echo test disabled: react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "rimraf": "^2.6.3"
   },
   "browserslist": [
     ">0.2%",
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "scripts": {
+    "build": "react-scripts build",
+    "clean": "rimraf build",
+    "eject": "react-scripts eject",
+    "start": "react-scripts start",
+    "test": "echo test disabled: react-scripts test --env=jsdom"
+  }
 }
