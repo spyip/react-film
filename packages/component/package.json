@@ -11,7 +11,8 @@
   ],
   "main": "lib/index.js",
   "files": [
-    "lib/**/*"
+    "lib/**/*",
+    "umd/**/*"
   ],
   "scripts": {
     "build": "babel --out-dir lib --ignore **/*.spec.js,**/*.test.js --source-maps inline --verbose src/",
