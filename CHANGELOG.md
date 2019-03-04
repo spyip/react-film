@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Support existing web site without React loaded.
+   - Load bundle from [unpkg.com](https://unpkg.com/react-film/umd/), then call `window.ReactFilm.retrofit(element, props)`.
+   - Retrofit existing DOM tree with a new DOM tree backed by React/ReactDOM in the bundle.
+
 ### Fixed
 - Fix [#13](https://github.com/spyip/react-film/issues/13). Fix flipper not working on content with `<ul>`, by [@compulim](https://github.com/compulim) in PR [#15](https://github.com/spyip/react-film/pull/15).
 
