@@ -3,7 +3,7 @@ const Visualizer = require('webpack-visualizer-plugin');
 
 module.exports = {
   entry: {
-    'react-film.min': './lib/index.js'
+    'react-film.production.min': './lib/index.js'
   },
   mode: 'production',
   output: {
