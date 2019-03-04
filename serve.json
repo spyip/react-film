@@ -1,0 +1,20 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "samples/index.html"
+    },
+    {
+      "source": "/react-film/react-film.development.js",
+      "destination": "packages/bundle/dist/react-film.development.js"
+    },
+    {
+      "source": "/react-film/react-film.min.js",
+      "destination": "packages/bundle/dist/react-film.min.js"
+    },
+    {
+      "source": "image/:id.jpg",
+      "destination": "packages/playground/public/image/:id.jpg"
+    }
+  ]
+}

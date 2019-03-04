@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/react-film.svg)](https://badge.fury.io/js/react-film) [![Build Status](https://travis-ci.org/spyip/react-film.svg?branch=master)](https://travis-ci.org/spyip/react-film)
 
-React component for showing carousel just like a film strip. It is lightweight and focus on performance.
+HTML component for showing carousel just like a film strip. It is lightweight and focus on performance and accessibility. It is built on top of React and can be used without React.
 
 This project scaffolding is from [react-component-template](https://github.com/compulim/react-component-template).
 
@@ -11,6 +11,43 @@ This project scaffolding is from [react-component-template](https://github.com/c
 Try out our demo at https://spyip.github.io/react-film/.
 
 # Sample code
+
+## Retrofitting DOM element without React
+
+You can use `react-film` to retrofit existing DOM element without loading React.
+
+```html
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>React Film</title>
+    <script src="https://unpkg.com/react-film/latest/umd/react-film.production.min.js"></script>
+  </head>
+  <body>
+    <div id="film">
+      <img alt="Cat 01" src="image/01.jpg" />
+      <img alt="Cat 02" src="image/02.jpg" />
+      <img alt="Cat 03" src="image/03.jpg" />
+    </div>
+    <script>
+      window.ReactFilm.retrofit(
+        document.getElementById('film'),
+        { height: 316 }
+      );
+    </script>
+  </body>
+</html>
+```
+
+## Using in React projects
+
+First, import `react-film` on your JSX file, namely `BasicFilm`.
+
+```js
+import BasicFilm from 'react-film';
+```
+
+Then, instantiate a component using `BasicFilm`.
 
 ```jsx
 <BasicFilm height={ 316 }>
@@ -36,23 +73,23 @@ When we design `react-film`, customization is our top priority. From shallow to 
 
 You can control `<BasicFilm>` using props listed below.
 
-| Name | Default | Description |
-| - | - | - |
-| `autoCenter` | `true` | `true` will enable auto-center after scroll stopped for a second, otherwise, `false` |
-| `autoHide` | `true` | `true` to auto hide controls after pointer leave or scroll stopped, otherwise, `false` (surfaced from [style set](#presets-for-style-set)) |
-| `height` | | Height of the carousel, in `number` (required for Firefox) |
-| `leftFlipperText` | `'<'` | Text for the left flipper |
-| `rightFlipperText` | `'>'` | Text for the right flipper |
-| `showDots` | `true` | `true` to show dots below the carousel, otherwise, `false` |
-| `showFlipper` | `true` | `true` to show flippers (side buttons), otherwise, `false` |
-| `showScrollBar` | `true` | `true` to show scroll bar, otherwise, `false` |
-| `styleSet.carousel` | [`'css-*'`](https://github.com/threepointone/glamor/blob/master/docs/howto.md#apply-a-style-to-an-element) | Class name for carousel component |
-| `styleSet.dotsBox` | [`'css-*'`](https://github.com/threepointone/glamor/blob/master/docs/howto.md#apply-a-style-to-an-element) | Class name for dots container |
-| `styleSet.dotsItem` | [`'css-*'`](https://github.com/threepointone/glamor/blob/master/docs/howto.md#apply-a-style-to-an-element) | Class name for every dot |
-| `styleSet.leftFlipper` | [`'css-*'`](https://github.com/threepointone/glamor/blob/master/docs/howto.md#apply-a-style-to-an-element) | Class name for left flipper |
-| `styleSet.rightFlipper` | [`'css-*'`](https://github.com/threepointone/glamor/blob/master/docs/howto.md#apply-a-style-to-an-element) | Class name for right flipper |
-| `styleSet.scrollBarBox` | [`'css-*'`](https://github.com/threepointone/glamor/blob/master/docs/howto.md#apply-a-style-to-an-element) | Class name for scroll bar container |
-| `styleSet.scrollBarHandler` | [`'css-*'`](https://github.com/threepointone/glamor/blob/master/docs/howto.md#apply-a-style-to-an-element) | Class name for scroll bar handler |
+| Name                        | Default                                                                                                    | Description                                                                                                                                |
+|-----------------------------|------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| `autoCenter`                | `true`                                                                                                     | `true` will enable auto-center after scroll stopped for a second, otherwise, `false`                                                       |
+| `autoHide`                  | `true`                                                                                                     | `true` to auto hide controls after pointer leave or scroll stopped, otherwise, `false` (surfaced from [style set](#presets-for-style-set)) |
+| `height`                    |                                                                                                            | Height of the carousel, in `number` (required for Firefox)                                                                                 |
+| `leftFlipperText`           | `'<'`                                                                                                      | Text for the left flipper                                                                                                                  |
+| `rightFlipperText`          | `'>'`                                                                                                      | Text for the right flipper                                                                                                                 |
+| `showDots`                  | `true`                                                                                                     | `true` to show dots below the carousel, otherwise, `false`                                                                                 |
+| `showFlipper`               | `true`                                                                                                     | `true` to show flippers (side buttons), otherwise, `false`                                                                                 |
+| `showScrollBar`             | `true`                                                                                                     | `true` to show scroll bar, otherwise, `false`                                                                                              |
+| `styleSet.carousel`         | [`'css-*'`](https://github.com/threepointone/glamor/blob/master/docs/howto.md#apply-a-style-to-an-element) | Class name for carousel component                                                                                                          |
+| `styleSet.dotsBox`          | [`'css-*'`](https://github.com/threepointone/glamor/blob/master/docs/howto.md#apply-a-style-to-an-element) | Class name for dots container                                                                                                              |
+| `styleSet.dotsItem`         | [`'css-*'`](https://github.com/threepointone/glamor/blob/master/docs/howto.md#apply-a-style-to-an-element) | Class name for every dot                                                                                                                   |
+| `styleSet.leftFlipper`      | [`'css-*'`](https://github.com/threepointone/glamor/blob/master/docs/howto.md#apply-a-style-to-an-element) | Class name for left flipper                                                                                                                |
+| `styleSet.rightFlipper`     | [`'css-*'`](https://github.com/threepointone/glamor/blob/master/docs/howto.md#apply-a-style-to-an-element) | Class name for right flipper                                                                                                               |
+| `styleSet.scrollBarBox`     | [`'css-*'`](https://github.com/threepointone/glamor/blob/master/docs/howto.md#apply-a-style-to-an-element) | Class name for scroll bar container                                                                                                        |
+| `styleSet.scrollBarHandler` | [`'css-*'`](https://github.com/threepointone/glamor/blob/master/docs/howto.md#apply-a-style-to-an-element) | Class name for scroll bar handler                                                                                                          |
 
 ## Basic style set
 
@@ -107,15 +144,15 @@ export default props =>
 
 Sometimes, just increasing some paddings are more than enough for your styling need. When calling `createBasicStyleSet(options)`, you can specify the following options:
 
-| Name | Default | Description |
-| - | - | - |
-| `autoHide` | `true` | Auto-hide controls |
-| `dotBoxSize` | `20` | Hit box size of every dot |
-| `dotSize` | `6` | Visible dot size |
-| `flipperBoxWidth` | `60` | Hit box size of flippers |
-| `flipperSize` | `40` | Visible flipper size (circle) |
-| `scrollBarHeight` | `8` | Scroll bar handler height |
-| `scrollBarMargin` | `4` | Margin around scroll bar |
+| Name              | Default | Description                   |
+|-------------------|---------|-------------------------------|
+| `autoHide`        | `true`  | Auto-hide controls            |
+| `dotBoxSize`      | `20`    | Hit box size of every dot     |
+| `dotSize`         | `6`     | Visible dot size              |
+| `flipperBoxWidth` | `60`    | Hit box size of flippers      |
+| `flipperSize`     | `40`    | Visible flipper size (circle) |
+| `scrollBarHeight` | `8`     | Scroll bar handler height     |
+| `scrollBarMargin` | `4`     | Margin around scroll bar      |
 
 # Deep-customization
 
@@ -170,17 +207,17 @@ export default ({ mode }) =>
 
 Maybe you want to create a new flipper to control the carousel, the [context object](https://reactjs.org/docs/context.html) provides an API for interfacing with the carousel.
 
-| Name | Type | Description |
-| - | - | - |
-| `index` | `number` | Index of the current item |
-| `indexFraction` | `number` | Index of the current item, in fraction (1.5 means 50% between 2nd and 3rd item) |
-| `numItems` | `number` | Number of items in the carousel |
-| `scrollBarPercentage` | `string` | Percentage of the scroll bar position |
-| `scrollBarWidth` | `string` | Width (in percentage) of the scroll bar, respective to its total content |
-| `scrolling` | `boolean` | `true` if the user is scrolling (debounced 500ms after last `onScroll` event), otherwise, `false` |
-| `scrollOneLeft` | `() => {}` | Helper function to scroll one item to the left |
-| `scrollOneRight` | `() => {}` | Helper function to scroll one item to the right |
-| `scrollTo` | `(({ index: number, indexFraction: number }) => {}) => {}` | Scroll to a specified index, see [sample below](#sample-scrollto-code) |
+| Name                  | Type                                                       | Description                                                                                       |
+|-----------------------|------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| `index`               | `number`                                                   | Index of the current item                                                                         |
+| `indexFraction`       | `number`                                                   | Index of the current item, in fraction (1.5 means 50% between 2nd and 3rd item)                   |
+| `numItems`            | `number`                                                   | Number of items in the carousel                                                                   |
+| `scrollBarPercentage` | `string`                                                   | Percentage of the scroll bar position                                                             |
+| `scrollBarWidth`      | `string`                                                   | Width (in percentage) of the scroll bar, respective to its total content                          |
+| `scrolling`           | `boolean`                                                  | `true` if the user is scrolling (debounced 500ms after last `onScroll` event), otherwise, `false` |
+| `scrollOneLeft`       | `() => {}`                                                 | Helper function to scroll one item to the left                                                    |
+| `scrollOneRight`      | `() => {}`                                                 | Helper function to scroll one item to the right                                                   |
+| `scrollTo`            | `(({ index: number, indexFraction: number }) => {}) => {}` | Scroll to a specified index, see [sample below](#sample-scrollto-code)                            |
 
 > If the context object lack of features you want to use, just [tell us your idea](https://github.com/spyip/react-film/issues).
 
@@ -218,6 +255,7 @@ context.scrollTo(({ indexFraction }) => {
    * Item may resize itself from time to time (consider when the image is not loaded)
 * [x] Minimal styling as possible, let user customize it
 * [x] Support keyboard left/right arrow (supported natively)
+* [x] Using without React
 
 ## Features not planned to support
 
