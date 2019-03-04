@@ -5,7 +5,9 @@
   "scripts": {
     "build": "npm run build:babel && npm run build:webpack",
     "build:babel": "babel --out-dir lib --source-maps inline --verbose src/",
-    "build:webpack": "webpack",
+    "build:webpack": "npm run build:webpack:development && npm run build:webpack:production",
+    "build:webpack:development": "webpack --config webpack-instrumented.config.js",
+    "build:webpack:production": "webpack",
     "clean": "rimraf dist",
     "prepublishOnly": "npm run build",
     "start": "npm run build && concurrently --kill-others --names \"babel,webpack\" \"npm run start:babel\" \"npm run start:webpack\"",
