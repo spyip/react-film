@@ -17,6 +17,7 @@ export default ({ 'aria-label': ariaLabel, children, className, mode }) =>
         aria-label={ ariaLabel || (mode === 'left' ? 'left' : 'right') }
         className={ classNames(ROOT_CSS + '', className) }
         onClick={ mode === 'left' ? context.scrollOneLeft : context.scrollOneRight }
+        type="button"
       >
         <div className="slider">
           { children }

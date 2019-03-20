@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 - Fix [#13](https://github.com/spyip/react-film/issues/13). Fix flipper not working on content with `<ul>`, by [@compulim](https://github.com/compulim) in PR [#15](https://github.com/spyip/react-film/pull/15).
+- Fix [#18](https://github.com/spyip/react-film/issues/18). Fix flipper should not submit if carousel is a descendant of `<form>`, by [@compulim](https://github.com/compulim) in PR [#19](https://github.com/spyip/react-film/pull/19).
 
 ### Changed
 - Fix [#12](https://github.com/spyip/react-film/issues/12). Split `Context` into public and internal, by [@compulim](https://github.com/compulim) in PR [#16](https://github.com/spyip/react-film/pull/16).
