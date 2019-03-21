@@ -9,7 +9,7 @@ import ScrollTo from './ScrollTo';
 function getView(current, scrollingTo) {
   if (current) {
     const scrollLeft = scrollingTo || current.scrollLeft;
-    const items = current.children[0].children; // This will enumerate <li> inside <FilmStrip>
+    const items = current.children; // This will enumerate <li> inside <FilmStrip>
     const scrollCenter = scrollLeft + current.offsetWidth / 2;
     const index = best([].slice.call(items), item => {
       const offsetCenter = item.offsetLeft + item.offsetWidth / 2;
@@ -58,7 +58,7 @@ function getView(current, scrollingTo) {
 
 function getScrollLeft(current, index) {
   if (current) {
-    const items = current.children[0].children; // This will enumerate <li> inside <FilmStrip>
+    const items = current.children; // This will enumerate <li> inside <FilmStrip>
     const item = items[Math.max(0, Math.min(items.length - 1, index))];
 
     if (item) {
@@ -103,20 +103,35 @@ export default class FilmComposer extends React.Component {
         },
         scrollOneRight: () => {
           this.state.context.scrollTo(({ indexFraction }) => Math.floor(indexFraction) + 1);
-        }
+        },
+        setFilmStripRef: filmStrip => this.setState(() => ({ filmStrip }))
       },
       internalContext: {
-        _setFilmStripRef: filmStrip => this.setState(() => ({ filmStrip })),
         _setNumItems: numItems => {
-          this.setState(({ context }) => ({
-            context: {
-              ...context,
-              numItems
-            }
-          }));
-        },
+          // this.setState(({ context }) => ({
+          //   context: {
+          //     ...context,
+          //     numItems
+          //   }
+          // }));
+        }
       }
     };
+  }
+
+  componentDidUpdate() {
+    const { filmStrip } = this.state;
+
+    if (filmStrip) {
+      if (filmStrip.children.length !== this.state.context.numItems) {
+        this.setState(({ context }) => ({
+          context: {
+            ...context,
+            numItems: filmStrip.children.length
+          }
+        }));
+      }
+    }
   }
 
   componentWillUnmount() {
