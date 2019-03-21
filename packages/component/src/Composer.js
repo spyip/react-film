@@ -2,7 +2,6 @@ import React from 'react';
 
 import best from './best';
 import Context from './Context';
-import InternalContext from './InternalContext';
 import ScrollSpy from './ScrollSpy';
 import ScrollTo from './ScrollTo';
 
@@ -105,16 +104,6 @@ export default class FilmComposer extends React.Component {
           this.state.context.scrollTo(({ indexFraction }) => Math.floor(indexFraction) + 1);
         },
         setFilmStripRef: filmStrip => this.setState(() => ({ filmStrip }))
-      },
-      internalContext: {
-        _setNumItems: numItems => {
-          // this.setState(({ context }) => ({
-          //   context: {
-          //     ...context,
-          //     numItems
-          //   }
-          // }));
-        }
       }
     };
   }
@@ -122,15 +111,21 @@ export default class FilmComposer extends React.Component {
   componentDidUpdate() {
     const { filmStrip } = this.state;
 
-    if (filmStrip) {
-      if (filmStrip.children.length !== this.state.context.numItems) {
-        this.setState(({ context }) => ({
-          context: {
-            ...context,
-            numItems: filmStrip.children.length
-          }
-        }));
-      }
+    if (filmStrip && filmStrip.children.length !== this.state.context.numItems) {
+      // This is anti-pattern to call setState in componentDidUpdate.
+      // But we need to render before we know how many children in the list.
+      // So there is a 2-pass render here.
+
+      // Even though we got the filmStrip ref earlier, we cannot use it
+      // until componentDidMount or componentDidUpdate
+      // https://reactjs.org/docs/refs-and-the-dom.html#callback-refs
+
+      this.setState(({ context }) => ({
+        context: {
+          ...context,
+          numItems: filmStrip.children.length
+        }
+      }));
     }
   }
 
@@ -179,28 +174,26 @@ export default class FilmComposer extends React.Component {
     const { state } = this;
 
     return (
-      <InternalContext.Provider value={ state.internalContext }>
-        <Context.Provider value={ state.context }>
-          { this.props.children }
-          {
-            !!state.filmStrip &&
-              <ScrollSpy
-                onScroll={ this.handleScroll }
-                target={ state.filmStrip }
-              />
-          }
-          {
-            typeof state.scrollLeft === 'number'
-            && !!state.filmStrip
-            &&
-              <ScrollTo
-                onEnd={ this.handleScrollToEnd }
-                scrollLeft={ state.scrollLeft }
-                target={ state.filmStrip }
-              />
-          }
-        </Context.Provider>
-      </InternalContext.Provider>
+      <Context.Provider value={ state.context }>
+        { this.props.children }
+        {
+          !!state.filmStrip &&
+            <ScrollSpy
+              onScroll={ this.handleScroll }
+              target={ state.filmStrip }
+            />
+        }
+        {
+          typeof state.scrollLeft === 'number'
+          && !!state.filmStrip
+          &&
+            <ScrollTo
+              onEnd={ this.handleScrollToEnd }
+              scrollLeft={ state.scrollLeft }
+              target={ state.filmStrip }
+            />
+        }
+      </Context.Provider>
     );
   }
 }
