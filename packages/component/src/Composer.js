@@ -113,12 +113,15 @@ export default class FilmComposer extends React.Component {
 
     if (filmStrip && filmStrip.children.length !== this.state.context.numItems) {
       // This is anti-pattern to call setState in componentDidUpdate.
-      // But we need to render before we know how many children in the list.
+      // But we need to render before we know how many children in the filmStrip.
       // So there is a 2-pass render here.
 
       // Even though we got the filmStrip ref earlier, we cannot use it
-      // until componentDidMount or componentDidUpdate
+      // until componentDidMount or componentDidUpdate.
       // https://reactjs.org/docs/refs-and-the-dom.html#callback-refs
+
+      // For performance sensitive application, we should expose a way for
+      // user to explicitly specify number of items in the list.
 
       this.setState(({ context }) => ({
         context: {
