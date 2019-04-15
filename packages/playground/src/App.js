@@ -221,8 +221,8 @@ export default class extends React.Component {
           ) }
         </BasicFilm>
         <div>
-          <button onClick={ this.handleAppendItem }>Append a cat</button>
-          <button onClick={ this.handlePrependItem }>Prepend a cat</button>
+          <button onClick={ this.handlePrependItem }>Insert a cat to the left</button>
+          <button onClick={ this.handleAppendItem }>Insert a cat to the right</button>
         </div>
         <p>Deserunt mollit elit laborum quis commodo magna. Nulla ad amet pariatur exercitation sint dolore. Mollit in in duis deserunt dolore anim. Qui fugiat in sit ut do voluptate ipsum nostrud. Ad culpa officia sunt enim. Adipisicing ut dolore commodo fugiat. Do Lorem occaecat nisi nulla fugiat consectetur exercitation est sit et laborum.</p>
         <p>Sunt nostrud amet commodo consectetur culpa incididunt voluptate. Mollit tempor tempor nostrud ad non excepteur reprehenderit ea. Cillum mollit reprehenderit mollit minim eiusmod deserunt reprehenderit. Sit cupidatat laborum dolore et magna duis Lorem aute sint fugiat sunt sunt. Sit non nostrud aliquip et nisi ad ullamco aute proident enim sit sit consectetur velit. Enim excepteur voluptate culpa anim laborum commodo eu excepteur.</p>

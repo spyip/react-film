@@ -1,8 +1,8 @@
+import memoize from 'memoize-one';
 import React from 'react';
 
 import best from './best';
 import Context from './Context';
-import InternalContext from './InternalContext';
 import ScrollSpy from './ScrollSpy';
 import ScrollTo from './ScrollTo';
 
@@ -85,10 +85,14 @@ export default class FilmComposer extends React.Component {
     this.itemContainerRef = React.createRef();
     this.scrollableRef = React.createRef();
 
+    this.mergeContext = memoize((state, numItems = 0) => ({
+      ...state,
+      numItems
+    }));
+
     this.state = {
       context: {
         itemContainerRef: this.itemContainerRef,
-        numItems: 0,
         scrollableRef: this.scrollableRef,
         scrollBarPercentage: '0%',
         scrollBarWidth: '0%',
@@ -112,16 +116,6 @@ export default class FilmComposer extends React.Component {
         },
         scrollOneRight: () => {
           this.state.context.scrollTo(({ indexFraction }) => Math.floor(indexFraction) + 1);
-        }
-      },
-      internalContext: {
-        setNumItems: numItems => {
-          this.state.context.numItems !== numItems && this.setState(({ context }) => ({
-            context: {
-              ...context,
-              numItems
-            }
-          }));
         }
       },
       scrollLeft: null
@@ -176,34 +170,34 @@ export default class FilmComposer extends React.Component {
 
   render() {
     const {
-      props: { children },
+      props: {
+        children,
+        numItems
+      },
       scrollableRef,
       state: {
         context,
-        internalContext,
         scrollLeft
       }
     } = this;
 
     return (
-      <InternalContext.Provider value={ internalContext }>
-        <Context.Provider value={ context }>
-          { children }
-          <ScrollSpy
-            onScroll={ this.handleScroll }
-            targetRef={ scrollableRef }
-          />
-          {
-            typeof scrollLeft === 'number'
-            &&
-              <ScrollTo
-                onEnd={ this.handleScrollToEnd }
-                scrollLeft={ scrollLeft }
-                targetRef={ scrollableRef }
-              />
-          }
-        </Context.Provider>
-      </InternalContext.Provider>
+      <Context.Provider value={ this.mergeContext(context, numItems) }>
+        { children }
+        <ScrollSpy
+          onScroll={ this.handleScroll }
+          targetRef={ scrollableRef }
+        />
+        {
+          typeof scrollLeft === 'number'
+          &&
+            <ScrollTo
+              onEnd={ this.handleScrollToEnd }
+              scrollLeft={ scrollLeft }
+              targetRef={ scrollableRef }
+            />
+        }
+      </Context.Provider>
     );
   }
 }

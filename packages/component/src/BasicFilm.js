@@ -12,8 +12,6 @@ import Flipper from './Flipper';
 import memoize from './memoize';
 import ScrollBar from './ScrollBar';
 
-import InternalContext from './InternalContext';
-
 const CAROUSEL_CSS = css({
   overflow: 'hidden',
   position: 'relative'
@@ -25,15 +23,6 @@ class BasicFilm extends React.Component {
 
     this.createHeightStyle = memoize(height => ({ height }));
     this.createBasicStyleSet = memoize(({ autoHide }) => createBasicStyleSet({ autoHide }));
-
-    this.props.setNumItems(React.Children.count(this.props.children));
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const numItems = React.Children.count(this.props.children);
-    const nextNumItems = React.Children.count(nextProps.children);
-
-    numItems !== nextNumItems && nextProps.setNumItems(nextNumItems);
   }
 
   render() {
@@ -107,20 +96,15 @@ class BasicFilm extends React.Component {
 }
 
 export default props =>
-  <Composer>
-    <InternalContext.Consumer>
-      { ({ setNumItems }) =>
-        <Context.Consumer>
-          { ({ numItems, scrollBarWidth, scrolling }) =>
-            <BasicFilm
-              { ...props }
-              numItems={ numItems }
-              scrollBarWidth={ scrollBarWidth }
-              scrolling={ scrolling }
-              setNumItems={ setNumItems }
-            />
-          }
-        </Context.Consumer>
+  <Composer numItems={ React.Children.count(props.children) }>
+    <Context.Consumer>
+      { ({ numItems, scrollBarWidth, scrolling }) =>
+        <BasicFilm
+          { ...props }
+          numItems={ numItems }
+          scrollBarWidth={ scrollBarWidth }
+          scrolling={ scrolling }
+        />
       }
-    </InternalContext.Consumer>
+    </Context.Consumer>
   </Composer>
