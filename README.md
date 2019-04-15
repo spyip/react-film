@@ -171,7 +171,7 @@ import React from 'react';
 import { AutoCenter, Composer, Dots, FilmStrip, Flipper, ScrollBar } from 'react-film';
 
 export default ({ children }) =>
-  <Composer>
+  <Composer numItems={ React.Children.count(children) }>
     <div>
       <FilmStrip>
         { children }
@@ -206,6 +206,10 @@ export default ({ mode }) =>
     }
   </Context.Consumer>
 ```
+
+## Migrating from 1.x
+
+To reduce an extra render callback, we now require deep-customization users to pass in `numItems` prop to `<Composer>`.
 
 ## Context
 
