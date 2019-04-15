@@ -11,34 +11,103 @@ const LIST_FILM_ITEM_CSS = css({
   width: 200
 });
 
+const FRAME_CSS = css({
+  lineHeight: 0,
+  position: 'relative',
+
+  '& > button': {
+    position: 'absolute',
+    right: 10,
+    top: 10
+  }
+});
+
 const styleSet = createBasicStyleSet({ autoHide: false });
 const myStyleSet = {
   ...styleSet,
   scrollBarHandler: styleSet.scrollBarHandler + ' ' + css({ backgroundColor: 'Red' })
 };
 
+function pad(value, count = 2, padding = '0') {
+  value += '';
+  count -= value.length;
+
+  while (--count >= 0) {
+    value = padding + value;
+  }
+
+  return value;
+}
+
 function randomID() {
   return Math.random().toString(36).substr(2, 5);
+}
+
+function wrap(value, from, to) {
+  const width = to - from + 1;
+
+  while (value < from) {
+    value += width;
+  }
+
+  while (value > to) {
+    value -= width;
+  }
+
+  return value;
 }
 
 export default class extends React.Component {
   constructor(props) {
     super(props);
 
+    this.handleAppendItem = this.handleAppendItem.bind(this);
+    this.handlePrependItem = this.handlePrependItem.bind(this);
     this.handleRandomKeyClick = this.handleRandomKeyClick.bind(this);
+    this.handleRemoveItemAt = this.handleRemoveItemAt.bind(this);
 
     this.state = {
+      items: ['01', '02', '03'],
       key: randomID()
     };
+  }
+
+  handleAppendItem() {
+    this.setState(({ items }) => {
+      return {
+        items: [...items, pad(wrap((+items[items.length - 1] || 0) + 1, 1, 11))]
+      };
+    });
+  }
+
+  handlePrependItem() {
+    this.setState(({ items }) => {
+      return {
+        items: [pad(wrap((+items[0] || 0) - 1, 1, 11)), ...items]
+      };
+    });
   }
 
   handleRandomKeyClick() {
     this.setState(() => ({ key: randomID() }));
   }
 
+  handleRemoveItemAt(index) {
+    this.setState(({ items }) => {
+      const nextItems = [...items];
+
+      nextItems.splice(index, 1);
+
+      return {
+        ...items,
+        items: nextItems
+      };
+    });
+  }
+
   render() {
     const {
-      state: { key }
+      state: { items, key }
     } = this;
 
     return (
@@ -171,6 +240,18 @@ export default class extends React.Component {
             </ul>
           </BasicFilm>
         }
+        <BasicFilm>
+          { items.map((item, index) =>
+            <div className={ FRAME_CSS } key={ index }>
+              <img alt={ `Cat ${ item }` } src={ `image/${ item }.jpg` } />
+              <button onClick={ this.handleRemoveItemAt.bind(null, index) }>&times;</button>
+            </div>
+          ) }
+        </BasicFilm>
+        <div>
+          <button onClick={ this.handleAppendItem }>Append a cat</button>
+          <button onClick={ this.handlePrependItem }>Prepend a cat</button>
+        </div>
         <p>Deserunt mollit elit laborum quis commodo magna. Nulla ad amet pariatur exercitation sint dolore. Mollit in in duis deserunt dolore anim. Qui fugiat in sit ut do voluptate ipsum nostrud. Ad culpa officia sunt enim. Adipisicing ut dolore commodo fugiat. Do Lorem occaecat nisi nulla fugiat consectetur exercitation est sit et laborum.</p>
         <p>Sunt nostrud amet commodo consectetur culpa incididunt voluptate. Mollit tempor tempor nostrud ad non excepteur reprehenderit ea. Cillum mollit reprehenderit mollit minim eiusmod deserunt reprehenderit. Sit cupidatat laborum dolore et magna duis Lorem aute sint fugiat sunt sunt. Sit non nostrud aliquip et nisi ad ullamco aute proident enim sit sit consectetur velit. Enim excepteur voluptate culpa anim laborum commodo eu excepteur.</p>
         <p>Mollit fugiat proident consectetur excepteur mollit. Commodo ipsum laboris dolor voluptate amet eu amet excepteur quis incididunt quis veniam. Laborum anim ex nisi consectetur commodo adipisicing elit minim cillum fugiat. Id non amet adipisicing non ipsum pariatur. Ad mollit ea culpa enim nostrud exercitation occaecat velit aute esse. Reprehenderit sint et duis veniam excepteur duis irure aliquip amet. Deserunt ullamco incididunt Lorem excepteur est ea ipsum.</p>

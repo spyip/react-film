@@ -16,46 +16,46 @@ export default class ScrollSpy extends React.Component {
   }
 
   componentDidMount() {
-    const { target } = this.props;
+    const { targetRef: { current } = {} } = this.props;
 
-    if (target) {
-      target.addEventListener('pointerover', this.handlePointerOver, { passive: true });
-      target.addEventListener('scroll', this.handleScroll, { passive: true });
-      this.emitInitialScrollEvent(target);
+    if (current) {
+      current.addEventListener('pointerover', this.handlePointerOver, { passive: true });
+      current.addEventListener('scroll', this.handleScroll, { passive: true });
+      this.emitInitialScrollEvent(current);
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.target !== this.props.target) {
-      const { target: prevTarget } = prevProps;
-      const { target } = this.props;
+    if (prevProps.targetRef !== this.props.targetRef) {
+      const { targetRef: { current: prevCurrent } = {} } = prevProps;
+      const { targetRef: { current } = {} } = this.props;
 
-      if (prevTarget) {
-        prevTarget.removeEventListener('pointerover', this.handlePointerOver);
-        prevTarget.removeEventListener('scroll', this.handleScroll);
+      if (prevCurrent) {
+        prevCurrent.removeEventListener('pointerover', this.handlePointerOver);
+        prevCurrent.removeEventListener('scroll', this.handleScroll);
       }
 
-      if (target) {
-        target.addEventListener('pointerover', this.handlePointerOver, { passive: true });
-        target.addEventListener('scroll', this.handleScroll, { passive: true });
-        this.emitInitialScrollEvent(target);
+      if (current) {
+        current.addEventListener('pointerover', this.handlePointerOver, { passive: true });
+        current.addEventListener('scroll', this.handleScroll, { passive: true });
+        this.emitInitialScrollEvent(current);
       }
     }
   }
 
-  emitInitialScrollEvent(target, waited) {
-    if (!waited && target.scrollWidth === target.offsetWidth) {
+  emitInitialScrollEvent(current, waited) {
+    if (!waited && current.scrollWidth === current.offsetWidth) {
       // HACK: Chrome 66 will initially say scrollWidth equals to offsetWidth, until some time later
-      setTimeout(() => this.emitInitialScrollEvent(target, true));
+      setTimeout(() => this.emitInitialScrollEvent(current, true));
     }
 
-    this.handleScroll({ target }, true);
+    this.handleScroll({ target: current }, true);
   }
 
   componentWillUnmount() {
-    const { target } = this.props;
+    const { targetRef: { current } = {} } = this.props;
 
-    target && target.removeEventListener('scroll', this.handleScroll);
+    current && current.removeEventListener('scroll', this.handleScroll);
   }
 
   handlePointerOver() {
@@ -63,9 +63,9 @@ export default class ScrollSpy extends React.Component {
     // For example, the container resized, the scroll width will be incorrect
     // We will debounce to prevent "pointerOver" calculating too often
     // We will memoize to prevent firing unnecessary "onScroll"
-    const { target } = this.props;
+    const { targetRef: { current } = {} } = this.props;
 
-    this.handleScroll({ target });
+    this.handleScroll({ target: current });
   }
 
   handleScroll({ target }, initial = false) {

@@ -24,20 +24,25 @@ const ROOT_CSS = css({
   }
 });
 
-export default props =>
+export default ({
+  children,
+  className,
+  itemContainerRef,
+  scrollableRef
+}) =>
   <InternalContext.Consumer>
-    { ({ _setFilmStripRef, _setNumItems }) =>
+    { ({ _setNumItems }) =>
       <React.Fragment>
         <div
-          className={ classNames(ROOT_CSS + '', props.className) }
-          ref={ _setFilmStripRef }
+          className={ classNames(ROOT_CSS + '', className) }
+          ref={ scrollableRef }
         >
-          <ul>
-            { React.Children.map(props.children, child => <li>{ child }</li>) }
+          <ul ref={ itemContainerRef }>
+            { React.Children.map(children, child => <li>{ child }</li>) }
           </ul>
         </div>
         <CallFunction
-          arg={ React.Children.count(props.children) }
+          arg={ React.Children.count(children) }
           fn={ _setNumItems }
         />
       </React.Fragment>
