@@ -2,8 +2,7 @@ import { css } from 'glamor';
 import classNames from 'classnames';
 import React from 'react';
 
-import CallFunction from './CallFunction';
-import InternalContext from './InternalContext';
+import Context from './Context';
 
 const ROOT_CSS = css({
   MsOverflowStyle: 'none',
@@ -24,22 +23,19 @@ const ROOT_CSS = css({
   }
 });
 
-export default props =>
-  <InternalContext.Consumer>
-    { ({ _setFilmStripRef, _setNumItems }) =>
-      <React.Fragment>
-        <div
-          className={ classNames(ROOT_CSS + '', props.className) }
-          ref={ _setFilmStripRef }
-        >
-          <ul>
-            { React.Children.map(props.children, child => <li>{ child }</li>) }
-          </ul>
-        </div>
-        <CallFunction
-          arg={ React.Children.count(props.children) }
-          fn={ _setNumItems }
-        />
-      </React.Fragment>
+export default ({
+  children,
+  className
+}) =>
+  <Context.Consumer>
+    { ({ itemContainerRef, scrollableRef }) =>
+      <div
+        className={ classNames(ROOT_CSS + '', className) }
+        ref={ scrollableRef }
+      >
+        <ul ref={ itemContainerRef }>
+          { React.Children.map(children, child => <li>{ child }</li>) }
+        </ul>
+      </div>
     }
-  </InternalContext.Consumer>
+  </Context.Consumer>
