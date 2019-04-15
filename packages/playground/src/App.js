@@ -11,17 +11,6 @@ const LIST_FILM_ITEM_CSS = css({
   width: 200
 });
 
-const FRAME_CSS = css({
-  lineHeight: 0,
-  position: 'relative',
-
-  '& > button': {
-    position: 'absolute',
-    right: 10,
-    top: 10
-  }
-});
-
 const styleSet = createBasicStyleSet({ autoHide: false });
 const myStyleSet = {
   ...styleSet,
@@ -64,7 +53,6 @@ export default class extends React.Component {
     this.handleAppendItem = this.handleAppendItem.bind(this);
     this.handlePrependItem = this.handlePrependItem.bind(this);
     this.handleRandomKeyClick = this.handleRandomKeyClick.bind(this);
-    this.handleRemoveItemAt = this.handleRemoveItemAt.bind(this);
 
     this.state = {
       items: ['01', '02', '03'],
@@ -90,19 +78,6 @@ export default class extends React.Component {
 
   handleRandomKeyClick() {
     this.setState(() => ({ key: randomID() }));
-  }
-
-  handleRemoveItemAt(index) {
-    this.setState(({ items }) => {
-      const nextItems = [...items];
-
-      nextItems.splice(index, 1);
-
-      return {
-        ...items,
-        items: nextItems
-      };
-    });
   }
 
   render() {
@@ -241,11 +216,8 @@ export default class extends React.Component {
           </BasicFilm>
         }
         <BasicFilm>
-          { items.map((item, index) =>
-            <div className={ FRAME_CSS } key={ index }>
-              <img alt={ `Cat ${ item }` } src={ `image/${ item }.jpg` } />
-              <button onClick={ this.handleRemoveItemAt.bind(null, index) }>&times;</button>
-            </div>
+          { items.map(item =>
+            <img alt={ `Cat ${ item }` } src={ `image/${ item }.jpg` } />
           ) }
         </BasicFilm>
         <div>

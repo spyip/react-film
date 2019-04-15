@@ -115,8 +115,8 @@ export default class FilmComposer extends React.Component {
         }
       },
       internalContext: {
-        _setNumItems: numItems => {
-          this.setState(({ context }) => ({
+        setNumItems: numItems => {
+          this.state.context.numItems !== numItems && this.setState(({ context }) => ({
             context: {
               ...context,
               numItems

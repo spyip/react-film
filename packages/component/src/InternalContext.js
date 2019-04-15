@@ -1,5 +1,5 @@
 import React from 'react';
 
 export default React.createContext({
-  _setNumItems: () => 0
+  setNumItems: () => 0
 });
