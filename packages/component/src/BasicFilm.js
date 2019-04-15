@@ -23,17 +23,10 @@ export default class BasicFilm extends React.Component {
 
     this.createHeightStyle = memoize(height => ({ height }));
     this.createBasicStyleSet = memoize(({ autoHide }) => createBasicStyleSet({ autoHide }));
-
-    this.itemContainerRef = React.createRef();
-    this.scrollableRef = React.createRef();
   }
 
   render() {
-    const {
-      itemContainerRef,
-      props,
-      scrollableRef
-    } = this;
+    const { props } = this;
 
     const {
       carousel,
@@ -57,10 +50,7 @@ export default class BasicFilm extends React.Component {
     } = props;
 
     return (
-      <Composer
-        itemContainerRef={ itemContainerRef }
-        scrollableRef={ scrollableRef }
-      >
+      <Composer>
         <Context.Consumer>
           { ({ numItems, scrollBarWidth, scrolling }) =>
             <div className={ props.className }>
@@ -73,10 +63,7 @@ export default class BasicFilm extends React.Component {
                     <div>{ leftFlipperText }</div>
                   </Flipper>
                 }
-                <FilmStrip
-                  itemContainerRef={ itemContainerRef }
-                  scrollableRef={ scrollableRef }
-                >
+                <FilmStrip>
                   { props.children }
                 </FilmStrip>
                 { !!numItems && scrollBarWidth !== '100%' && !!showFlipper &&

@@ -211,17 +211,19 @@ export default ({ mode }) =>
 
 Maybe you want to create a new flipper to control the carousel, the [context object](https://reactjs.org/docs/context.html) provides an API for interfacing with the carousel.
 
-| Name                  | Type                                                       | Description                                                                                       |
-|-----------------------|------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
-| `index`               | `number`                                                   | Index of the current item                                                                         |
-| `indexFraction`       | `number`                                                   | Index of the current item, in fraction (1.5 means 50% between 2nd and 3rd item)                   |
-| `numItems`            | `number`                                                   | Number of items in the carousel                                                                   |
-| `scrollBarPercentage` | `string`                                                   | Percentage of the scroll bar position                                                             |
-| `scrollBarWidth`      | `string`                                                   | Width (in percentage) of the scroll bar, respective to its total content                          |
-| `scrolling`           | `boolean`                                                  | `true` if the user is scrolling (debounced 500ms after last `onScroll` event), otherwise, `false` |
-| `scrollOneLeft`       | `() => {}`                                                 | Helper function to scroll one item to the left                                                    |
-| `scrollOneRight`      | `() => {}`                                                 | Helper function to scroll one item to the right                                                   |
-| `scrollTo`            | `(({ index: number, indexFraction: number }) => {}) => {}` | Scroll to a specified index, see [sample below](#sample-scrollto-code)                            |
+| Name                  | Type                                                         | Description                                                                                       |
+|-----------------------|--------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| `index`               | `number`                                                     | Index of the current item                                                                         |
+| `indexFraction`       | `number`                                                     | Index of the current item, in fraction (1.5 means 50% between 2nd and 3rd item)                   |
+| `itemContainerRef`    | [React refs](https://reactjs.org/docs/refs-and-the-dom.html) | Ref of the immediate parent element containing all scrollable items                               |
+| `numItems`            | `number`                                                     | Number of items in the carousel                                                                   |
+| `scrollableRef`       | [React refs](https://reactjs.org/docs/refs-and-the-dom.html) | Ref of the scrollable element, use for artificial scrolling and tracking scroll position          |
+| `scrollBarPercentage` | `string`                                                     | Percentage of the scroll bar position                                                             |
+| `scrollBarWidth`      | `string`                                                     | Width (in percentage) of the scroll bar, respective to its total content                          |
+| `scrolling`           | `boolean`                                                    | `true` if the user is scrolling (debounced 500ms after last `onScroll` event), otherwise, `false` |
+| `scrollOneLeft`       | `() => {}`                                                   | Helper function to scroll one item to the left                                                    |
+| `scrollOneRight`      | `() => {}`                                                   | Helper function to scroll one item to the right                                                   |
+| `scrollTo`            | `(({ index: number, indexFraction: number }) => {}) => {}`   | Scroll to a specified index, see [sample below](#sample-scrollto-code)                            |
 
 > If the context object lack of features you want to use, just [tell us your idea](https://github.com/spyip/react-film/issues).
 

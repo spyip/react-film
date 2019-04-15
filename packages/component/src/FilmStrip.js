@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import CallFunction from './CallFunction';
+import Context from './Context';
 import InternalContext from './InternalContext';
 
 const ROOT_CSS = css({
@@ -26,25 +27,27 @@ const ROOT_CSS = css({
 
 export default ({
   children,
-  className,
-  itemContainerRef,
-  scrollableRef
+  className
 }) =>
   <InternalContext.Consumer>
     { ({ _setNumItems }) =>
-      <React.Fragment>
-        <div
-          className={ classNames(ROOT_CSS + '', className) }
-          ref={ scrollableRef }
-        >
-          <ul ref={ itemContainerRef }>
-            { React.Children.map(children, child => <li>{ child }</li>) }
-          </ul>
-        </div>
-        <CallFunction
-          arg={ React.Children.count(children) }
-          fn={ _setNumItems }
-        />
-      </React.Fragment>
+      <Context.Consumer>
+        { ({ itemContainerRef, scrollableRef }) =>
+          <React.Fragment>
+            <div
+              className={ classNames(ROOT_CSS + '', className) }
+              ref={ scrollableRef }
+            >
+              <ul ref={ itemContainerRef }>
+                { React.Children.map(children, child => <li>{ child }</li>) }
+              </ul>
+            </div>
+            <CallFunction
+              arg={ React.Children.count(children) }
+              fn={ _setNumItems }
+            />
+          </React.Fragment>
+        }
+      </Context.Consumer>
     }
   </InternalContext.Consumer>

@@ -82,27 +82,27 @@ export default class FilmComposer extends React.Component {
     this.handleScroll = this.handleScroll.bind(this);
     this.handleScrollToEnd = this.handleScrollToEnd.bind(this);
 
-    // TODO: How about Composer prepare createRef()?
+    this.itemContainerRef = React.createRef();
+    this.scrollableRef = React.createRef();
 
     this.state = {
-      itemContainerRef: props.itemContainerRef,
-      scrollableRef: props.scrollableRef,
-      scrollLeft: null,
       context: {
+        itemContainerRef: this.itemContainerRef,
         numItems: 0,
+        scrollableRef: this.scrollableRef,
         scrollBarPercentage: '0%',
         scrollBarWidth: '0%',
         scrolling: false,
         scrollTo: scrollTo => {
           this.setState(state => {
-            const view = getView(state.scrollableRef, state.itemContainerRef, state.scrollLeft);
+            const view = getView(this.scrollableRef, this.itemContainerRef, state.scrollLeft);
 
             if (view) {
               const { index, indexFraction } = view;
               const targetIndex = scrollTo({ index, indexFraction });
 
               if (typeof targetIndex === 'number') {
-                return { scrollLeft: getScrollLeft(state.scrollableRef, state.itemContainerRef, targetIndex) };
+                return { scrollLeft: getScrollLeft(this.scrollableRef, this.itemContainerRef, targetIndex) };
               }
             }
           });
@@ -123,29 +123,22 @@ export default class FilmComposer extends React.Component {
             }
           }));
         }
-      }
+      },
+      scrollLeft: null
     };
-  }
-
-  componentWillReceiveProps({ itemContainerRef, scrollableRef }) {
-    if (
-      itemContainerRef !== this.props.itemContainerRef
-      || scrollableRef !== this.props.scrollableRef
-    ) {
-      this.setState(() => ({
-        itemContainerRef,
-        scrollableRef
-      }));
-    }
   }
 
   componentWillUnmount() {
     clearTimeout(this.scrollTimeout);
   }
 
-  handleScroll({ fraction: scrollBarPercentage, initial, width: scrollBarWidth }) {
-    this.setState(({ context, itemContainerRef, scrollableRef, scrollLeft }) => {
-      const view = getView(scrollableRef, itemContainerRef, scrollLeft);
+  handleScroll({
+    fraction: scrollBarPercentage,
+    initial,
+    width: scrollBarWidth
+  }) {
+    this.setState(({ context, scrollLeft }) => {
+      const view = getView(this.scrollableRef, this.itemContainerRef, scrollLeft);
 
       if (view) {
         const { index, indexFraction } = view;
@@ -165,6 +158,7 @@ export default class FilmComposer extends React.Component {
 
     if (!initial) {
       clearTimeout(this.scrollTimeout);
+
       this.scrollTimeout = setTimeout(() => {
         this.setState(({ context }) => ({
           context: {
@@ -181,27 +175,31 @@ export default class FilmComposer extends React.Component {
   }
 
   render() {
-    const { state } = this;
+    const {
+      props: { children },
+      scrollableRef,
+      state: {
+        context,
+        internalContext,
+        scrollLeft
+      }
+    } = this;
 
     return (
-      <InternalContext.Provider value={ state.internalContext }>
-        <Context.Provider value={ state.context }>
-          { this.props.children }
+      <InternalContext.Provider value={ internalContext }>
+        <Context.Provider value={ context }>
+          { children }
+          <ScrollSpy
+            onScroll={ this.handleScroll }
+            targetRef={ scrollableRef }
+          />
           {
-            !!state.scrollableRef &&
-              <ScrollSpy
-                onScroll={ this.handleScroll }
-                targetRef={ state.scrollableRef }
-              />
-          }
-          {
-            typeof state.scrollLeft === 'number'
-            && !!state.scrollableRef
+            typeof scrollLeft === 'number'
             &&
               <ScrollTo
                 onEnd={ this.handleScrollToEnd }
-                scrollLeft={ state.scrollLeft }
-                targetRef={ state.scrollableRef }
+                scrollLeft={ scrollLeft }
+                targetRef={ scrollableRef }
               />
           }
         </Context.Provider>
