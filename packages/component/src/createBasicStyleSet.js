@@ -11,7 +11,7 @@ const createDotsBoxCSS = ({ height }) => css({
   width: '100%'
 });
 
-const createDotsItemCSS = ({ boxSize, size }) => css({
+const createDotsItemCSS = ({ boxSize, pointerCursor, size }) => css({
   alignItems: 'center',
   display: 'flex',
   height: boxSize,
@@ -19,7 +19,8 @@ const createDotsItemCSS = ({ boxSize, size }) => css({
   width: boxSize,
 
   '& > input': {
-    cursor: 'pointer',
+    ...pointerCursor ? { cursor: 'pointer' } : {},
+
     height: '100%',
     left: 0,
     margin: 0,
@@ -52,9 +53,10 @@ const createDotsItemCSS = ({ boxSize, size }) => css({
 const FLIPPER_BOX_WIDTH = 60;
 const FLIPPER_SIZE = 40;
 
-const createFlipperBoxCSS = ({ boxWidth, size }) => css({
+const createFlipperBoxCSS = ({ boxWidth, pointerCursor, size }) => css({
+  ...pointerCursor ? { cursor: 'pointer' } : {},
+
   background: 'Transparent',
-  cursor: 'pointer',
   height: '100%',
   position: 'absolute',
   top: 0,
@@ -138,15 +140,16 @@ export default function ({
   dotSize         = DOT_SIZE,
   flipperBoxWidth = FLIPPER_BOX_WIDTH,
   flipperSize     = FLIPPER_SIZE,
+  pointerCursor   = true,
   scrollBarHeight = SCROLL_BAR_HEIGHT,
   scrollBarMargin = SCROLL_BAR_MARGIN
 } = {}) {
   const styles = {
     carousel        : '',
     dotsBox         : createDotsBoxCSS({ height: dotBoxSize }),
-    dotsItem        : createDotsItemCSS({ boxSize: dotBoxSize, size: dotSize }),
-    leftFlipper     : createLeftFlipperCSS({ boxWidth: flipperBoxWidth, size: flipperSize }),
-    rightFlipper    : createRightFlipperCSS({ boxWidth: flipperBoxWidth, size: flipperSize }),
+    dotsItem        : createDotsItemCSS({ boxSize: dotBoxSize, pointerCursor, size: dotSize }),
+    leftFlipper     : createLeftFlipperCSS({ boxWidth: flipperBoxWidth, pointerCursor, size: flipperSize }),
+    rightFlipper    : createRightFlipperCSS({ boxWidth: flipperBoxWidth, pointerCursor, size: flipperSize }),
     scrollBarBox    : createScrollBarBoxCSS({ height: scrollBarHeight, margin: scrollBarMargin }),
     scrollBarHandler: createScrollBarHandlerCSS({ height: scrollBarHeight, margin: scrollBarMargin })
   };
