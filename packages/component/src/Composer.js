@@ -15,7 +15,7 @@ function getView(
     const scrollLeft = scrollingTo || scrollable.scrollLeft;
     const items = itemContainer.children; // This will enumerate <li> inside <FilmStrip>
     const scrollCenter = scrollLeft + scrollable.offsetWidth / 2;
-    const index = best([...items], item => {
+    const index = best([].slice.call(items), item => {
       const offsetCenter = item.offsetLeft + item.offsetWidth / 2;
 
       return 1 / Math.abs(scrollCenter - offsetCenter);
