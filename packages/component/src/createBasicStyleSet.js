@@ -11,7 +11,7 @@ const createDotsBoxCSS = ({ height }) => css({
   width: '100%'
 });
 
-const createDotsItemCSS = ({ boxSize, pointerCursor, size }) => css({
+const createDotsItemCSS = ({ boxSize, cursor, size }) => css({
   alignItems: 'center',
   display: 'flex',
   height: boxSize,
@@ -19,7 +19,7 @@ const createDotsItemCSS = ({ boxSize, pointerCursor, size }) => css({
   width: boxSize,
 
   '& > input': {
-    ...pointerCursor ? { cursor: 'pointer' } : {},
+    ...cursor ? { cursor } : {},
 
     height: '100%',
     left: 0,
@@ -53,8 +53,8 @@ const createDotsItemCSS = ({ boxSize, pointerCursor, size }) => css({
 const FLIPPER_BOX_WIDTH = 60;
 const FLIPPER_SIZE = 40;
 
-const createFlipperBoxCSS = ({ boxWidth, pointerCursor, size }) => css({
-  ...pointerCursor ? { cursor: 'pointer' } : {},
+const createFlipperBoxCSS = ({ boxWidth, cursor, size }) => css({
+  ...cursor ? { cursor } : {},
 
   background: 'Transparent',
   height: '100%',
@@ -136,20 +136,20 @@ const createScrollBarHandlerCSS = ({ height }) => css({
 
 export default function ({
   autoHide        = true,
+  cursor          = 'pointer',
   dotBoxSize      = DOT_BOX_SIZE,
   dotSize         = DOT_SIZE,
   flipperBoxWidth = FLIPPER_BOX_WIDTH,
   flipperSize     = FLIPPER_SIZE,
-  pointerCursor   = true,
   scrollBarHeight = SCROLL_BAR_HEIGHT,
   scrollBarMargin = SCROLL_BAR_MARGIN
 } = {}) {
   const styles = {
     carousel        : '',
     dotsBox         : createDotsBoxCSS({ height: dotBoxSize }),
-    dotsItem        : createDotsItemCSS({ boxSize: dotBoxSize, pointerCursor, size: dotSize }),
-    leftFlipper     : createLeftFlipperCSS({ boxWidth: flipperBoxWidth, pointerCursor, size: flipperSize }),
-    rightFlipper    : createRightFlipperCSS({ boxWidth: flipperBoxWidth, pointerCursor, size: flipperSize }),
+    dotsItem        : createDotsItemCSS({ boxSize: dotBoxSize, cursor, size: dotSize }),
+    leftFlipper     : createLeftFlipperCSS({ boxWidth: flipperBoxWidth, cursor, size: flipperSize }),
+    rightFlipper    : createRightFlipperCSS({ boxWidth: flipperBoxWidth, cursor, size: flipperSize }),
     scrollBarBox    : createScrollBarBoxCSS({ margin: scrollBarMargin }),
     scrollBarHandler: createScrollBarHandlerCSS({ height: scrollBarHeight })
   };

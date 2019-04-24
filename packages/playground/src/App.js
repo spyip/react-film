@@ -11,7 +11,7 @@ const LIST_FILM_ITEM_CSS = css({
   width: 200
 });
 
-const styleSet = createBasicStyleSet({ autoHide: false, pointerCursor: false });
+const styleSet = createBasicStyleSet({ autoHide: false, cursor: null });
 const myStyleSet = {
   ...styleSet,
   scrollBarHandler: styleSet.scrollBarHandler + ' ' + css({ backgroundColor: 'Red' })
