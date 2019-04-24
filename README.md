@@ -155,6 +155,7 @@ Sometimes, just increasing some paddings are more than enough for your styling n
 | `dotSize`         | `6`     | Visible dot size              |
 | `flipperBoxWidth` | `60`    | Hit box size of flippers      |
 | `flipperSize`     | `40`    | Visible flipper size (circle) |
+| `pointerCursor`   | `true`  | Use "pointer" as cursor       |
 | `scrollBarHeight` | `8`     | Scroll bar handler height     |
 | `scrollBarMargin` | `4`     | Margin around scroll bar      |
 
