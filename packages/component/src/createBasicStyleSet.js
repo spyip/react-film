@@ -11,7 +11,7 @@ const createDotsBoxCSS = ({ height }) => css({
   width: '100%'
 });
 
-const createDotsItemCSS = ({ boxSize, size }) => css({
+const createDotsItemCSS = ({ boxSize, cursor, size }) => css({
   alignItems: 'center',
   display: 'flex',
   height: boxSize,
@@ -19,7 +19,8 @@ const createDotsItemCSS = ({ boxSize, size }) => css({
   width: boxSize,
 
   '& > input': {
-    cursor: 'pointer',
+    ...cursor ? { cursor } : {},
+
     height: '100%',
     left: 0,
     margin: 0,
@@ -52,9 +53,10 @@ const createDotsItemCSS = ({ boxSize, size }) => css({
 const FLIPPER_BOX_WIDTH = 60;
 const FLIPPER_SIZE = 40;
 
-const createFlipperBoxCSS = ({ boxWidth, size }) => css({
+const createFlipperBoxCSS = ({ boxWidth, cursor, size }) => css({
+  ...cursor ? { cursor } : {},
+
   background: 'Transparent',
-  cursor: 'pointer',
   height: '100%',
   position: 'absolute',
   top: 0,
@@ -115,7 +117,7 @@ const createRightFlipperCSS = options => css({
 const SCROLL_BAR_HEIGHT = 8;
 const SCROLL_BAR_MARGIN = 4;
 
-const createScrollBarBoxCSS = ({ height, margin }) => css({
+const createScrollBarBoxCSS = ({ margin }) => css({
   bottom: 0,
   padding: margin,
   position: 'absolute',
@@ -125,15 +127,16 @@ const createScrollBarBoxCSS = ({ height, margin }) => css({
   width: '100%'
 });
 
-const createScrollBarHandlerCSS = ({ height, margin }) => css({
+const createScrollBarHandlerCSS = ({ height }) => css({
   backdropFilter: 'blur(4px)',
   background: 'rgba(255, 255, 255, .4)',
   borderRadius: height / 2,
-  height: height
+  height
 });
 
 export default function ({
   autoHide        = true,
+  cursor          = 'pointer',
   dotBoxSize      = DOT_BOX_SIZE,
   dotSize         = DOT_SIZE,
   flipperBoxWidth = FLIPPER_BOX_WIDTH,
@@ -144,11 +147,11 @@ export default function ({
   const styles = {
     carousel        : '',
     dotsBox         : createDotsBoxCSS({ height: dotBoxSize }),
-    dotsItem        : createDotsItemCSS({ boxSize: dotBoxSize, size: dotSize }),
-    leftFlipper     : createLeftFlipperCSS({ boxWidth: flipperBoxWidth, size: flipperSize }),
-    rightFlipper    : createRightFlipperCSS({ boxWidth: flipperBoxWidth, size: flipperSize }),
-    scrollBarBox    : createScrollBarBoxCSS({ height: scrollBarHeight, margin: scrollBarMargin }),
-    scrollBarHandler: createScrollBarHandlerCSS({ height: scrollBarHeight, margin: scrollBarMargin })
+    dotsItem        : createDotsItemCSS({ boxSize: dotBoxSize, cursor, size: dotSize }),
+    leftFlipper     : createLeftFlipperCSS({ boxWidth: flipperBoxWidth, cursor, size: flipperSize }),
+    rightFlipper    : createRightFlipperCSS({ boxWidth: flipperBoxWidth, cursor, size: flipperSize }),
+    scrollBarBox    : createScrollBarBoxCSS({ margin: scrollBarMargin }),
+    scrollBarHandler: createScrollBarHandlerCSS({ height: scrollBarHeight })
   };
 
   // This is for overriding existing rules with auto-hide CSS transitions

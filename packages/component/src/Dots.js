@@ -15,7 +15,6 @@ const DOT_CSS = css({
   position: 'relative',
 
   '& > input': {
-    cursor: 'pointer',
     height: '100%',
     left: 0,
     margin: 0,

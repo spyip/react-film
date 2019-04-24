@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Support specifying item elements and scrollable container element, by [@compulim](https://github.com/compulim) in PR [#21](https://github.com/spyip/react-film/pull/21).
+- Fix [#22](https://github.com/spyip/react-film/issues/22). Added style options to hide "cursor: pointer" style, by [@compulim](https://github.com/compulim) in PR [#25](https://github.com/spyip/react-film/pull/25).
 
 ### Changed
 - For performance reason, deep-customizing component will now need to pass `numItems` prop to `<Composer>`, by [@compulim](https://github.com/compulim) in PR [#21](https://github.com/spyip/react-film/pull/21).
