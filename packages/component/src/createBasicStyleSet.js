@@ -117,7 +117,7 @@ const createRightFlipperCSS = options => css({
 const SCROLL_BAR_HEIGHT = 8;
 const SCROLL_BAR_MARGIN = 4;
 
-const createScrollBarBoxCSS = ({ height, margin }) => css({
+const createScrollBarBoxCSS = ({ margin }) => css({
   bottom: 0,
   padding: margin,
   position: 'absolute',
@@ -127,11 +127,11 @@ const createScrollBarBoxCSS = ({ height, margin }) => css({
   width: '100%'
 });
 
-const createScrollBarHandlerCSS = ({ height, margin }) => css({
+const createScrollBarHandlerCSS = ({ height }) => css({
   backdropFilter: 'blur(4px)',
   background: 'rgba(255, 255, 255, .4)',
   borderRadius: height / 2,
-  height: height
+  height
 });
 
 export default function ({
@@ -150,8 +150,8 @@ export default function ({
     dotsItem        : createDotsItemCSS({ boxSize: dotBoxSize, pointerCursor, size: dotSize }),
     leftFlipper     : createLeftFlipperCSS({ boxWidth: flipperBoxWidth, pointerCursor, size: flipperSize }),
     rightFlipper    : createRightFlipperCSS({ boxWidth: flipperBoxWidth, pointerCursor, size: flipperSize }),
-    scrollBarBox    : createScrollBarBoxCSS({ height: scrollBarHeight, margin: scrollBarMargin }),
-    scrollBarHandler: createScrollBarHandlerCSS({ height: scrollBarHeight, margin: scrollBarMargin })
+    scrollBarBox    : createScrollBarBoxCSS({ margin: scrollBarMargin }),
+    scrollBarHandler: createScrollBarHandlerCSS({ height: scrollBarHeight })
   };
 
   // This is for overriding existing rules with auto-hide CSS transitions
