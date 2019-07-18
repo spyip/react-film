@@ -216,8 +216,8 @@ export default class extends React.Component {
           </BasicFilm>
         }
         <BasicFilm>
-          { items.map(item =>
-            <img alt={ `Cat ${ item }` } src={ `image/${ item }.jpg` } />
+          { items.map((item, index) =>
+            <img alt={ `Cat ${ item }` } key={ index } src={ `image/${ item }.jpg` } />
           ) }
         </BasicFilm>
         <div>
