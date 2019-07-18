@@ -11,6 +11,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - For performance reason, deep-customizing component will now need to pass `numItems` prop to `<Composer>`, by [@compulim](https://github.com/compulim) in PR [#21](https://github.com/spyip/react-film/pull/21).
+- Bump dependencies, in PR [#27](https://github.com/spyip/react-film/pull/27)
+   - [@babel/cli@^7.5.5](https://www.npmjs.com/package/@babel/cli)
+   - [@babel/core@^7.5.5](https://www.npmjs.com/package/@babel/core)
+   - [@babel/plugin-proposal-object-rest-spread@^7.5.5](https://www.npmjs.com/package/@babel/plugin-proposal-object-rest-spread)
+   - [@babel/plugin-transform-runtime@^7.5.5](https://www.npmjs.com/package/@babel/plugin-transform-runtime)
+   - [@babel/preset-env@^7.5.5](https://www.npmjs.com/package/@babel/preset-env)
+   - [@babel/runtime@^7.5.5](https://www.npmjs.com/package/@babel/runtime)
+   - [babel-core@^6.26.3](https://www.npmjs.com/package/babel-core)
+   - [babel-jest@^24.8.0](https://www.npmjs.com/package/babel-jest)
+   - [concurrently@^4.1.1](https://www.npmjs.com/package/concurrently)
+   - [jest@^24.8.0](https://www.npmjs.com/package/jest)
+   - [react-scripts@^3.0.1](https://www.npmjs.com/package/react-scripts)
+   - [rimraf@^2.6.3](https://www.npmjs.com/package/rimraf)
+   - [serve@^11.1.0](https://www.npmjs.com/package/serve)
+   - [webpack-cli@^3.3.6](https://www.npmjs.com/package/webpack-cli)
+   - [webpack@^4.36.1](https://www.npmjs.com/package/webpack)
 
 ### Fixed
 - Fix [#23](https://github.com/spyip/react-film/issues/23). Fix IE11 not working with CoreJS-polyfilled `[...document.children]`, by [@compulim](https://github.com/compulim) in PR [#24](https://github.com/spyip/react-film/pull/24).
