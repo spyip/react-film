@@ -20,6 +20,6 @@
   "devDependencies": {
     "concurrently": "^4.1.0",
     "lerna": "^3.13.1",
-    "serve": "^10.1.0"
+    "serve": "^11.1.0"
   }
 }
