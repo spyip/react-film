@@ -19,7 +19,7 @@ export {
   ScrollBar
 }
 
-if (document && document.head) {
+if (typeof document !== 'undefined' && document.head) {
   const meta = document.createElement('meta');
 
   meta.setAttribute('name', 'react-film');
