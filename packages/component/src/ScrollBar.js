@@ -2,14 +2,12 @@ import { css } from 'glamor';
 import classNames from 'classnames';
 import React from 'react';
 
+import * as browser from './browser';
 import Context from './Context';
 
 const ROOT_CSS = css({
   boxSizing: 'border-box'
 });
-
-const IS_FIREFOX = /Firefox\//.test(navigator.userAgent);
-const IS_SAFARI = /Safari\//.test(navigator.userAgent);
 
 export default ({ className, handlerClassName }) =>
   <Context.Consumer>
@@ -19,9 +17,13 @@ export default ({ className, handlerClassName }) =>
           className={ handlerClassName }
           style={{
             ...(dir === 'rtl' ?
-              IS_FIREFOX || IS_SAFARI ?
+              browser.firefox || browser.safari ?
                 {
                   marginRight: `${ (parseFloat(scrollBarWidth) / 100 - 1) * parseFloat(scrollBarPercentage) }%`
+                }
+              : browser.edgeUWP ?
+                {
+                  marginRight: `${ (1 - parseFloat(scrollBarWidth) / 100) * parseFloat(scrollBarPercentage) }%`
                 }
               :
                 {

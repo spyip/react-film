@@ -1,16 +1,11 @@
 import memoize from 'memoize-one';
 import React from 'react';
 
+import * as browser from './browser';
 import best from './best';
 import Context from './Context';
 import ScrollSpy from './ScrollSpy';
 import ScrollTo from './ScrollTo';
-
-const { userAgent } = navigator;
-const IS_FIREFOX = /Firefox\//.test(userAgent);
-const IS_EDGE_UWP = /Edge\//.test(userAgent);
-const IS_CHROME = /Chrome\//.test(userAgent);
-const IS_SAFARI = !(IS_CHROME || IS_EDGE_UWP || IS_FIREFOX);
 
 function getView(
   dir,
@@ -24,9 +19,9 @@ function getView(
     const scrollLeft = scrollingTo || scrollable.scrollLeft;
     const trueScrollLeft =
       rtl ?
-        IS_CHROME ?
+        browser.chrome ?
           scrollLeft - (scrollable.scrollWidth - scrollable.offsetWidth)
-        : IS_EDGE_UWP ?
+        : browser.edgeUWP ?
           -scrollLeft
         :
           scrollLeft
@@ -111,9 +106,9 @@ function getScrollLeft(
       }
 
       if (rtl) {
-        if (IS_CHROME) {
+        if (browser.chrome) {
           result += scrollable.scrollWidth - scrollable.offsetWidth;
-        } else if (IS_EDGE_UWP) {
+        } else if (browser.edgeUWP) {
           result = -result;
         }
       }
