@@ -95,12 +95,29 @@ export default class extends React.Component {
         <p>Ut anim commodo nisi cillum tempor. Cillum adipisicing velit exercitation pariatur dolor exercitation mollit deserunt eiusmod ad id sit voluptate. Sit nulla et deserunt consequat culpa aliquip adipisicing. Velit ea id et id occaecat proident proident aliqua nostrud reprehenderit do aliqua. Irure nisi irure excepteur in eiusmod adipisicing nisi consectetur consectetur sit.</p>
         <p>Dolore ad sit voluptate esse exercitation cupidatat. Commodo excepteur sunt magna do sunt fugiat laboris non in Lorem proident aliqua tempor. Exercitation est ad laborum eu elit commodo dolore. Enim sint quis do incididunt duis minim veniam Lorem mollit ex nostrud deserunt. Pariatur fugiat sint eiusmod voluptate officia.</p>
         <p>In elit anim elit ea ex. Voluptate qui id laborum sit duis officia enim est velit sunt do. Amet aliqua occaecat laboris pariatur. Veniam eu reprehenderit ea esse officia esse dolor laborum deserunt. Laboris occaecat et aute nostrud consequat amet elit adipisicing non nostrud minim id voluptate sunt. Qui consequat veniam occaecat veniam dolor ex consequat. Ullamco elit ad commodo consequat ullamco magna aliqua nulla deserunt officia reprehenderit irure.</p>
+        <p>LTR</p>
         { !!key &&
           <BasicFilm height={ 316 } key={ `${ key }-a` }>
-            <img alt="Cat 01" src="image/01.jpg" />
+            <img alt="Cat 01" src="image/01.jpg" style={{ width: 200 }} />
             <img alt="Cat 02" src="image/02.jpg" />
             <img alt="Cat 03" src="image/03.jpg" />
-            <img alt="Cat 04" src="image/04.jpg" />
+            <img alt="Cat 04" src="image/04.jpg" style={{ width: 200 }} />
+            <img alt="Cat 05" src="image/05.jpg" />
+            <img alt="Cat 06" src="image/06.jpg" />
+            <img alt="Cat 07" src="image/07.jpg" />
+            <img alt="Cat 08" src="image/08.jpg" />
+            <img alt="Cat 09" src="image/09.jpg" />
+            <img alt="Cat 10" src="image/10.jpg" />
+            <img alt="Cat 11" src="image/11.jpg" />
+          </BasicFilm>
+        }
+        <p>RTL</p>
+        { !!key &&
+          <BasicFilm dir="rtl" height={ 316 } key={ `${ key }-a` } autoCenter={ true }>
+            <img alt="Cat 01" src="image/01.jpg" style={{ width: 200 }} />
+            <img alt="Cat 02" src="image/02.jpg" />
+            <img alt="Cat 03" src="image/03.jpg" />
+            <img alt="Cat 04" src="image/04.jpg" style={{ width: 200 }} />
             <img alt="Cat 05" src="image/05.jpg" />
             <img alt="Cat 06" src="image/06.jpg" />
             <img alt="Cat 07" src="image/07.jpg" />

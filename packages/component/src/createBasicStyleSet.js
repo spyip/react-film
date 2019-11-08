@@ -26,7 +26,9 @@ const createDotsItemCSS = ({ boxSize, cursor, size }) => css({
     margin: 0,
     opacity: 0,
     position: 'absolute',
+    userSelect: 'none',
     top: 0,
+    touchAction: 'none',
     width: '100%'
   },
 
@@ -59,7 +61,9 @@ const createFlipperBoxCSS = ({ boxWidth, cursor, size }) => css({
   background: 'Transparent',
   height: '100%',
   position: 'absolute',
+  userSelect: 'none',
   top: 0,
+  touchAction: 'none',
   width: boxWidth,
 
   '& > div.slider': {

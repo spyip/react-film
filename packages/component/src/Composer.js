@@ -6,15 +6,34 @@ import Context from './Context';
 import ScrollSpy from './ScrollSpy';
 import ScrollTo from './ScrollTo';
 
+const { userAgent } = navigator;
+const IS_FIREFOX = /Firefox\//.test(userAgent);
+const IS_EDGE_UWP = /Edge\//.test(userAgent);
+const IS_CHROME = /Chrome\//.test(userAgent);
+const IS_SAFARI = !(IS_CHROME || IS_EDGE_UWP || IS_FIREFOX);
+
 function getView(
+  dir,
   { current: scrollable } = {},
   { current: itemContainer } = {},
   scrollingTo
 ) {
+  const rtl = dir === 'rtl';
+
   if (itemContainer && scrollable) {
     const scrollLeft = scrollingTo || scrollable.scrollLeft;
+    const trueScrollLeft =
+      rtl ?
+        IS_CHROME ?
+          scrollLeft - (scrollable.scrollWidth - scrollable.offsetWidth)
+        : IS_EDGE_UWP ?
+          -scrollLeft
+        :
+          scrollLeft
+      :
+        scrollLeft;
     const items = itemContainer.children; // This will enumerate <li> inside <FilmStrip>
-    const scrollCenter = scrollLeft + scrollable.offsetWidth / 2;
+    const scrollCenter = trueScrollLeft + scrollable.offsetWidth / 2;
     const index = best([].slice.call(items), item => {
       const offsetCenter = item.offsetLeft + item.offsetWidth / 2;
 
@@ -23,8 +42,9 @@ function getView(
 
     if (~index) {
       const item = items[index];
+
       const offsetCenter = item.offsetLeft + item.offsetWidth / 2;
-      let indexFraction = index + (scrollCenter - offsetCenter) / item.offsetWidth;
+      let indexFraction = index + (scrollCenter - offsetCenter) / item.offsetWidth * (rtl ? -1 : 1);
 
       // We "fix" indexFraction if the viewport is at the start/end of the content
       // This is to simplify code that use Math.round(indexFraction) to find the scrollable index
@@ -42,9 +62,14 @@ function getView(
 
       let selectedIndex;
 
-      if (scrollLeft === 0) {
+      if (trueScrollLeft === 0) {
         selectedIndex = 0;
-      } else if (scrollLeft >= scrollable.scrollWidth - scrollable.offsetWidth) {
+      } else if (
+        rtl ?
+          trueScrollLeft <= scrollable.offsetWidth - scrollable.scrollWidth
+        :
+          trueScrollLeft >= scrollable.scrollWidth - scrollable.offsetWidth
+      ) {
         selectedIndex = items.length - 1;
       } else {
         selectedIndex = Math.round(indexFraction);
@@ -59,18 +84,40 @@ function getView(
 }
 
 function getScrollLeft(
+  dir,
   { current: scrollable } = {},
   { current: itemContainer } = {},
   index
 ) {
+  const rtl = dir === 'rtl';
+
   if (itemContainer && scrollable) {
     const items = itemContainer.children; // This will enumerate <li> inside <FilmStrip>
     const item = items[Math.max(0, Math.min(items.length - 1, index))];
 
     if (item) {
-      const itemOffsetCenter = item.offsetLeft + item.offsetWidth / 2;
+      if (scrollable.offsetWidth === scrollable.scrollWidth) {
+        return 0;
+      }
 
-      return itemOffsetCenter - scrollable.offsetWidth / 2;
+      let result = item.offsetLeft + (item.offsetWidth - scrollable.offsetWidth) / 2;
+
+      if (rtl) {
+        result = Math.min(result, 0);
+        result = Math.max(result, scrollable.offsetWidth - scrollable.scrollWidth);
+      } else {
+        result = Math.max(result, 0);
+        result = Math.min(result, scrollable.scrollWidth - scrollable.offsetWidth);
+      }
+
+      if (rtl) {
+        if (IS_CHROME) {
+          result += scrollable.scrollWidth - scrollable.offsetWidth;
+        } else if (IS_EDGE_UWP) {
+          result = -result;
+        }
+      }
+      return result;
     }
   }
 }
@@ -85,8 +132,9 @@ export default class FilmComposer extends React.Component {
     this.itemContainerRef = React.createRef();
     this.scrollableRef = React.createRef();
 
-    this.mergeContext = memoize((state, numItems = 0) => ({
+    this.mergeContext = memoize((state, dir, numItems = 0) => ({
       ...state,
+      dir,
       numItems
     }));
 
@@ -99,23 +147,31 @@ export default class FilmComposer extends React.Component {
         scrolling: false,
         scrollTo: scrollTo => {
           this.setState(state => {
-            const view = getView(this.scrollableRef, this.itemContainerRef, state.scrollLeft);
+            const view = getView(this.props.dir, this.scrollableRef, this.itemContainerRef, state.scrollLeft);
 
             if (view) {
               const { index, indexFraction } = view;
               const targetIndex = scrollTo({ index, indexFraction });
 
               if (typeof targetIndex === 'number') {
-                return { scrollLeft: getScrollLeft(this.scrollableRef, this.itemContainerRef, targetIndex) };
+                return { scrollLeft: getScrollLeft(this.props.dir, this.scrollableRef, this.itemContainerRef, targetIndex) };
               }
             }
           });
         },
         scrollOneLeft: () => {
-          this.state.context.scrollTo(({ indexFraction }) => Math.ceil(indexFraction) - 1);
+          if (this.props.dir === 'rtl') {
+            this.state.context.scrollTo(({ indexFraction }) => Math.floor(indexFraction) + 1);
+          } else {
+            this.state.context.scrollTo(({ indexFraction }) => Math.ceil(indexFraction) - 1);
+          }
         },
         scrollOneRight: () => {
-          this.state.context.scrollTo(({ indexFraction }) => Math.floor(indexFraction) + 1);
+          if (this.props.dir === 'rtl') {
+            this.state.context.scrollTo(({ indexFraction }) => Math.ceil(indexFraction) - 1);
+          } else {
+            this.state.context.scrollTo(({ indexFraction }) => Math.floor(indexFraction) + 1);
+          }
         }
       },
       scrollLeft: null
@@ -132,7 +188,7 @@ export default class FilmComposer extends React.Component {
     width: scrollBarWidth
   }) {
     this.setState(({ context, scrollLeft }) => {
-      const view = getView(this.scrollableRef, this.itemContainerRef, scrollLeft);
+      const view = getView(this.props.dir, this.scrollableRef, this.itemContainerRef, scrollLeft);
 
       if (view) {
         const { index, indexFraction } = view;
@@ -172,6 +228,7 @@ export default class FilmComposer extends React.Component {
     const {
       props: {
         children,
+        dir,
         numItems
       },
       scrollableRef,
@@ -182,7 +239,7 @@ export default class FilmComposer extends React.Component {
     } = this;
 
     return (
-      <Context.Provider value={ this.mergeContext(context, numItems) }>
+      <Context.Provider value={ this.mergeContext(context, dir, numItems) }>
         { children }
         <ScrollSpy
           onScroll={ this.handleScroll }
