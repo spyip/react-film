@@ -57,7 +57,7 @@ function getView(
 
       let selectedIndex;
 
-      if (trueScrollLeft === 0) {
+      if (Math.abs(trueScrollLeft) < 1) {
         selectedIndex = 0;
       } else if (
         rtl ?
