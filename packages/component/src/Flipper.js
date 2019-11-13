@@ -10,14 +10,14 @@ const ROOT_CSS = css({
   touchAction: 'none'
 });
 
-export default ({ 'aria-label': ariaLabel, children, className, keepFocus, mode }) => 
+export default ({ 'aria-label': ariaLabel, blurFocus, children, className, mode }) => 
   <Context.Consumer>
     {({ scrollOneLeft, scrollOneRight }) => {
       let ref;
 
       const click = () => {
         (mode === 'left' ? scrollOneLeft : scrollOneRight)();
-        !keepFocus && ref.blur();
+        blurFocus && ref.blur();
       };
 
       const keyDown = event => {

@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ### Added
-- Added `flipperKeepFocus` prop to `BasicFilm` and `keepFocus` prop to `Flipper` components, by [@tdurnford](https://github.com/tdurnford) in PR [#33](https://github.com/spyip/react-film/pull/33).
+- Added `flipperBlurFocus` prop to `BasicFilm` and `blurFocus` prop to `Flipper` components, by [@tdurnford](https://github.com/tdurnford) in PR [#33](https://github.com/spyip/react-film/pull/33).
 
 ## [1.3.0] - 2019-10-24
 

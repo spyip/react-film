@@ -43,7 +43,7 @@ class BasicFilm extends React.Component {
 
     const {
       leftFlipperText = '<',
-      flipperKeepFocus = true,
+      flipperBlurFocus = false,
       numItems,
       rightFlipperText = '>',
       scrollBarWidth,
@@ -61,7 +61,7 @@ class BasicFilm extends React.Component {
             style={ this.createHeightStyle(props.height) }
           >
             { !!numItems && scrollBarWidth !== '100%' && !!showFlipper &&
-              <Flipper className={ leftFlipper + '' } keepFocus={flipperKeepFocus} mode="left">
+              <Flipper  blurFocus={flipperBlurFocus} className={ leftFlipper + '' } mode="left">
                 <div>{ leftFlipperText }</div>
               </Flipper>
             }
@@ -69,7 +69,7 @@ class BasicFilm extends React.Component {
               { props.children }
             </FilmStrip>
             { !!numItems && scrollBarWidth !== '100%' && !!showFlipper &&
-              <Flipper className={ rightFlipper + '' } keepFocus={flipperKeepFocus} mode="right">
+              <Flipper blurFocus={flipperBlurFocus} className={ rightFlipper + '' } mode="right">
                 <div>{ rightFlipperText }</div>
               </Flipper>
             }
