@@ -12,7 +12,7 @@ const ROOT_CSS = css({
 
 export default ({ 'aria-label': ariaLabel, children, className, keepFocus, mode }) => 
   <Context.Consumer>
-    { ({ scrollOneLeft, scrollOneRight }) => {
+    {({ scrollOneLeft, scrollOneRight }) => {
       let ref;
 
       const click = () => {
