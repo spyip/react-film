@@ -6,9 +6,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-### Added
-- Added `flipperBlurFocus` prop to `BasicFilm` and `blurFocus` prop to `Flipper` components, by [@tdurnford](https://github.com/tdurnford) in PR [#33](https://github.com/spyip/react-film/pull/33).
+### Breaking changes
 
+-  We will no longer include `react` and `react-dom` in our NPM package, instead, we will requires peer dependencies of `react@^16.8.6` and `react-dom@^16.8.6`
+
+### Added
+
+- Added `flipperBlurFocusOnClick` prop to `BasicFilm` and `blurFocusOnClick` prop to `Flipper` components, by [@tdurnford](https://github.com/tdurnford) in PR [#33](https://github.com/spyip/react-film/pull/33).
+
+### Changed
+
+- Bump peer dependency, in PR [#33](https://github.com/spyip/react-film/pull/33)
+  - [react@^16.8.6](https://www.npmjs.com/package/react)
+  
 ## [1.3.0] - 2019-10-24
 
 ### Added

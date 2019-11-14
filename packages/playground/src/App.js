@@ -96,7 +96,7 @@ export default class extends React.Component {
         <p>Dolore ad sit voluptate esse exercitation cupidatat. Commodo excepteur sunt magna do sunt fugiat laboris non in Lorem proident aliqua tempor. Exercitation est ad laborum eu elit commodo dolore. Enim sint quis do incididunt duis minim veniam Lorem mollit ex nostrud deserunt. Pariatur fugiat sint eiusmod voluptate officia.</p>
         <p>In elit anim elit ea ex. Voluptate qui id laborum sit duis officia enim est velit sunt do. Amet aliqua occaecat laboris pariatur. Veniam eu reprehenderit ea esse officia esse dolor laborum deserunt. Laboris occaecat et aute nostrud consequat amet elit adipisicing non nostrud minim id voluptate sunt. Qui consequat veniam occaecat veniam dolor ex consequat. Ullamco elit ad commodo consequat ullamco magna aliqua nulla deserunt officia reprehenderit irure.</p>
         { !!key &&
-          <BasicFilm height={ 316 } key={ `${ key }-a` }>
+          <BasicFilm height={ 316 } flipperBlurFocusOnClick={true} key={ `${ key }-a` }>
             <img alt="Cat 01" src="image/01.jpg" />
             <img alt="Cat 02" src="image/02.jpg" />
             <img alt="Cat 03" src="image/03.jpg" />

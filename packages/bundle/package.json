@@ -17,9 +17,7 @@
   "dependencies": {
     "@babel/runtime": "^7.5.5",
     "html-react-parser": "^0.6.1",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-film": "^0.0.0-0"
+    "react-film": "0.0.0-0"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
@@ -29,6 +27,8 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "concurrently": "^4.1.1",
+    "isomorphic-react": "0.0.0-0",
+    "isomorphic-react-dom": "0.0.0-0",
     "rimraf": "^2.6.3",
     "webpack": "^4.36.1",
     "webpack-cli": "^3.3.6",

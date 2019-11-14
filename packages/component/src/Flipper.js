@@ -1,6 +1,6 @@
 import { css } from 'glamor';
 import classNames from 'classnames';
-import React from 'react';
+import React, { useCallback, useContext, useRef } from 'react';
 
 import Context from './Context';
 
@@ -10,37 +10,36 @@ const ROOT_CSS = css({
   touchAction: 'none'
 });
 
-export default ({ 'aria-label': ariaLabel, blurFocus, children, className, mode }) => 
-  <Context.Consumer>
-    {({ scrollOneLeft, scrollOneRight }) => {
-      let ref;
+export default ({ 'aria-label': ariaLabel, blurFocusOnClick, children, className, mode }) => {
+  const { scrollOneLeft, scrollOneRight } = useContext(Context);
+  const ref = useRef();
 
-      const click = () => {
-        (mode === 'left' ? scrollOneLeft : scrollOneRight)();
-        blurFocus && ref.blur();
-      };
+  const handleClick = useCallback(() => {
+    mode === 'left' ? scrollOneLeft() : scrollOneRight();
+    blurFocusOnClick && ref.current.blur();
+  }, [blurFocusOnClick, mode, ref, scrollOneLeft, scrollOneRight]);
 
-      const keyDown = event => {
-        const { key } = event;
-        if (key === 'Enter' || key === ' ') {
-          event.preventDefault();
-          (mode === 'left' ? scrollOneLeft : scrollOneRight)();
-        }
-      };
+  const handleKeyDown = useCallback(event => {
+    const { key } = event;
 
-      return (
-        <button
-          aria-label={ ariaLabel || (mode === 'left' ? 'left' : 'right') }
-          className={ classNames(ROOT_CSS + '', className) }
-          onClick={click}
-          onKeyDown={keyDown}
-          type="button"
-          ref={element => ref = element}
-        >
-          <div className="slider">
-            { children }
-          </div>
-        </button>)
+    if (key === 'Enter' || key === ' ') {
+      event.preventDefault();
+      mode === 'left' ? scrollOneLeft() : scrollOneRight();
     }
-  }
-  </Context.Consumer>
+  }, [mode, ref, scrollOneLeft, scrollOneRight]);
+
+  return (
+    <button
+      aria-label={ ariaLabel || (mode === 'left' ? 'left' : 'right') }
+      className={ classNames(ROOT_CSS + '', className) }
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      type="button"
+      ref={ref}
+    >
+      <div className="slider">
+        { children }
+      </div>
+    </button>
+  );
+}
