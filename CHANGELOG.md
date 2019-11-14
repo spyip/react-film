@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## Fixed
+### Added
+
+- Support right-to-left, by [@spyip](https://github.com/spyip) in PR [#32](https://github.com/spyip/react-film/pull/32).
+
+### Fixed
 
 - Fix server-side rendering, by [@giulianok](https://github.com/giulianok) in PR [#29](https://github.com/spyip/react-film/pull/29).
 
