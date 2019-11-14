@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## Fixed
+
+- Fix server-side rendering, by [@giulianok](https://github.com/giulianok) in PR [#29](https://github.com/spyip/react-film/pull/29).
+
 ## [1.3.0] - 2019-10-24
 
 ### Added
