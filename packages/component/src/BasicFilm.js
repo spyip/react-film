@@ -41,10 +41,13 @@ class BasicFilm extends React.Component {
       ...(props.styleSet || {})
     };
 
+    const { dir } = props;
+    const rtl = dir === 'rtl';
+
     const {
-      leftFlipperText = '<',
+      leftFlipperText = rtl ? '>' : '<',
       numItems,
-      rightFlipperText = '>',
+      rightFlipperText = rtl ? '<' : '>',
       scrollBarWidth,
       scrolling,
       showDots = true,
@@ -54,7 +57,7 @@ class BasicFilm extends React.Component {
 
     return (
       <React.Fragment>
-        <div className={ props.className }>
+        <div className={ props.className } dir={ dir }>
           <div
             className={ classNames(CAROUSEL_CSS + '', { scrolling }, carousel + '') }
             style={ this.createHeightStyle(props.height) }
@@ -96,7 +99,7 @@ class BasicFilm extends React.Component {
 }
 
 export default props =>
-  <Composer numItems={ React.Children.count(props.children) }>
+  <Composer dir={ props.dir } numItems={ React.Children.count(props.children) }>
     <Context.Consumer>
       { ({ numItems, scrollBarWidth, scrolling }) =>
         <BasicFilm
