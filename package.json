@@ -5,15 +5,10 @@
   "private": true,
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "build": "npm run build:babel && concurrently --names=\"bundle,playground\" \"npm run build:bundle\" \"npm run build:playground\"",
-    "build:babel": "cd packages/component && npm run build",
-    "build:bundle": "cd packages/bundle && npm run build",
-    "build:playground": "cd packages/playground && npm run build",
+    "build": "lerna run build --stream",
     "clean": "lerna run clean --parallel --stream",
-    "prepublishOnly": "npm run build",
-    "start": "npm run build:babel && concurrently --kill-others --names \"babel,bundle,server\" \"npm run start:babel\" \"npm run start:bundle\" \"npm run start:server\"",
-    "start:babel": "cd packages/component && npm start",
-    "start:bundle": "cd packages/bundle && npm start",
+    "prepublishOnly": "lerna run prepublishOnly --stream",
+    "start": "npm run build && concurrently --kill-others --names \"lerna run start --parallel --stream\" \"npm run start:server\"",
     "start:server": "serve -p 5000",
     "test": "lerna run test"
   },

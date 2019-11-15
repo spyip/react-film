@@ -4,13 +4,14 @@
   "main": "dist/react.js",
   "private": true,
   "scripts": {
-    "build": "npm run build:babel && npm run build:webpack -- --config webpack-development.config.js",
+    "build": "npm run build:babel && npm run build:webpack",
     "build:babel": "babel --out-dir lib src",
-    "build:webpack": "webpack",
+    "build:webpack": "webpack --config webpack-development.config.js",
     "eslint": "eslint src/**/*.js",
-    "prepublishOnly": "npm run build:babel && npm run build:webpack",
-    "start": "concurrently --kill-others --names \"babel,webpack\" \"npm run build:babel -- --watch\" \"npm run build:webpack -- --watch\"",
-    "watch": "npm start"
+    "prepublishOnly": "npm run prepublishOnly:babel && npm run prepublishOnly:webpack",
+    "prepublishOnly:babel": "npm run build:babel",
+    "prepublishOnly:webpack": "webpack",
+    "start": "npm run build && concurrently --kill-others --names \"babel,webpack\" \"npm run build:babel -- --watch\" \"npm run build:webpack -- --watch\""
   },
   "author": "",
   "license": "MIT",

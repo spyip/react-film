@@ -5,11 +5,11 @@
   "scripts": {
     "build": "npm run build:babel && npm run build:webpack",
     "build:babel": "babel --out-dir lib --source-maps inline --verbose src/",
-    "build:webpack": "npm run build:webpack:development && npm run build:webpack:production",
-    "build:webpack:development": "webpack --config webpack-instrumented.config.js",
-    "build:webpack:production": "webpack",
+    "build:webpack": "webpack --config webpack-instrumented.config.js",
     "clean": "rimraf dist",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm run prepublishOnly:babel && npm run prepublishOnly:webpack",
+    "prepublishOnly:babel": "npm run build:babel",
+    "prepublishOnly:webpack": "webpack",
     "start": "npm run build && concurrently --kill-others --names \"babel,webpack\" \"npm run start:babel\" \"npm run start:webpack\"",
     "start:babel": "npm run build:babel -- --watch",
     "start:webpack": "webpack --config webpack-watch.config.js --watch"
