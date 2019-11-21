@@ -17,6 +17,7 @@
   "scripts": {
     "build": "babel --out-dir lib --ignore **/*.spec.js,**/*.test.js --source-maps inline --verbose src/",
     "clean": "rimraf lib",
+    "prepublishOnly": "npm run build",
     "start": "npm run build -- --watch",
     "test": "echo no test specified"
   },
@@ -40,8 +41,6 @@
     "babel-jest": "^24.8.0",
     "babel-plugin-version-transform": "^1.0.0",
     "jest": "^24.8.0",
-    "react": "16.4.1",
-    "react-dom": "16.4.1",
     "rimraf": "^2.6.3"
   },
   "dependencies": {
@@ -50,6 +49,7 @@
     "memoize-one": "^5.0.4"
   },
   "peerDependencies": {
-    "react": "^16.4.1"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   }
 }

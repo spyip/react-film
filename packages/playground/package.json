@@ -6,9 +6,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "glamor": "^2.20.40",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-film": "^0.0.0-0",
+    "react-film": "0.0.0-0",
     "react-scripts": "^3.0.1"
   },
   "devDependencies": {
@@ -24,6 +22,7 @@
     "build": "react-scripts build",
     "clean": "rimraf build",
     "eject": "react-scripts eject",
+    "prepublishOnly": "npm run build",
     "start": "react-scripts start",
     "test": "echo test disabled: react-scripts test --env=jsdom"
   }
