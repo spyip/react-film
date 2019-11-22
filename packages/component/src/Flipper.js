@@ -4,18 +4,20 @@ import React, { useCallback, useContext, useRef } from 'react';
 
 import Context from './Context';
 
+import * as browser from './browser';
+
 const ROOT_CSS = css({
   border: 0,
-  outline: 0,
-  touchAction: 'none'
+  outline: 0
 });
 
 export default ({ 'aria-label': ariaLabel, blurFocusOnClick, children, className, mode }) => {
-  const { scrollOneLeft, scrollOneRight } = useContext(Context);
+  const { dir, scrollBarPercentage, scrollOneLeft, scrollOneRight } = useContext(Context);
   const ref = useRef();
+  const left = mode === 'left';
 
   const handleClick = useCallback(() => {
-    mode === 'left' ? scrollOneLeft() : scrollOneRight();
+    left ? scrollOneLeft() : scrollOneRight();
     blurFocusOnClick && ref.current.blur();
   }, [blurFocusOnClick, mode, ref, scrollOneLeft, scrollOneRight]);
 
@@ -24,14 +26,34 @@ export default ({ 'aria-label': ariaLabel, blurFocusOnClick, children, className
 
     if (key === 'Enter' || key === ' ') {
       event.preventDefault();
-      mode === 'left' ? scrollOneLeft() : scrollOneRight();
+      left ? scrollOneLeft() : scrollOneRight();
     }
   }, [mode, ref, scrollOneLeft, scrollOneRight]);
 
+  let hide;
+
+  if (dir === 'rtl' && !browser.chrome) {
+    if (left) {
+      hide = scrollBarPercentage === '100%' || scrollBarPercentage === '-100%';
+    } else {
+      hide = scrollBarPercentage === '0%';
+    }
+  } else {
+    if (left) {
+      hide = scrollBarPercentage === '0%';
+    } else {
+      hide = scrollBarPercentage === '100%';
+    }
+  }
+
   return (
     <button
-      aria-label={ ariaLabel || (mode === 'left' ? 'left' : 'right') }
-      className={ classNames(ROOT_CSS + '', className) }
+      aria-label={ ariaLabel || (left ? 'left' : 'right') }
+      className={ classNames(
+        ROOT_CSS + '',
+        className,
+        { hide }
+      ) }
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       type="button"

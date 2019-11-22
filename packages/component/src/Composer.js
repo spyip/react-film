@@ -21,7 +21,7 @@ function getView(
       rtl ?
         browser.chrome ?
           scrollLeft - (scrollable.scrollWidth - scrollable.offsetWidth)
-        : browser.edgeUWP ?
+        : browser.edgeUWP || browser.internetExplorer ?
           -scrollLeft
         :
           scrollLeft
@@ -108,7 +108,7 @@ function getScrollLeft(
       if (rtl) {
         if (browser.chrome) {
           result += scrollable.scrollWidth - scrollable.offsetWidth;
-        } else if (browser.edgeUWP) {
+        } else if (browser.edgeUWP || browser.internetExplorer) {
           result = -result;
         }
       }

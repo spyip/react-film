@@ -21,7 +21,7 @@ export default ({ className, handlerClassName }) =>
                 {
                   marginRight: `${ (parseFloat(scrollBarWidth) / 100 - 1) * parseFloat(scrollBarPercentage) }%`
                 }
-              : browser.edgeUWP ?
+              : browser.edgeUWP || browser.internetExplorer ?
                 {
                   marginRight: `${ (1 - parseFloat(scrollBarWidth) / 100) * parseFloat(scrollBarPercentage) }%`
                 }

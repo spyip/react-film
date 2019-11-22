@@ -64,6 +64,7 @@ const createFlipperBoxCSS = ({ boxWidth, cursor, size }) => css({
   userSelect: 'none',
   top: 0,
   touchAction: 'none',
+  transitionDuration: '300ms',
   width: boxWidth,
 
   '& > div.slider': {
@@ -104,6 +105,7 @@ const createFlipperBoxCSS = ({ boxWidth, cursor, size }) => css({
 
 const createLeftFlipperCSS = options => css({
   left: 0,
+  transitionProperty: 'left',
 
   '& > div.slider': {
     left: 0
@@ -112,6 +114,7 @@ const createLeftFlipperCSS = options => css({
 
 const createRightFlipperCSS = options => css({
   right: 0,
+  transitionProperty: 'right',
 
   '& > div.slider': {
     right: 0
@@ -139,14 +142,15 @@ const createScrollBarHandlerCSS = ({ height }) => css({
 });
 
 export default function ({
-  autoHide        = true,
-  cursor          = 'pointer',
-  dotBoxSize      = DOT_BOX_SIZE,
-  dotSize         = DOT_SIZE,
-  flipperBoxWidth = FLIPPER_BOX_WIDTH,
-  flipperSize     = FLIPPER_SIZE,
-  scrollBarHeight = SCROLL_BAR_HEIGHT,
-  scrollBarMargin = SCROLL_BAR_MARGIN
+  autoHide              = true,
+  autoHideFlipperOnEdge = true,
+  cursor                = 'pointer',
+  dotBoxSize            = DOT_BOX_SIZE,
+  dotSize               = DOT_SIZE,
+  flipperBoxWidth       = FLIPPER_BOX_WIDTH,
+  flipperSize           = FLIPPER_SIZE,
+  scrollBarHeight       = SCROLL_BAR_HEIGHT,
+  scrollBarMargin       = SCROLL_BAR_MARGIN
 } = {}) {
   const styles = {
     carousel        : '',
@@ -177,7 +181,13 @@ export default function ({
       '&:focus > div.slider': {
         left: 0,
         transitionDelay: '0s'
-      }
+      },
+
+      ...(autoHideFlipperOnEdge ? {
+        '&.hide': {
+          left: -FLIPPER_BOX_WIDTH
+        }
+      } : {})
     });
 
     styles.rightFlipper = css(styles.rightFlipper, {
@@ -190,7 +200,13 @@ export default function ({
       '&:focus > div.slider': {
         right: 0,
         transitionDelay: '0s'
-      }
+      },
+
+      ...(autoHideFlipperOnEdge ? {
+        '&.hide': {
+          right: -FLIPPER_BOX_WIDTH
+        }
+      } : {})
     });
 
     styles.scrollBarBox = css(styles.scrollBarBox, {
