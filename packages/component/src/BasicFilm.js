@@ -22,7 +22,7 @@ class BasicFilm extends React.Component {
     super(props);
 
     this.createHeightStyle = memoize(height => ({ height }));
-    this.createBasicStyleSet = memoize(({ autoHide }) => createBasicStyleSet({ autoHide }));
+    this.createBasicStyleSet = memoize(({ autoHide, autoHideFlipperOnEdge }) => createBasicStyleSet({ autoHide, autoHideFlipperOnEdge }));
   }
 
   render() {
