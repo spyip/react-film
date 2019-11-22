@@ -113,7 +113,7 @@ export default class extends React.Component {
         }
         <p>RTL</p>
         { !!key &&
-          <BasicFilm dir="rtl" height={ 316 } key={ `${ key }-a` } autoCenter={ true }>
+          <BasicFilm dir="rtl" height={ 316 } key={ `${ key }-g` } autoCenter={ true }>
             <img alt="Cat 01" src="image/01.jpg" style={{ width: 200 }} />
             <img alt="Cat 02" src="image/02.jpg" />
             <img alt="Cat 03" src="image/03.jpg" />
@@ -199,7 +199,7 @@ export default class extends React.Component {
           </BasicFilm>
         }
         { !!key &&
-          <BasicFilm key={ `${ key }-f` }>
+          <BasicFilm dir="rtl" key={ `${ key }-f` }>
             <ul className={ LIST_FILM_ITEM_CSS }>
               <li>A</li>
               <li>B</li>
