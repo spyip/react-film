@@ -14,8 +14,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Support right-to-left, by [@spyip](https://github.com/spyip) in PR [#32](https://github.com/spyip/react-film/pull/32).
 - Added `flipperBlurFocusOnClick` prop to `BasicFilm` and `blurFocusOnClick` prop to `Flipper` components, by [@tdurnford](https://github.com/tdurnford) in PR [#33](https://github.com/spyip/react-film/pull/33).
-- Support right-to-left on IE11, by [@spyip](https://github.com/spyip) in PR [#XXX](https://github.com/spyip/react-film/pull/XXX).
-- Hide flipper on edge items and added `autoHideFlipperOnEdge` option, by [@spyip](https://github.com/spyip) in PR [#XXX](https://github.com/spyip/react-film/pull/XXX).
+- Support right-to-left on IE11, by [@spyip](https://github.com/spyip) in PR [#34](https://github.com/spyip/react-film/pull/34).
+- Hide flipper on edge items and added `autoHideFlipperOnEdge` option, by [@spyip](https://github.com/spyip) in PR [#34](https://github.com/spyip/react-film/pull/34).
 
 ### Changed
 
