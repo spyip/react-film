@@ -60,6 +60,7 @@ const createFlipperBoxCSS = ({ boxWidth, cursor, size }) => css({
 
   background: 'Transparent',
   height: '100%',
+  overflow: 'hidden',
   position: 'absolute',
   userSelect: 'none',
   top: 0,
@@ -90,11 +91,13 @@ const createFlipperBoxCSS = ({ boxWidth, cursor, size }) => css({
     }
   },
 
-  '&:hover, &:focus': { '& > div.slider > div': {
-    backgroundColor: 'rgba(0, 0, 0, .8)',
-    color: 'rgba(255, 255, 255, .8)',
-    transitionDuration: 0
-  } },
+  '&:hover, &:focus': {
+    '& > div.slider > div': {
+      backgroundColor: 'rgba(0, 0, 0, .8)',
+      color: 'rgba(255, 255, 255, .8)',
+      transitionDuration: 0
+    }
+  },
 
   '&:active > div.slider > div': {
     backgroundColor: 'Black',
@@ -141,7 +144,7 @@ const createScrollBarHandlerCSS = ({ height }) => css({
   height
 });
 
-export default function ({
+export default function createBasicStyleSet({
   autoHide              = true,
   autoHideFlipperOnEdge = true,
   cursor                = 'pointer',
@@ -175,7 +178,7 @@ export default function ({
       '& > div.slider': {
         ...flipperOverrides,
         left: -50,
-        transitionProperty: 'left',
+        transitionProperty: 'left'
       },
 
       '&:focus > div.slider': {
