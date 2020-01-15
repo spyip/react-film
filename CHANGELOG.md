@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed [#37](https://github.com/spyip/react-film/pull/37), hiding overflowing button when at edge, by [@compulim](https://github.com/compulim) in PR [#39](https://github.com/spyip/react-film/pull/39).
+
 ## [2.0.1] - 2020-01-15
 
 ### Fixed

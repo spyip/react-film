@@ -177,39 +177,27 @@ export default function createBasicStyleSet({
     styles.leftFlipper = css(styles.leftFlipper, {
       '& > div.slider': {
         ...flipperOverrides,
-        left: -50,
+        left: (FLIPPER_BOX_WIDTH + FLIPPER_SIZE) / -2,
         transitionProperty: 'left'
       },
 
-      '&:focus > div.slider': {
+      [`&:focus${ autoHideFlipperOnEdge ? ':not(.hide)' : '' } > div.slider`]: {
         left: 0,
         transitionDelay: '0s'
-      },
-
-      ...(autoHideFlipperOnEdge ? {
-        '&.hide': {
-          left: -FLIPPER_BOX_WIDTH
-        }
-      } : {})
+      }
     });
 
     styles.rightFlipper = css(styles.rightFlipper, {
       '& > div.slider': {
         ...flipperOverrides,
-        right: -50,
+        right: (FLIPPER_BOX_WIDTH + FLIPPER_SIZE) / -2,
         transitionProperty: 'right'
       },
 
-      '&:focus > div.slider': {
+      [`&:focus${ autoHideFlipperOnEdge ? ':not(.hide)' : '' } > div.slider`]: {
         right: 0,
         transitionDelay: '0s'
-      },
-
-      ...(autoHideFlipperOnEdge ? {
-        '&.hide': {
-          right: -FLIPPER_BOX_WIDTH
-        }
-      } : {})
+      }
     });
 
     styles.scrollBarBox = css(styles.scrollBarBox, {
@@ -231,11 +219,11 @@ export default function createBasicStyleSet({
           bottom: 0
         },
 
-        [`& .${ styles.leftFlipper + '' } > div.slider`]: {
+        [`& .${ styles.leftFlipper + '' }${ autoHideFlipperOnEdge ? ':not(.hide)' : '' } > div.slider`]: {
           left: 0
         },
 
-        [`& .${ styles.rightFlipper + '' } > div.slider`]: {
+        [`& .${ styles.rightFlipper + '' }${ autoHideFlipperOnEdge ? ':not(.hide)' : '' } > div.slider`]: {
           right: 0
         }
       }
