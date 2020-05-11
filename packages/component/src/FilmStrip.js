@@ -8,7 +8,9 @@ const ROOT_CSS = css({
   MsOverflowStyle: 'none',
   overflowX: 'scroll',
   overflowY: 'hidden',
+  position: 'relative',
   touchAction: 'manipulation',
+  zIndex: 0,
 
   '&::-webkit-scrollbar': {
     display: 'none'

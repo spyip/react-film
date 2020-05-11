@@ -67,6 +67,7 @@ const createFlipperBoxCSS = ({ boxWidth, cursor, size }) => css({
   touchAction: 'none',
   transitionDuration: '300ms',
   width: boxWidth,
+  zIndex: 1,
 
   '& > div.slider': {
     alignItems: 'center',
