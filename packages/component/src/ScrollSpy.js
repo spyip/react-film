@@ -69,13 +69,15 @@ export default class ScrollSpy extends React.Component {
   }
 
   handleScroll({ target }, initial = false) {
-    const { offsetWidth, scrollLeft, scrollWidth } = target;
+    if (target) {
+      const { offsetWidth, scrollLeft, scrollWidth } = target;
 
-    this.emitScroll(
-      initial,
-      `${ scrollWidth === offsetWidth ? 0 : scrollLeft / (scrollWidth - offsetWidth) * 100 }%`,
-      `${ offsetWidth / scrollWidth * 100 }%`
-    );
+      this.emitScroll(
+        initial,
+        `${ scrollWidth === offsetWidth ? 0 : scrollLeft / (scrollWidth - offsetWidth) * 100 }%`,
+        `${ offsetWidth / scrollWidth * 100 }%`
+      );
+    }
   }
 
   render() {

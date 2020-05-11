@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Breaking changes
+
+- `z-index` added to flipper and filmstrip
+   - List item with `position: relative` will no longer obstructing the left flipper, we are adding `z-index: 1` to both flippers, and `z-index: 0` to filmstrip to form a new [stacking context](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context).
+
+### Fixed
+
+- Fixed list item with `position: relative` will no longer obstructing the left flipper, in PR [#XX](https://github.com/spyip/react-film/pull/XX).
+- Fixed unhandled exception for `offsetWidth of undefined` exception, in PR [#XX](https://github.com/spyip/react-film/pull/XX).
+
 ## [2.0.2] - 2020-01-15
 
 ### Fixed
@@ -22,7 +32,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Breaking changes
 
--  We will no longer include `react` and `react-dom` in our NPM package, instead, we will requires peer dependencies of `react@^16.8.6` and `react-dom@^16.8.6`
+- We will no longer include `react` and `react-dom` in our NPM package, instead, we will requires peer dependencies of `react@^16.8.6` and `react-dom@^16.8.6`
 
 ### Added
 
