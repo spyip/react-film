@@ -1,5 +1,5 @@
 const { resolve } = require('path');
-const Visualizer = require('webpack-visualizer-plugin');
+const { StatsWriterPlugin } = require('webpack-stats-plugin');
 
 module.exports = {
   entry: {
@@ -12,7 +12,12 @@ module.exports = {
     libraryTarget: 'umd',
     path: resolve(__dirname, 'dist')
   },
-  plugins: [new Visualizer()],
+  plugins: [
+    new StatsWriterPlugin({
+      filename: 'stats.json',
+      transform: (_, opts) => JSON.stringify(opts.compiler.getStats().toJson({ chunkModules: true }), null, 2)
+    })
+  ],
   resolve: {
     alias: {
       react: resolve(__dirname, 'node_modules/isomorphic-react/dist/react.js'),

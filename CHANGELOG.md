@@ -6,6 +6,40 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changes
+
+- Replaced [`babel-plugin-version-transform`](https://npmjs.com/package/babel-plugin-version-transform) with [`babel-plugin-transform-inline-environment-variables`](https://npmjs.com/package/babel-plugin-transform-inline-environment-variables), in PR [#XXX](https://github.com/spyip/react-film/pull/XXX)
+- Bump dependencies, in PR [#XXX](https://github.com/spyip/react-film/pull/XXX)
+   - Production dependencies
+      - [`@babel/runtime@7.11.2`](https://npmjs.com/package/@babel/runtime)
+      - [`classnames@2.2.6`](https://npmjs.com/package/classnames)
+      - [`create-emotion@10.0.27`](https://npmjs.com/package/create-emotion)
+      - [`html-react-parser@0.13.0`](https://npmjs.com/package/html-react-parser)
+      - [`memoize-one@5.1.1`](https://npmjs.com/package/memoize-one)
+   - Development dependencies
+      - [`@babel/cli@7.10.5`](https://npmjs.com/package/@babel/cli)
+      - [`@babel/core@7.11.4`](https://npmjs.com/package/@babel/core)
+      - [`@babel/plugin-proposal-object-rest-spread@7.11.0`](https://npmjs.com/package/@babel/plugin-proposal-object-rest-spread)
+      - [`@babel/plugin-transform-runtime@7.11.0`](https://npmjs.com/package/@babel/plugin-transform-runtime)
+      - [`@babel/preset-env@7.11.0`](https://npmjs.com/package/@babel/preset-env)
+      - [`@babel/preset-react@7.10.4`](https://npmjs.com/package/@babel/preset-react)
+      - [`babel-jest@26.3.0`](https://npmjs.com/package/babel-jest)
+      - [`concurrently@5.3.0`](https://npmjs.com/package/concurrently)
+      - [`core-js@3.6.5`](https://npmjs.com/package/core-js)
+      - [`create-emotion@10.0.27`](https://npmjs.com/package/create-emotion)
+      - [`eslint-plugin-prettier@3.1.4`](https://npmjs.com/package/eslint-plugin-prettier)
+      - [`eslint@7.7.0`](https://npmjs.com/package/eslint)
+      - [`jest@26.4.2`](https://npmjs.com/package/jest)
+      - [`lerna@3.22.1`](https://npmjs.com/package/lerna)
+      - [`prettier@2.0.5`](https://npmjs.com/package/prettier)
+      - [`react-app-polyfill@1.0.6`](https://npmjs.com/package/react-app-polyfill)
+      - [`react-film@0.0.0-0`](https://npmjs.com/package/react-film)
+      - [`react-scripts@3.4.3`](https://npmjs.com/package/react-scripts)
+      - [`rimraf@3.0.2`](https://npmjs.com/package/rimraf)
+      - [`serve@11.3.2`](https://npmjs.com/package/serve)
+      - [`webpack-cli@3.3.12`](https://npmjs.com/package/webpack-cli)
+      - [`webpack@4.44.1`](https://npmjs.com/package/webpack)
+
 ## [2.1.0] - 2020-05-11
 
 ### Breaking changes

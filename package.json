@@ -13,10 +13,10 @@
     "test": "lerna run test"
   },
   "devDependencies": {
-    "concurrently": "^4.1.0",
-    "lerna": "^3.13.1",
+    "concurrently": "^5.3.0",
+    "lerna": "^3.22.1",
     "react": "16.8.6",
     "react-dom": "16.8.6",
-    "serve": "^11.1.0"
+    "serve": "^11.3.2"
   }
 }

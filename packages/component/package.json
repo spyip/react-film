@@ -33,21 +33,21 @@
   },
   "homepage": "https://github.com/spyip/react-film#readme",
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
-    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/preset-react": "^7.0.0",
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
     "babel-core": "^6.26.3",
-    "babel-jest": "^24.8.0",
-    "babel-plugin-version-transform": "^1.0.0",
-    "jest": "^24.8.0",
-    "rimraf": "^2.6.3"
+    "babel-jest": "^26.3.0",
+    "babel-plugin-transform-inline-environment-variables": "^0.4.3",
+    "jest": "^26.4.2",
+    "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "classnames": "^2.2.6",
-    "glamor": "^2.20.40",
-    "memoize-one": "^5.0.4"
+    "classnames": "2.2.6",
+    "glamor": "2.20.40",
+    "memoize-one": "5.1.1"
   },
   "peerDependencies": {
     "react": "^16.8.6",
