@@ -8,8 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changes
 
-- Replaced [`babel-plugin-version-transform`](https://npmjs.com/package/babel-plugin-version-transform) with [`babel-plugin-transform-inline-environment-variables`](https://npmjs.com/package/babel-plugin-transform-inline-environment-variables), in PR [#XXX](https://github.com/spyip/react-film/pull/XXX)
-- Bump dependencies, in PR [#XXX](https://github.com/spyip/react-film/pull/XXX)
+- Replaced [`babel-plugin-version-transform`](https://npmjs.com/package/babel-plugin-version-transform) with [`babel-plugin-transform-inline-environment-variables`](https://npmjs.com/package/babel-plugin-transform-inline-environment-variables), in PR [#56](https://github.com/spyip/react-film/pull/56)
+- Bump dependencies, in PR [#56](https://github.com/spyip/react-film/pull/56)
    - Production dependencies
       - [`@babel/runtime@7.11.2`](https://npmjs.com/package/@babel/runtime)
       - [`classnames@2.2.6`](https://npmjs.com/package/classnames)
