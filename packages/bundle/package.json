@@ -15,23 +15,23 @@
     "start:webpack": "webpack --config webpack-watch.config.js --watch"
   },
   "dependencies": {
-    "@babel/runtime": "^7.5.5",
-    "html-react-parser": "^0.6.1",
+    "@babel/runtime": "7.11.2",
+    "html-react-parser": "0.13.0",
     "react-film": "0.0.0-0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
-    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
-    "@babel/plugin-transform-runtime": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/preset-react": "^7.0.0",
-    "concurrently": "^4.1.1",
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
+    "@babel/plugin-transform-runtime": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
+    "concurrently": "^5.3.0",
     "isomorphic-react": "0.0.0-0",
     "isomorphic-react-dom": "0.0.0-0",
-    "rimraf": "^2.6.3",
-    "webpack": "^4.36.1",
-    "webpack-cli": "^3.3.6",
-    "webpack-visualizer-plugin": "^0.1.11"
+    "rimraf": "^3.0.2",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-stats-plugin": "^0.3.2"
   }
 }

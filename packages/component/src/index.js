@@ -7,23 +7,15 @@ import FilmStrip from './FilmStrip';
 import Flipper from './Flipper';
 import ScrollBar from './ScrollBar';
 
-export default BasicFilm
+export default BasicFilm;
 
-export {
-  Composer,
-  Context,
-  createBasicStyleSet,
-  Dots,
-  FilmStrip,
-  Flipper,
-  ScrollBar
-}
+export { Composer, Context, createBasicStyleSet, Dots, FilmStrip, Flipper, ScrollBar };
 
 if (typeof document !== 'undefined' && document.head) {
   const meta = document.createElement('meta');
 
   meta.setAttribute('name', 'react-film');
-  meta.setAttribute('content', `version=${ VERSION }`);
+  meta.setAttribute('content', `version=${process.env.npm_package_version}`);
 
   document.head.appendChild(meta);
 }
