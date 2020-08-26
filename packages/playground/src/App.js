@@ -7,8 +7,8 @@ const styleSheet = createStyleSheet({ autoHide: false, cursor: null });
 const myStyleSheet = {
   ...styleSheet,
 
-  '& .react-film__scroll-bar__handle': {
-    backgroundColor: 'Red!important'
+  '& .react-film__scroll-bar .react-film__scroll-bar__handle': {
+    backgroundColor: 'Red'
   }
 };
 
