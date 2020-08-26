@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Children } from 'react';
 
-import useInternalContext from './hooks/internal/useInternalContext';
+import useItemContainerRef from './hooks/useItemContainerRef';
+import useScrollableRef from './hooks/useScrollableRef';
 
 const Filmstrip = ({ children }) => {
-  const { itemContainerRef, scrollableRef } = useInternalContext();
+  const itemContainerRef = useItemContainerRef();
+  const scrollableRef = useScrollableRef();
 
   return (
     <div className="react-film__filmstrip" ref={scrollableRef}>
