@@ -1,8 +1,7 @@
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, { useCallback } from 'react';
 
-import useIndex from './hooks/internal/useIndex';
+import useIndex from './hooks/useIndex';
 import useScrollTo from './hooks/useScrollTo';
 
 const Dot = ({ 'aria-label': ariaLabel, itemIndex }) => {
