@@ -3,7 +3,7 @@ import Composer from './Composer';
 import Context from './LegacyContext';
 import createStyleSheet from './createStyleSheet';
 import Dots from './Dots';
-import FilmStrip from './FilmStrip';
+import Filmstrip from './FilmStrip';
 import Flipper from './Flipper';
 import ReactFilm from './ReactFilm';
 import ScrollBar from './ScrollBar';
@@ -29,7 +29,8 @@ export {
   Context,
   createStyleSheet,
   Dots,
-  FilmStrip,
+  Filmstrip as FilmStrip,
+  Filmstrip,
   Flipper,
   ScrollBar,
   useDir,

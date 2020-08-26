@@ -1,10 +1,9 @@
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, { Children } from 'react';
 
 import useInternalContext from './hooks/internal/useInternalContext';
 
-const FilmStrip = ({ children }) => {
+const Filmstrip = ({ children }) => {
   const { itemContainerRef, scrollableRef } = useInternalContext();
 
   return (
@@ -18,12 +17,12 @@ const FilmStrip = ({ children }) => {
   );
 };
 
-FilmStrip.defaultProps = {
+Filmstrip.defaultProps = {
   children: undefined
 };
 
-FilmStrip.propTypes = {
+Filmstrip.propTypes = {
   children: PropTypes.any
 };
 
-export default FilmStrip;
+export default Filmstrip;

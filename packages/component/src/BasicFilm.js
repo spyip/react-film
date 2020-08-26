@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { useMemo } from 'react';
 
 import Dots from './Dots';
-import FilmStrip from './FilmStrip';
+import Filmstrip from './FilmStrip';
 import Flipper from './Flipper';
 import ScrollBar from './ScrollBar';
 import useDir from './hooks/useDir';
@@ -45,7 +45,7 @@ const BasicFilm = ({ children, className }) => {
             {leftFlipperText}
           </Flipper>
         )}
-        <FilmStrip>{children}</FilmStrip>
+        <Filmstrip>{children}</Filmstrip>
         {!!numItems && scrollBarWidth !== '100%' && !!showFlipper && (
           <Flipper blurFocusOnClick={flipperBlurFocusOnClick} mode="right">
             {rightFlipperText}

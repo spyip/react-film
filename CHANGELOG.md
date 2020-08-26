@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
    - Added RTL support on Chromium Edge
    - Added `overscroll-behavior-x: contain` to prevent scroll-chaining
    - Added `eslint` and `prettier`
+   - Sub-component `FilmStrip` is renamed to `Filmstrip`
 
 ### Changes
 
