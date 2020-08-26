@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
    - Added `overscroll-behavior-x: contain` to prevent scroll-chaining
    - Added `eslint` and `prettier`
    - Sub-component `FilmStrip` is renamed to `Filmstrip`
+   - Moved from class components to functional components
 
 ### Changes
 
