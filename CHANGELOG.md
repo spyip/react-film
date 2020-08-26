@@ -6,8 +6,29 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Breaking changes
+
+- API through React Context is being deprecated in favor of React Hooks
+- CSS has been revamped by introducing support of customization through CSS BEM
+   - `className` props are removed from sub-components
+   - `createBasicStyleSet()` will only return a single complete style set, namely `root`. The style set will be a React CSS object, instead of a class name
+   - `styleSet` prop will accept a map of React CSS object, instead of class names
+
+### Added
+
+- Revamped in PR [#57](https://github.com/spyip/react-film/pull/57)
+   - [Single set of CSS BEM style](https://github.com/spyip/react-film/search?q=createStyleSheet.js&unscoped_q=createStyleSheet.js)
+   - Added `nonce` prop for Content Security Policy support
+   - Added React Hooks API
+   - Added RTL support on Chromium Edge
+   - Added `overscroll-behavior-x: contain` to prevent scroll-chaining
+   - Added `eslint` and `prettier`
+   - Sub-component `FilmStrip` is renamed to `Filmstrip`
+   - Moved from class components to functional components
+
 ### Changes
 
+- Moved from [`glamor`](https://npmjs.com/package/glamor) to [`create-emotion`](https://npmjs.com/package/create-emotion), in PR [#57](https://github.com/spyip/react-film/pull/57)
 - Replaced [`babel-plugin-version-transform`](https://npmjs.com/package/babel-plugin-version-transform) with [`babel-plugin-transform-inline-environment-variables`](https://npmjs.com/package/babel-plugin-transform-inline-environment-variables), in PR [#56](https://github.com/spyip/react-film/pull/56)
 - Bump dependencies, in PR [#56](https://github.com/spyip/react-film/pull/56)
    - Production dependencies

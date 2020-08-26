@@ -1,19 +1,11 @@
-import React from 'react';
+import { useEffect } from 'react';
 
-export default class CallFunction extends React.Component {
-  componentDidMount() {
-    const { props: { arg, fn } } = this;
-
+const CallFunction = ({ arg, fn }) => {
+  useEffect(() => {
     fn && fn(arg);
-  }
+  }, [arg, fn]);
 
-  componentDidUpdate(prevProps) {
-    const { props: { arg, fn } } = this;
+  return false;
+};
 
-    (arg !== prevProps.arg || fn !== prevProps.fn) && fn(arg);
-  }
-
-  render() {
-    return false;
-  }
-}
+export default CallFunction;

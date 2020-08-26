@@ -1,34 +1,37 @@
-import { css } from 'glamor';
 import classNames from 'classnames';
-import React, { useCallback, useContext, useRef } from 'react';
-
-import Context from './Context';
+import PropTypes from 'prop-types';
+import React, { useCallback, useRef } from 'react';
 
 import * as browser from './browser';
+import useDir from './hooks/useDir';
+import useScrollBarPercentage from './hooks/useScrollBarPercentage';
+import useScrollOneLeft from './hooks/useScrollOneLeft';
+import useScrollOneRight from './hooks/useScrollOneRight';
 
-const ROOT_CSS = css({
-  border: 0,
-  outline: 0
-});
-
-export default ({ 'aria-label': ariaLabel, blurFocusOnClick, children, className, mode }) => {
-  const { dir, scrollBarPercentage, scrollOneLeft, scrollOneRight } = useContext(Context);
-  const ref = useRef();
+const Flipper = ({ 'aria-label': ariaLabel, blurFocusOnClick, children, mode }) => {
+  const [dir] = useDir();
+  const [scrollBarPercentage] = useScrollBarPercentage();
+  const buttonRef = useRef();
   const left = mode === 'left';
+  const scrollOneLeft = useScrollOneLeft();
+  const scrollOneRight = useScrollOneRight();
 
   const handleClick = useCallback(() => {
     left ? scrollOneLeft() : scrollOneRight();
-    blurFocusOnClick && ref.current.blur();
-  }, [blurFocusOnClick, mode, ref, scrollOneLeft, scrollOneRight]);
+    blurFocusOnClick && buttonRef.current && buttonRef.current.blur();
+  }, [blurFocusOnClick, buttonRef, left, scrollOneLeft, scrollOneRight]);
 
-  const handleKeyDown = useCallback(event => {
-    const { key } = event;
+  const handleKeyDown = useCallback(
+    event => {
+      const { key } = event;
 
-    if (key === 'Enter' || key === ' ') {
-      event.preventDefault();
-      left ? scrollOneLeft() : scrollOneRight();
-    }
-  }, [mode, ref, scrollOneLeft, scrollOneRight]);
+      if (key === 'Enter' || key === ' ') {
+        event.preventDefault();
+        left ? scrollOneLeft() : scrollOneRight();
+      }
+    },
+    [left, scrollOneLeft, scrollOneRight]
+  );
 
   let hide;
 
@@ -48,20 +51,36 @@ export default ({ 'aria-label': ariaLabel, blurFocusOnClick, children, className
 
   return (
     <button
-      aria-label={ ariaLabel || (left ? 'left' : 'right') }
-      className={ classNames(
-        ROOT_CSS + '',
-        className,
-        { hide }
-      ) }
+      aria-label={ariaLabel || (left ? 'left' : 'right')}
+      className={classNames('react-film__flipper', {
+        'react-film__flipper--hide': hide,
+        'react-film__flipper--left': left,
+        'react-film__flipper--right': !left
+      })}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
+      ref={buttonRef}
       type="button"
-      ref={ref}
     >
-      <div className="slider">
-        { children }
+      <div className="react-film__flipper__slider">
+        <div className="react-film__flipper__content">{children}</div>
       </div>
     </button>
   );
-}
+};
+
+Flipper.defaultProps = {
+  'aria-label': undefined,
+  blurFocusOnClick: false,
+  children: undefined,
+  mode: 'left'
+};
+
+Flipper.propTypes = {
+  'aria-label': PropTypes.string,
+  blurFocusOnClick: PropTypes.bool,
+  children: PropTypes.any,
+  mode: PropTypes.oneOf(['left', 'right'])
+};
+
+export default Flipper;
