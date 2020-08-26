@@ -11,7 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - API through React Context is being deprecated in favor of React Hooks
 - CSS has been revamped by introducing support of customization through CSS BEM
    - `className` props are removed from sub-components
-   - `createBasicStyleSet()` will only return a single complete style set, namely `root`
+   - `createBasicStyleSet()` will only return a single complete style set, namely `root`. The style set will be a React CSS object, instead of a class name
+   - `styleSet` prop will accept a map of React CSS object, instead of class names
 
 ### Added
 
