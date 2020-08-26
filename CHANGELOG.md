@@ -17,8 +17,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- Revamped in PR [#XXX](https://github.com/spyip/react-film/pull/XXX)
-   - Single CSS BEM stylesheet
+- Revamped in PR [#57](https://github.com/spyip/react-film/pull/57)
+   - [Single CSS BEM stylesheet](https://github.com/spyip/react-film/search?q=createStyleSheet.js&unscoped_q=createStyleSheet.js)
    - Added `nonce` prop for Content Security Policy support
    - Added React Hooks API
    - Added RTL support on Chromium Edge
@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changes
 
-- Moved from [`glamor`](https://npmjs.com/package/glamor) to [`create-emotion`](https://npmjs.com/package/create-emotion), in PR [#XXX](https://github.com/spyip/react-film/pull/XXX)
+- Moved from [`glamor`](https://npmjs.com/package/glamor) to [`create-emotion`](https://npmjs.com/package/create-emotion), in PR [#57](https://github.com/spyip/react-film/pull/57)
 - Replaced [`babel-plugin-version-transform`](https://npmjs.com/package/babel-plugin-version-transform) with [`babel-plugin-transform-inline-environment-variables`](https://npmjs.com/package/babel-plugin-transform-inline-environment-variables), in PR [#56](https://github.com/spyip/react-film/pull/56)
 - Bump dependencies, in PR [#56](https://github.com/spyip/react-film/pull/56)
    - Production dependencies
