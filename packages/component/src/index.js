@@ -1,15 +1,51 @@
 import BasicFilm from './BasicFilm';
 import Composer from './Composer';
-import Context from './Context';
-import createBasicStyleSet from './createBasicStyleSet';
+import Context from './LegacyContext';
+import createStyleSheet from './createStyleSheet';
 import Dots from './Dots';
 import FilmStrip from './FilmStrip';
 import Flipper from './Flipper';
+import ReactFilm from './ReactFilm';
 import ScrollBar from './ScrollBar';
+import useDir from './hooks/useDir';
+import useHeight from './hooks/useHeight';
+import useIndex from './hooks/useIndex';
+import useIndexFraction from './hooks/useIndexFraction';
+import useNumItems from './hooks/useNumItems';
+import useScrollBarPercentage from './hooks/useScrollBarPercentage';
+import useScrollBarWidth from './hooks/useScrollBarWidth';
+import useScrolling from './hooks/useScrolling';
+import useScrollOneLeft from './hooks/useScrollOneLeft';
+import useScrollOneRight from './hooks/useScrollOneRight';
+import useScrollTo from './hooks/useScrollTo';
+import useStyleOptions from './hooks/useStyleOptions';
+import useStyleSheetClassName from './hooks/useStyleSheetClassName';
 
-export default BasicFilm;
+export default ReactFilm;
 
-export { Composer, Context, createBasicStyleSet, Dots, FilmStrip, Flipper, ScrollBar };
+export {
+  BasicFilm,
+  Composer,
+  Context,
+  createStyleSheet,
+  Dots,
+  FilmStrip,
+  Flipper,
+  ScrollBar,
+  useDir,
+  useHeight,
+  useIndex,
+  useIndexFraction,
+  useNumItems,
+  useScrollBarPercentage,
+  useScrollBarWidth,
+  useScrolling,
+  useScrollOneLeft,
+  useScrollOneRight,
+  useScrollTo,
+  useStyleOptions,
+  useStyleSheetClassName
+};
 
 if (typeof document !== 'undefined' && document.head) {
   const meta = document.createElement('meta');

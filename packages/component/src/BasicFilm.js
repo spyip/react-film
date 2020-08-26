@@ -1,114 +1,73 @@
-import { css } from 'glamor';
 import classNames from 'classnames';
-import React from 'react';
+import PropTypes from 'prop-types';
+import React, { useMemo } from 'react';
 
-import AutoCenter from './AutoCenter';
-import Composer from './Composer';
-import Context from './Context';
-import createBasicStyleSet from './createBasicStyleSet';
 import Dots from './Dots';
 import FilmStrip from './FilmStrip';
 import Flipper from './Flipper';
-import memoize from './memoize';
 import ScrollBar from './ScrollBar';
+import useDir from './hooks/useDir';
+import useHeight from './hooks/useHeight';
+import useNumItems from './hooks/useNumItems';
+import useScrollBarWidth from './hooks/useScrollBarWidth';
+import useScrolling from './hooks/useScrolling';
+import useStyleSheetClassName from './hooks/useStyleSheetClassName';
+import useStyleOptions from './hooks/useStyleOptions';
 
-const CAROUSEL_CSS = css({
-  overflow: 'hidden',
-  position: 'relative'
-});
+const BasicFilm = ({ children, className }) => {
+  const [dir] = useDir();
+  const [height] = useHeight();
+  const [numItems] = useNumItems();
+  const [scrollBarWidth] = useScrollBarWidth();
+  const [scrolling] = useScrolling();
+  const [styleSheetClassName] = useStyleSheetClassName();
+  const [
+    { flipperBlurFocusOnClick, leftFlipperText, rightFlipperText, showDots, showFlipper, showScrollBar }
+  ] = useStyleOptions();
 
-class BasicFilm extends React.Component {
-  constructor(props) {
-    super(props);
+  const contentStyle = useMemo(() => ({ height }), [height]);
 
-    this.createHeightStyle = memoize(height => ({ height }));
-    this.createBasicStyleSet = memoize(({ autoHide, autoHideFlipperOnEdge }) => createBasicStyleSet({ autoHide, autoHideFlipperOnEdge }));
-  }
+  return (
+    <div
+      className={classNames(
+        'react-film__root',
+        {
+          'react-film__root--scrolling': scrolling
+        },
+        styleSheetClassName,
+        (className || '') + ''
+      )}
+      dir={dir}
+    >
+      <div className="react-film__root__content" style={contentStyle}>
+        {!!numItems && scrollBarWidth !== '100%' && !!showFlipper && (
+          <Flipper blurFocusOnClick={flipperBlurFocusOnClick} mode="left">
+            {leftFlipperText}
+          </Flipper>
+        )}
+        <FilmStrip>{children}</FilmStrip>
+        {!!numItems && scrollBarWidth !== '100%' && !!showFlipper && (
+          <Flipper blurFocusOnClick={flipperBlurFocusOnClick} mode="right">
+            {rightFlipperText}
+          </Flipper>
+        )}
+        {!!numItems && scrollBarWidth !== '100%' && !!showScrollBar && <ScrollBar />}
+      </div>
+      {!!numItems && scrollBarWidth !== '100%' && !!showDots && <Dots>{() => <div />}</Dots>}
+    </div>
+  );
+};
 
-  render() {
-    const { props } = this;
+// TODO: Move from styleSet to styleSheet.
 
-    const {
-      carousel,
-      dotsBox,
-      dotsItem,
-      leftFlipper,
-      rightFlipper,
-      scrollBarBox,
-      scrollBarHandler,
-    } = {
-      ...this.createBasicStyleSet(props),
-      ...(props.styleSet || {})
-    };
+BasicFilm.defaultProps = {
+  children: undefined,
+  className: undefined
+};
 
-    const { dir } = props;
-    const rtl = dir === 'rtl';
+BasicFilm.propTypes = {
+  children: PropTypes.any,
+  className: PropTypes.string
+};
 
-    const {
-      leftFlipperText = rtl ? '>' : '<',
-      flipperBlurFocusOnClick,
-      numItems,
-      rightFlipperText = rtl ? '<' : '>',
-      scrollBarWidth,
-      scrolling,
-      showDots = true,
-      showFlipper = true,
-      showScrollBar = true
-    } = props;
-
-    return (
-      <React.Fragment>
-        <div className={ props.className } dir={ dir }>
-          <div
-            className={ classNames(CAROUSEL_CSS + '', { scrolling }, carousel + '') }
-            style={ this.createHeightStyle(props.height) }
-          >
-            { !!numItems && scrollBarWidth !== '100%' && !!showFlipper &&
-              <Flipper blurFocusOnClick={ flipperBlurFocusOnClick } className={ leftFlipper + '' } mode="left">
-                <div>{ leftFlipperText }</div>
-              </Flipper>
-            }
-            <FilmStrip>
-              { props.children }
-            </FilmStrip>
-            { !!numItems && scrollBarWidth !== '100%' && !!showFlipper &&
-              <Flipper blurFocusOnClick={ flipperBlurFocusOnClick } className={ rightFlipper + '' } mode="right">
-                <div>{ rightFlipperText }</div>
-              </Flipper>
-            }
-            { !!numItems && scrollBarWidth !== '100%' && !!showScrollBar &&
-              <ScrollBar
-                className={ scrollBarBox + '' }
-                handlerClassName={ scrollBarHandler + '' }
-              />
-            }
-          </div>
-          {
-            !!numItems && scrollBarWidth !== '100%' && !!showDots &&
-              <Dots
-                className={ dotsBox + '' }
-                itemClassName={ dotsItem + ''}
-              >
-                { () => <div /> }
-              </Dots>
-          }
-        </div>
-        { props.autoCenter !== false && <AutoCenter /> }
-      </React.Fragment>
-    );
-  }
-}
-
-export default props =>
-  <Composer dir={ props.dir } numItems={ React.Children.count(props.children) }>
-    <Context.Consumer>
-      { ({ numItems, scrollBarWidth, scrolling }) =>
-        <BasicFilm
-          { ...props }
-          numItems={ numItems }
-          scrollBarWidth={ scrollBarWidth }
-          scrolling={ scrolling }
-        />
-      }
-    </Context.Consumer>
-  </Composer>
+export default BasicFilm;

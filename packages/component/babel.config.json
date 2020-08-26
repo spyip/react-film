@@ -1,10 +1,13 @@
 {
   "plugins": [
     "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-transform-runtime",
     [
       "transform-inline-environment-variables",
       {
-        "include": ["npm_package_version"]
+        "include": [
+          "npm_package_version"
+        ]
       }
     ]
   ],
@@ -13,7 +16,9 @@
       "@babel/preset-env",
       {
         "targets": {
-          "browsers": ["last 2 versions"]
+          "browsers": [
+            "last 2 versions"
+          ]
         },
         "modules": "commonjs"
       }

@@ -1,42 +1,40 @@
-import { css } from 'glamor';
-import classNames from 'classnames';
 import React from 'react';
 
 import * as browser from './browser';
-import Context from './Context';
+import useDir from './hooks/useDir';
+import useScrollBarPercentage from './hooks/useScrollBarPercentage';
+import useScrollBarWidth from './hooks/useScrollBarWidth';
 
-const ROOT_CSS = css({
-  boxSizing: 'border-box'
-});
+const ScrollBar = () => {
+  const [dir] = useDir();
+  const [scrollBarPercentage] = useScrollBarPercentage();
+  const [scrollBarWidth] = useScrollBarWidth();
 
-export default ({ className, handlerClassName }) =>
-  <Context.Consumer>
-    { ({ dir, scrollBarPercentage, scrollBarWidth }) =>
-      <div className={ classNames(ROOT_CSS + '', className) }>
-        <div
-          className={ handlerClassName }
-          style={{
-            ...(dir === 'rtl' ?
-              browser.firefox || browser.safari ?
-                {
-                  marginRight: `${ (parseFloat(scrollBarWidth) / 100 - 1) * parseFloat(scrollBarPercentage) }%`
+  return (
+    <div className="react-film__scroll-bar">
+      <div
+        className="react-film__scroll-bar__handle"
+        style={{
+          ...(dir === 'rtl'
+            ? browser.firefox || browser.safari
+              ? {
+                  marginRight: `${(parseFloat(scrollBarWidth) / 100 - 1) * parseFloat(scrollBarPercentage)}%`
                 }
-              : browser.edgeUWP || browser.internetExplorer ?
-                {
-                  marginRight: `${ (1 - parseFloat(scrollBarWidth) / 100) * parseFloat(scrollBarPercentage) }%`
+              : browser.edgeUWP || browser.internetExplorer
+              ? {
+                  marginRight: `${(1 - parseFloat(scrollBarWidth) / 100) * parseFloat(scrollBarPercentage)}%`
                 }
-              :
-                {
-                  marginRight: `${ (1 - parseFloat(scrollBarWidth) / 100) * (100 - parseFloat(scrollBarPercentage)) }%`
+              : {
+                  marginRight: `${(1 - parseFloat(scrollBarWidth) / 100) * (100 - parseFloat(scrollBarPercentage))}%`
                 }
-            :
-              {
-                marginLeft: `${ (1 - parseFloat(scrollBarWidth) / 100) * parseFloat(scrollBarPercentage) }%`
-              }
-            ),
-            width: scrollBarWidth
-          }}
-        />
-      </div>
-    }
-  </Context.Consumer>
+            : {
+                marginLeft: `${(1 - parseFloat(scrollBarWidth) / 100) * parseFloat(scrollBarPercentage)}%`
+              }),
+          width: scrollBarWidth
+        }}
+      />
+    </div>
+  );
+};
+
+export default ScrollBar;

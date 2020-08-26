@@ -6,8 +6,28 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Breaking changes
+
+- API through React Context is being deprecated in favor of React Hooks
+- `styleSet` are removed in favor of `styleSheet`
+   - The new `styleSheet` is a React-favored CSS stylesheet object
+   - Call `createStyleSheet()` to create a stylesheet for customization
+- CSS has be revamped by introducing support of customization through CSS BEM
+   - `className` props are removed from sub-components
+
+### Added
+
+- Revamped in PR [#XXX](https://github.com/spyip/react-film/pull/XXX)
+   - Single CSS BEM stylesheet
+   - Added `nonce` prop for Content Security Policy support
+   - Added React Hooks API
+   - Added RTL support on Chromium Edge
+   - Added `overscroll-behavior-x: contain` to prevent scroll-chaining
+   - Added `eslint` and `prettier`
+
 ### Changes
 
+- Moved from [`glamor`](https://npmjs.com/package/glamor) to [`create-emotion`](https://npmjs.com/package/create-emotion), in PR [#XXX](https://github.com/spyip/react-film/pull/XXX)
 - Replaced [`babel-plugin-version-transform`](https://npmjs.com/package/babel-plugin-version-transform) with [`babel-plugin-transform-inline-environment-variables`](https://npmjs.com/package/babel-plugin-transform-inline-environment-variables), in PR [#56](https://github.com/spyip/react-film/pull/56)
 - Bump dependencies, in PR [#56](https://github.com/spyip/react-film/pull/56)
    - Production dependencies

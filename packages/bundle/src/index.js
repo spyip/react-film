@@ -19,6 +19,4 @@ function retrofit(element, props) {
   );
 }
 
-export {
-  retrofit
-}
+export { retrofit };

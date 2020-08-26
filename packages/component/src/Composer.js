@@ -1,255 +1,206 @@
-import memoize from 'memoize-one';
-import React from 'react';
+import createEmotion from 'create-emotion';
+import PropTypes from 'prop-types';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import * as browser from './browser';
-import best from './best';
-import Context from './Context';
-import ScrollSpy from './ScrollSpy';
-import ScrollTo from './ScrollTo';
+import AutoCenter from './AutoCenter';
+import computeScrollLeft from './computeScrollLeft';
+import createCSSKey from './util/createCSSKey';
+import createStyleSheet from './createStyleSheet';
+import FunctionContext from './FunctionContext';
+import getView from './getView';
+import InternalContext from './InternalContext';
+import LegacyContext from './LegacyContext';
+import patchStyleOptions from './patchStyleOptions';
+import PropsContext from './PropsContext';
+import useAnimateScrollLeft from './hooks/internal/useAnimateScrollLeft';
+import useObserveScrollLeft from './hooks/internal/useObserveScrollLeft';
+import ViewContext from './ViewContext';
 
-function getView(
-  dir,
-  { current: scrollable } = {},
-  { current: itemContainer } = {},
-  scrollingTo
-) {
-  const rtl = dir === 'rtl';
+// We pool the emotion, so we don't create a new set of <style> for every component and reuse as much as we could.
+const pooledEmotion = {};
 
-  if (itemContainer && scrollable) {
-    const scrollLeft = scrollingTo || scrollable.scrollLeft;
-    const trueScrollLeft =
-      rtl ?
-        browser.chrome ?
-          scrollLeft - (scrollable.scrollWidth - scrollable.offsetWidth)
-        : browser.edgeUWP || browser.internetExplorer ?
-          -scrollLeft
-        :
-          scrollLeft
-      :
-        scrollLeft;
-    const items = itemContainer.children; // This will enumerate <li> inside <FilmStrip>
-    const scrollCenter = trueScrollLeft + scrollable.offsetWidth / 2;
-    const index = best([].slice.call(items), item => {
-      const offsetCenter = item.offsetLeft + item.offsetWidth / 2;
+const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleSheet }) => {
+  dir = dir === 'ltr' || dir === 'rtl' ? dir : undefined;
 
-      return 1 / Math.abs(scrollCenter - offsetCenter);
-    });
+  const patchedStyleOptions = useMemo(() => patchStyleOptions(styleOptions), [styleOptions]);
 
-    if (~index) {
-      const item = items[index];
+  const styleSheetClassName = useMemo(() => {
+    const emotion =
+      pooledEmotion[nonce] ||
+      (pooledEmotion[nonce] = createEmotion({ key: `css-react-film-${createCSSKey()}`, nonce }));
 
-      const offsetCenter = item.offsetLeft + item.offsetWidth / 2;
-      let indexFraction = index + (scrollCenter - offsetCenter) / item.offsetWidth * (rtl ? -1 : 1);
+    return emotion.css(styleSheet || createStyleSheet(patchedStyleOptions)) + '';
+  }, [nonce, patchedStyleOptions, styleSheet]);
 
-      // We "fix" indexFraction if the viewport is at the start/end of the content
-      // This is to simplify code that use Math.round(indexFraction) to find the scrollable index
-      // if (scrollLeft === 0) {
-      //   indexFraction = 0;
-      // } else if (scrollLeft >= scrollable.scrollWidth - scrollable.offsetWidth) {
-      //   indexFraction = items.length - 1;
-      // } else if (indexFraction % 1 > .99 || indexFraction % 1 < .01) {
-      //   indexFraction = Math.round(indexFraction);
-      // }
+  const [_, forceRender] = useState();
+  const itemContainerRef = useRef();
+  const scrollableRef = useRef();
+  const scrollLeftRef = useRef(null);
+  const scrollTimeoutRef = useRef();
 
-      if (indexFraction % 1 > .99 || indexFraction % 1 < .01) {
-        indexFraction = Math.round(indexFraction);
-      }
+  useEffect(() => () => clearTimeout(scrollTimeoutRef.current), [scrollTimeoutRef]);
 
-      let selectedIndex;
+  const scrollTo = useCallback(
+    scrollFn => {
+      const view = getView(dir, scrollableRef.current, itemContainerRef.current, scrollLeftRef.current);
 
-      if (Math.abs(trueScrollLeft) < 1) {
-        selectedIndex = 0;
-      } else if (
-        rtl ?
-          trueScrollLeft <= scrollable.offsetWidth - scrollable.scrollWidth
-        :
-          trueScrollLeft >= scrollable.scrollWidth - scrollable.offsetWidth
-      ) {
-        selectedIndex = items.length - 1;
-      } else {
-        selectedIndex = Math.round(indexFraction);
-      }
+      if (view) {
+        const { index, indexFraction } = view;
+        const targetIndex = scrollFn({ index, indexFraction });
 
-      return {
-        index: selectedIndex,
-        indexFraction
-      };
-    }
-  }
-}
-
-function getScrollLeft(
-  dir,
-  { current: scrollable } = {},
-  { current: itemContainer } = {},
-  index
-) {
-  const rtl = dir === 'rtl';
-
-  if (itemContainer && scrollable) {
-    const items = itemContainer.children; // This will enumerate <li> inside <FilmStrip>
-    const item = items[Math.max(0, Math.min(items.length - 1, index))];
-
-    if (item) {
-      if (scrollable.offsetWidth === scrollable.scrollWidth) {
-        return 0;
-      }
-
-      let result = item.offsetLeft + (item.offsetWidth - scrollable.offsetWidth) / 2;
-
-      if (rtl) {
-        result = Math.min(result, 0);
-        result = Math.max(result, scrollable.offsetWidth - scrollable.scrollWidth);
-      } else {
-        result = Math.max(result, 0);
-        result = Math.min(result, scrollable.scrollWidth - scrollable.offsetWidth);
-      }
-
-      if (rtl) {
-        if (browser.chrome) {
-          result += scrollable.scrollWidth - scrollable.offsetWidth;
-        } else if (browser.edgeUWP || browser.internetExplorer) {
-          result = -result;
+        if (typeof targetIndex === 'number') {
+          scrollLeftRef.current = computeScrollLeft(dir, scrollableRef, itemContainerRef, targetIndex);
+          forceRender({});
         }
       }
-      return result;
-    }
-  }
-}
+    },
+    [dir, forceRender, itemContainerRef, scrollableRef, scrollLeftRef]
+  );
 
-export default class FilmComposer extends React.Component {
-  constructor(props) {
-    super(props);
+  const scrollOneLeft = useCallback(() => {
+    scrollTo(({ indexFraction }) => (dir === 'rtl' ? Math.floor(indexFraction) + 1 : Math.ceil(indexFraction) - 1));
+  }, [dir, scrollTo]);
 
-    this.handleScroll = this.handleScroll.bind(this);
-    this.handleScrollToEnd = this.handleScrollToEnd.bind(this);
+  const scrollOneRight = useCallback(() => {
+    scrollTo(({ indexFraction }) => (dir === 'rtl' ? Math.ceil(indexFraction) - 1 : Math.floor(indexFraction) + 1));
+  }, [dir, scrollTo]);
 
-    this.itemContainerRef = React.createRef();
-    this.scrollableRef = React.createRef();
+  const functionContext = useMemo(
+    () => ({
+      scrollTo,
+      scrollOneLeft,
+      scrollOneRight
+    }),
+    [scrollTo, scrollOneLeft, scrollOneRight]
+  );
 
-    this.mergeContext = memoize((state, dir, numItems = 0) => ({
-      ...state,
-      dir,
-      numItems
-    }));
+  const internalContext = useMemo(
+    () => ({
+      itemContainerRef,
+      scrollableRef
+    }),
+    [itemContainerRef, scrollableRef]
+  );
 
-    this.state = {
-      context: {
-        itemContainerRef: this.itemContainerRef,
-        scrollableRef: this.scrollableRef,
-        scrollBarPercentage: '0%',
-        scrollBarWidth: '0%',
-        scrolling: false,
-        scrollTo: scrollTo => {
-          this.setState(state => {
-            const view = getView(this.props.dir, this.scrollableRef, this.itemContainerRef, state.scrollLeft);
+  const propsContext = useMemo(
+    () => ({ dir, height, nonce, numItems, styleOptions: patchedStyleOptions, styleSheetClassName }),
+    [dir, height, nonce, numItems, patchedStyleOptions, styleSheetClassName]
+  );
 
-            if (view) {
-              const { index, indexFraction } = view;
-              const targetIndex = scrollTo({ index, indexFraction });
+  const [viewContext, setViewContext] = useState({
+    index: 0,
+    indexFraction: 0,
+    scrollBarPercentage: '0%',
+    scrollBarWidth: '0%',
+    scrolling: false
+  });
 
-              if (typeof targetIndex === 'number') {
-                return { scrollLeft: getScrollLeft(this.props.dir, this.scrollableRef, this.itemContainerRef, targetIndex) };
-              }
-            }
-          });
-        },
-        scrollOneLeft: () => {
-          if (this.props.dir === 'rtl') {
-            this.state.context.scrollTo(({ indexFraction }) => Math.floor(indexFraction) + 1);
-          } else {
-            this.state.context.scrollTo(({ indexFraction }) => Math.ceil(indexFraction) - 1);
-          }
-        },
-        scrollOneRight: () => {
-          if (this.props.dir === 'rtl') {
-            this.state.context.scrollTo(({ indexFraction }) => Math.ceil(indexFraction) - 1);
-          } else {
-            this.state.context.scrollTo(({ indexFraction }) => Math.floor(indexFraction) + 1);
-          }
-        }
-      },
-      scrollLeft: null
-    };
-  }
+  // This will setViewContext and reset the "scrolling" flag after a period of time.
+  const setViewContext2 = useCallback(
+    nextViewContext => {
+      setViewContext(nextViewContext);
 
-  componentWillUnmount() {
-    clearTimeout(this.scrollTimeout);
-  }
+      clearTimeout(scrollTimeoutRef.current);
 
-  handleScroll({
-    fraction: scrollBarPercentage,
-    initial,
-    width: scrollBarWidth
-  }) {
-    this.setState(({ context, scrollLeft }) => {
-      const view = getView(this.props.dir, this.scrollableRef, this.itemContainerRef, scrollLeft);
+      if (nextViewContext.scrolling) {
+        scrollTimeoutRef.current = setTimeout(
+          () =>
+            setViewContext({
+              ...nextViewContext,
+              scrolling: false
+            }),
+          500
+        );
+      }
+    },
+    [scrollTimeoutRef, setViewContext]
+  );
+
+  const handleScroll = useCallback(
+    ({ fraction: scrollBarPercentage, initial, width: scrollBarWidth }) => {
+      const view = getView(dir, scrollableRef.current, itemContainerRef.current, scrollLeftRef.current);
 
       if (view) {
         const { index, indexFraction } = view;
 
-        return {
-          context: {
-            ...context,
-            index,
-            indexFraction,
-            scrolling: !initial,
-            scrollBarPercentage,
-            scrollBarWidth
-          }
-        };
+        setViewContext2({
+          index,
+          indexFraction,
+          scrolling: !initial,
+          scrollBarPercentage,
+          scrollBarWidth
+        });
       }
-    });
+    },
+    [dir, itemContainerRef, scrollableRef, scrollLeftRef, setViewContext2]
+  );
 
-    if (!initial) {
-      clearTimeout(this.scrollTimeout);
+  const handleScrollToEnd = useCallback(() => {
+    scrollLeftRef.current = null;
+    forceRender({});
+  }, [forceRender, scrollLeftRef]);
 
-      this.scrollTimeout = setTimeout(() => {
-        this.setState(({ context }) => ({
-          context: {
-            ...context,
-            scrolling: false
-          }
-        }));
-      }, 500);
+  const legacyContext = useMemo(
+    () => ({
+      ...functionContext,
+      ...internalContext,
+      ...propsContext,
+      ...viewContext
+    }),
+    [functionContext, internalContext, propsContext, viewContext]
+  );
+
+  useAnimateScrollLeft(
+    typeof scrollLeftRef.current === 'number' && scrollableRef.current,
+    scrollLeftRef.current,
+    handleScrollToEnd
+  );
+
+  useEffect(() => {
+    const { current } = scrollableRef;
+
+    if (current) {
+      current.addEventListener('pointerdown', handleScrollToEnd, { passive: true });
+
+      return () => current.removeEventListener('pointerdown', handleScrollToEnd);
     }
-  }
+  }, [handleScrollToEnd, scrollableRef]);
 
-  handleScrollToEnd() {
-    this.setState(() => ({ scrollLeft: null }));
-  }
+  useObserveScrollLeft(scrollableRef.current, handleScroll);
 
-  render() {
-    const {
-      props: {
-        children,
-        dir,
-        numItems
-      },
-      scrollableRef,
-      state: {
-        context,
-        scrollLeft
-      }
-    } = this;
+  return (
+    <PropsContext.Provider value={propsContext}>
+      <InternalContext.Provider value={internalContext}>
+        <FunctionContext.Provider value={functionContext}>
+          <ViewContext.Provider value={viewContext}>
+            <LegacyContext.Provider value={legacyContext}>
+              {children}
+              {patchedStyleOptions.autoCenter && <AutoCenter />}
+            </LegacyContext.Provider>
+          </ViewContext.Provider>
+        </FunctionContext.Provider>
+      </InternalContext.Provider>
+    </PropsContext.Provider>
+  );
+};
 
-    return (
-      <Context.Provider value={ this.mergeContext(context, dir, numItems) }>
-        { children }
-        <ScrollSpy
-          onScroll={ this.handleScroll }
-          targetRef={ scrollableRef }
-        />
-        {
-          typeof scrollLeft === 'number'
-          &&
-            <ScrollTo
-              onEnd={ this.handleScrollToEnd }
-              scrollLeft={ scrollLeft }
-              targetRef={ scrollableRef }
-            />
-        }
-      </Context.Provider>
-    );
-  }
-}
+Composer.defaultProps = {
+  children: undefined,
+  dir: undefined,
+  height: undefined,
+  nonce: '',
+  styleOptions: undefined,
+  styleSheet: undefined
+};
+
+Composer.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element]),
+  dir: PropTypes.oneOf(['ltr', 'rtl']),
+  height: PropTypes.number,
+  nonce: PropTypes.string,
+  numItems: PropTypes.number.isRequired,
+  styleOptions: PropTypes.any,
+  styleSheet: PropTypes.any
+};
+
+export default Composer;

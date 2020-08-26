@@ -1,42 +1,29 @@
-import { css } from 'glamor';
 import classNames from 'classnames';
-import React from 'react';
+import PropTypes from 'prop-types';
+import React, { Children } from 'react';
 
-import Context from './Context';
+import useInternalContext from './hooks/internal/useInternalContext';
 
-const ROOT_CSS = css({
-  MsOverflowStyle: 'none',
-  overflowX: 'scroll',
-  overflowY: 'hidden',
-  position: 'relative',
-  touchAction: 'manipulation',
-  zIndex: 0,
+const FilmStrip = ({ children }) => {
+  const { itemContainerRef, scrollableRef } = useInternalContext();
 
-  '&::-webkit-scrollbar': {
-    display: 'none'
-  },
+  return (
+    <div className="react-film__filmstrip" ref={scrollableRef}>
+      <ul className="react-film__filmstrip__list" ref={itemContainerRef}>
+        {Children.map(children, child => (
+          <li className="react-film__filmstrip__item">{child}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
-  '& > ul': {
-    display: 'flex',
-    listStyleType: 'none',
-    margin: 0,
-    padding: 0
-  }
-});
+FilmStrip.defaultProps = {
+  children: undefined
+};
 
-export default ({
-  children,
-  className
-}) =>
-  <Context.Consumer>
-    { ({ itemContainerRef, scrollableRef }) =>
-      <div
-        className={ classNames(ROOT_CSS + '', className) }
-        ref={ scrollableRef }
-      >
-        <ul ref={ itemContainerRef }>
-          { React.Children.map(children, child => <li>{ child }</li>) }
-        </ul>
-      </div>
-    }
-  </Context.Consumer>
+FilmStrip.propTypes = {
+  children: PropTypes.any
+};
+
+export default FilmStrip;
