@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Filmstrip from './FilmStrip';
+import Filmstrip from './Filmstrip';
 
 let deprecationNotesShown;
 

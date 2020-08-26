@@ -4,7 +4,7 @@ import Context from './LegacyContext';
 import createBasicStyleSet from './createBasicStyleSet';
 import DeprecatedFilmStrip from './DeprecatedFilmStrip';
 import Dots from './Dots';
-import Filmstrip from './FilmStrip';
+import Filmstrip from './Filmstrip';
 import Flipper from './Flipper';
 import ReactFilm from './ReactFilm';
 import ScrollBar from './ScrollBar';
@@ -22,7 +22,7 @@ import useScrollOneLeft from './hooks/useScrollOneLeft';
 import useScrollOneRight from './hooks/useScrollOneRight';
 import useScrollTo from './hooks/useScrollTo';
 import useStyleOptions from './hooks/useStyleOptions';
-import useStyleSheetClassName from './hooks/useStyleSheetClassName';
+import useStyleSetClassNames from './hooks/useStyleSetClassNames';
 
 export default ReactFilm;
 
@@ -50,7 +50,7 @@ export {
   useScrollOneRight,
   useScrollTo,
   useStyleOptions,
-  useStyleSheetClassName
+  useStyleSetClassNames
 };
 
 if (typeof document !== 'undefined' && document.head) {

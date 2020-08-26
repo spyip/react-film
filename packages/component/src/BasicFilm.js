@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { useMemo } from 'react';
 
 import Dots from './Dots';
-import Filmstrip from './FilmStrip';
+import Filmstrip from './Filmstrip';
 import Flipper from './Flipper';
 import ScrollBar from './ScrollBar';
 import useDir from './hooks/useDir';
