@@ -9,17 +9,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Breaking changes
 
 - API through React Context is being deprecated in favor of React Hooks
-- `styleSet` are removed in favor of `styleSheet`
-   - The new `styleSheet` is a React-favored CSS stylesheet object
-   - `createBasicStyleSet()` is removed in favor of `createStyleSheet()`
-   - `createStyleSheet()` will create a single complete stylesheet for customization
 - CSS has been revamped by introducing support of customization through CSS BEM
    - `className` props are removed from sub-components
+   - `createBasicStyleSet()` will only return a single complete style set, namely `root`
 
 ### Added
 
 - Revamped in PR [#57](https://github.com/spyip/react-film/pull/57)
-   - [Single CSS BEM stylesheet](https://github.com/spyip/react-film/search?q=createStyleSheet.js&unscoped_q=createStyleSheet.js)
+   - [Single set of CSS BEM style](https://github.com/spyip/react-film/search?q=createStyleSheet.js&unscoped_q=createStyleSheet.js)
    - Added `nonce` prop for Content Security Policy support
    - Added React Hooks API
    - Added RTL support on Chromium Edge

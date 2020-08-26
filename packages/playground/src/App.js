@@ -1,14 +1,18 @@
 import createEmotion from 'create-emotion';
 import React from 'react';
 
-import ReactFilm, { createStyleSheet } from 'react-film';
+import ReactFilm, { createBasicStyleSet } from 'react-film';
 
-const styleSheet = createStyleSheet({ autoHide: false, cursor: null });
-const myStyleSheet = {
-  ...styleSheet,
+const styleSet = createBasicStyleSet({ autoHide: false, cursor: null });
+const myStyleSet = {
+  ...styleSet,
 
-  '& .react-film__scroll-bar .react-film__scroll-bar__handle': {
-    backgroundColor: 'Red'
+  root: {
+    ...styleSet.root,
+
+    '& .react-film__scroll-bar .react-film__scroll-bar__handle': {
+      backgroundColor: 'Red'
+    }
   }
 };
 
@@ -171,7 +175,7 @@ export default class extends React.Component {
             nonce="a1b2c3d"
             leftFlipperText="L"
             rightFlipperText="R"
-            styleSheet={myStyleSheet}
+            styleSet={myStyleSet}
           >
             <img alt="Cat 01" src="image/01.jpg" />
             <img alt="Cat 02" src="image/02.jpg" />

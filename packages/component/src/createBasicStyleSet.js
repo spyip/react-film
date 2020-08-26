@@ -253,7 +253,7 @@ const createRootStyle = ({ autoHide, autoHideFlipperOnEdge }) => ({
     : {})
 });
 
-export default function createStyleSheet({
+export default function createBasicStyleSet({
   autoHide = true,
   autoHideFlipperOnEdge = true,
   cursor = 'pointer',
@@ -265,11 +265,13 @@ export default function createStyleSheet({
   scrollBarMargin = SCROLL_BAR_MARGIN
 } = {}) {
   return {
-    ...createDotsStyle({ dotBoxSize }),
-    ...createDotStyle({ cursor, dotBoxSize, dotSize }),
-    ...createFilmstripStyle(),
-    ...createFlipperStyle({ autoHide, autoHideFlipperOnEdge, cursor, flipperBoxWidth, flipperSize }),
-    ...createRootStyle({ autoHide, autoHideFlipperOnEdge }),
-    ...createScrollBarStyle({ autoHide, scrollBarHeight, scrollBarMargin })
+    root: {
+      ...createDotsStyle({ dotBoxSize }),
+      ...createDotStyle({ cursor, dotBoxSize, dotSize }),
+      ...createFilmstripStyle(),
+      ...createFlipperStyle({ autoHide, autoHideFlipperOnEdge, cursor, flipperBoxWidth, flipperSize }),
+      ...createRootStyle({ autoHide, autoHideFlipperOnEdge }),
+      ...createScrollBarStyle({ autoHide, scrollBarHeight, scrollBarMargin })
+    }
   };
 }

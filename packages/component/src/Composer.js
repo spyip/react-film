@@ -4,8 +4,8 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import AutoCenter from './AutoCenter';
 import computeScrollLeft from './computeScrollLeft';
+import createBasicStyleSet from './createBasicStyleSet';
 import createCSSKey from './util/createCSSKey';
-import createStyleSheet from './createStyleSheet';
 import FunctionContext from './FunctionContext';
 import getView from './getView';
 import InternalContext from './InternalContext';
@@ -19,18 +19,22 @@ import ViewContext from './ViewContext';
 // We pool the emotion, so we don't create a new set of <style> for every component and reuse as much as we could.
 const pooledEmotion = {};
 
-const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleSheet }) => {
+const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleSet }) => {
   dir = dir === 'ltr' || dir === 'rtl' ? dir : undefined;
 
   const patchedStyleOptions = useMemo(() => patchStyleOptions(styleOptions), [styleOptions]);
+  const patchedStyleSet = useMemo(() => styleSet || createBasicStyleSet(patchedStyleOptions), [
+    patchedStyleOptions,
+    styleSet
+  ]);
 
-  const styleSheetClassName = useMemo(() => {
+  const styleSetClassNames = useMemo(() => {
     const emotion =
       pooledEmotion[nonce] ||
       (pooledEmotion[nonce] = createEmotion({ key: `css-react-film-${createCSSKey()}`, nonce }));
 
-    return emotion.css(styleSheet || createStyleSheet(patchedStyleOptions)) + '';
-  }, [nonce, patchedStyleOptions, styleSheet]);
+    return Object.fromEntries(Object.entries(patchedStyleSet).map(([name, style]) => [name, emotion.css(style) + '']));
+  }, [nonce, patchedStyleSet]);
 
   const [_, forceRender] = useState();
   const itemContainerRef = useRef();
@@ -83,8 +87,8 @@ const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleS
   );
 
   const propsContext = useMemo(
-    () => ({ dir, height, nonce, numItems, styleOptions: patchedStyleOptions, styleSheetClassName }),
-    [dir, height, nonce, numItems, patchedStyleOptions, styleSheetClassName]
+    () => ({ dir, height, nonce, numItems, styleOptions: patchedStyleOptions, styleSetClassNames }),
+    [dir, height, nonce, numItems, patchedStyleOptions, styleSetClassNames]
   );
 
   const [viewContext, setViewContext] = useState({
@@ -190,7 +194,7 @@ Composer.defaultProps = {
   height: undefined,
   nonce: '',
   styleOptions: undefined,
-  styleSheet: undefined
+  styleSet: undefined
 };
 
 Composer.propTypes = {
@@ -200,7 +204,7 @@ Composer.propTypes = {
   nonce: PropTypes.string,
   numItems: PropTypes.number.isRequired,
   styleOptions: PropTypes.any,
-  styleSheet: PropTypes.any
+  styleSet: PropTypes.any
 };
 
 export default Composer;

@@ -19,7 +19,7 @@ const ReactFilm = ({
   showDots,
   showFlipper,
   showScrollBar,
-  styleSheet
+  styleSet
 }) => {
   const styleOptions = useMemo(
     () => ({
@@ -55,7 +55,7 @@ const ReactFilm = ({
       nonce={nonce}
       numItems={children ? Children.count(children) : 0}
       styleOptions={styleOptions}
-      styleSheet={styleSheet}
+      styleSet={styleSet}
     >
       <BasicFilm className={className}>{children}</BasicFilm>
     </Composer>
@@ -77,7 +77,7 @@ ReactFilm.defaultProps = {
   showDots: undefined,
   showFlipper: undefined,
   showScrollBar: undefined,
-  styleSheet: undefined
+  styleSet: undefined
 };
 
 ReactFilm.propTypes = {
@@ -96,7 +96,7 @@ ReactFilm.propTypes = {
   showDots: PropTypes.bool,
   showFlipper: PropTypes.bool,
   showScrollBar: PropTypes.bool,
-  styleSheet: PropTypes.any
+  styleSet: PropTypes.any
 };
 
 export default ReactFilm;

@@ -11,8 +11,8 @@ import useHeight from './hooks/useHeight';
 import useNumItems from './hooks/useNumItems';
 import useScrollBarWidth from './hooks/useScrollBarWidth';
 import useScrolling from './hooks/useScrolling';
-import useStyleSheetClassName from './hooks/useStyleSheetClassName';
 import useStyleOptions from './hooks/useStyleOptions';
+import useStyleSetClassNames from './hooks/useStyleSetClassNames';
 
 const BasicFilm = ({ children, className }) => {
   const [dir] = useDir();
@@ -20,7 +20,7 @@ const BasicFilm = ({ children, className }) => {
   const [numItems] = useNumItems();
   const [scrollBarWidth] = useScrollBarWidth();
   const [scrolling] = useScrolling();
-  const [styleSheetClassName] = useStyleSheetClassName();
+  const [{ root: rootClassName }] = useStyleSetClassNames();
   const [
     { flipperBlurFocusOnClick, leftFlipperText, rightFlipperText, showDots, showFlipper, showScrollBar }
   ] = useStyleOptions();
@@ -34,7 +34,7 @@ const BasicFilm = ({ children, className }) => {
         {
           'react-film__root--scrolling': scrolling
         },
-        styleSheetClassName,
+        rootClassName,
         (className || '') + ''
       )}
       dir={dir}
@@ -53,7 +53,7 @@ const BasicFilm = ({ children, className }) => {
         )}
         {!!numItems && scrollBarWidth !== '100%' && !!showScrollBar && <ScrollBar />}
       </div>
-      {!!numItems && scrollBarWidth !== '100%' && !!showDots && <Dots>{() => <div />}</Dots>}
+      {!!numItems && scrollBarWidth !== '100%' && !!showDots && <Dots />}
     </div>
   );
 };

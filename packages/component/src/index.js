@@ -1,7 +1,8 @@
 import BasicFilm from './BasicFilm';
 import Composer from './Composer';
 import Context from './LegacyContext';
-import createStyleSheet from './createStyleSheet';
+import createBasicStyleSet from './createBasicStyleSet';
+import DeprecatedFilmStrip from './DeprecatedFilmStrip';
 import Dots from './Dots';
 import Filmstrip from './FilmStrip';
 import Flipper from './Flipper';
@@ -29,9 +30,9 @@ export {
   BasicFilm,
   Composer,
   Context,
-  createStyleSheet,
+  createBasicStyleSet,
+  DeprecatedFilmStrip as FilmStrip,
   Dots,
-  Filmstrip as FilmStrip,
   Filmstrip,
   Flipper,
   ScrollBar,
