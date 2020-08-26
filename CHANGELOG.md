@@ -11,8 +11,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - API through React Context is being deprecated in favor of React Hooks
 - `styleSet` are removed in favor of `styleSheet`
    - The new `styleSheet` is a React-favored CSS stylesheet object
-   - Call `createStyleSheet()` to create a stylesheet for customization
-- CSS has be revamped by introducing support of customization through CSS BEM
+   - `createBasicStyleSet()` is removed in favor of `createStyleSheet()`
+   - `createStyleSheet()` will create a single complete stylesheet for customization
+- CSS has been revamped by introducing support of customization through CSS BEM
    - `className` props are removed from sub-components
 
 ### Added
