@@ -212,39 +212,37 @@ const createScrollBarStyle = ({ autoHide, scrollBarHeight, scrollBarMargin }) =>
 });
 
 const createRootStyle = ({ autoHide, autoHideFlipperOnEdge }) => ({
-  '&.react-film__root .react-film__root__content': {
+  '& .react-film__content': {
     overflow: 'hidden',
     position: 'relative'
   },
 
   ...(autoHide
     ? {
-        '&.react-film__root': {
-          '&:hover, &.react-film__root--scrolling': {
-            '& .react-film__scroll-bar': {
-              bottom: 0,
+        '&:hover, &.react-film--scrolling': {
+          '& .react-film__scroll-bar': {
+            bottom: 0,
+            transitionDelay: '0s'
+          },
+
+          '& .react-film__flipper': {
+            '& .react-film__flipper__slider': {
               transitionDelay: '0s'
             },
 
-            '& .react-film__flipper': {
-              '& .react-film__flipper__slider': {
-                transitionDelay: '0s'
-              },
+            '&.react-film__flipper--left': {
+              [autoHideFlipperOnEdge
+                ? '&:not(.react-film__flipper--hide) .react-film__flipper__slider'
+                : '& .react-film__flipper__slider']: {
+                left: 0
+              }
+            },
 
-              '&.react-film__flipper--left': {
-                [autoHideFlipperOnEdge
-                  ? '&:not(.react-film__flipper--hide) .react-film__flipper__slider'
-                  : '& .react-film__flipper__slider']: {
-                  left: 0
-                }
-              },
-
-              '&.react-film__flipper--right': {
-                [autoHideFlipperOnEdge
-                  ? '&:not(.react-film__flipper--hide) .react-film__flipper__slider'
-                  : '& .react-film__flipper__slider']: {
-                  right: 0
-                }
+            '&.react-film__flipper--right': {
+              [autoHideFlipperOnEdge
+                ? '&:not(.react-film__flipper--hide) .react-film__flipper__slider'
+                : '& .react-film__flipper__slider']: {
+                right: 0
               }
             }
           }

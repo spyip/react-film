@@ -9,7 +9,7 @@ export default function normalizeStyleOptions({
   showDots,
   showFlipper,
   showScrollBar
-}) {
+} = {}) {
   const rtl = dir === 'rtl';
 
   return {
