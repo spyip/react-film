@@ -11,7 +11,7 @@ const ScrollBar = () => {
   const [scrollBarWidth] = useScrollBarWidth();
 
   return (
-    <div className="react-film__scroll-bar">
+    <div className="react-film__scroll-bar react-film__main__slider react-film__main__slider--bottom">
       <div
         className="react-film__scroll-bar__handle"
         style={{

@@ -28,18 +28,11 @@ const BasicFilm = ({ children, className }) => {
   const contentStyle = useMemo(() => ({ height }), [height]);
 
   return (
-    <div
-      className={classNames(
-        'react-film__root',
-        {
-          'react-film__root--scrolling': scrolling
-        },
-        rootClassName,
-        (className || '') + ''
-      )}
-      dir={dir}
-    >
-      <div className="react-film__root__content" style={contentStyle}>
+    <div className={classNames(rootClassName, (className || '') + '')} dir={dir}>
+      <div
+        className={classNames('react-film__main', { 'react-film__main--scrolling': scrolling })}
+        style={contentStyle}
+      >
         {!!numItems && scrollBarWidth !== '100%' && !!showFlipper && (
           <Flipper blurFocusOnClick={flipperBlurFocusOnClick} mode="left">
             {leftFlipperText}
