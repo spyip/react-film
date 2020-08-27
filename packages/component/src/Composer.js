@@ -30,8 +30,7 @@ const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleS
 
   const styleSetClassNames = useMemo(() => {
     const emotion =
-      emotionPool[nonce] ||
-      (emotionPool[nonce] = createEmotion({ key: `react-film--css-${createCSSKey()}`, nonce }));
+      emotionPool[nonce] || (emotionPool[nonce] = createEmotion({ key: `react-film--css-${createCSSKey()}`, nonce }));
 
     return Object.fromEntries(Object.entries(patchedStyleSet).map(([name, style]) => [name, emotion.css(style) + '']));
   }, [nonce, patchedStyleSet]);
