@@ -36,7 +36,7 @@ const Dot = ({ 'aria-label': ariaLabel, itemIndex }) => {
         role="button"
         type="checkbox"
       />
-      <div className="react-film__dot__dot" />
+      <div className="react-film__dot__handle" />
     </li>
   );
 };

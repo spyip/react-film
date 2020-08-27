@@ -52,8 +52,7 @@ const Flipper = ({ 'aria-label': ariaLabel, blurFocusOnClick, children, mode }) 
   return (
     <button
       aria-label={ariaLabel || (left ? 'left' : 'right')}
-      className={classNames('react-film__flipper', {
-        'react-film__flipper--hide': hide,
+      className={classNames('react-film__flipper', 'react-film__main__overlay', {
         'react-film__flipper--left': left,
         'react-film__flipper--right': !left
       })}
@@ -62,8 +61,14 @@ const Flipper = ({ 'aria-label': ariaLabel, blurFocusOnClick, children, mode }) 
       ref={buttonRef}
       type="button"
     >
-      <div className="react-film__flipper__slider">
-        <div className="react-film__flipper__content">{children}</div>
+      <div
+        className={classNames('react-film__flipper__slider', 'react-film__main__slider', {
+          'react-film__main__slider--hide': hide,
+          'react-film__main__slider--left': left,
+          'react-film__main__slider--right': !left
+        })}
+      >
+        <div className="react-film__flipper__body">{children}</div>
       </div>
     </button>
   );

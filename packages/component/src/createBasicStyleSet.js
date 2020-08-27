@@ -1,5 +1,4 @@
-const DOT_BOX_SIZE = 20;
-const DOT_SIZE = 6;
+import patchStyleOptions from './patchStyleOptions';
 
 const createDotsStyle = ({ dotBoxSize }) => ({
   '& .react-film__dots': {
@@ -38,31 +37,28 @@ const createDotStyle = ({ cursor, dotBoxSize, dotSize }) => ({
       width: '100%'
     },
 
-    '& .react-film__dot__dot': {
+    '& .react-film__dot__handle': {
       background: 'rgba(0, 0, 0, .2)',
       borderRadius: dotSize / 2,
       height: dotSize,
       width: dotSize
     },
 
-    '&:hover .react-film__dot__dot, & .react-film__dot__input:focus + .react-film__dot__dot': {
+    '&:hover .react-film__dot__handle, & .react-film__dot__input:focus + .react-film__dot__handle': {
       background: 'rgba(0, 0, 0, .4)'
     },
 
-    '& .react-film__dot__input:active + .react-film__dot__dot': {
+    '& .react-film__dot__input:active + .react-film__dot__handle': {
       background: 'rgba(0, 0, 0, .8)'
     },
 
-    '& .react-film__dot__input:checked:not(:active) + .react-film__dot__dot': {
+    '& .react-film__dot__input:checked:not(:active) + .react-film__dot__handle': {
       background: 'rgba(0, 0, 0, .6)'
     }
   }
 });
 
-const FLIPPER_BOX_WIDTH = 60;
-const FLIPPER_SIZE = 40;
-
-const createFlipperStyle = ({ autoHide, cursor, flipperBoxWidth, flipperSize }) => ({
+const createFlipperStyle = ({ cursor, flipperBoxWidth, flipperSize }) => ({
   '& .react-film__flipper': {
     ...(cursor ? { cursor } : {}),
 
@@ -74,45 +70,24 @@ const createFlipperStyle = ({ autoHide, cursor, flipperBoxWidth, flipperSize }) 
     position: 'absolute',
     top: 0,
     touchAction: 'none',
-    transitionDuration: '300ms',
     userSelect: 'none',
     width: flipperBoxWidth,
     zIndex: 1,
 
     '&.react-film__flipper--left': {
       left: 0,
-      transitionProperty: 'left',
 
-      '& .react-film__flipper__slider': autoHide
-        ? { left: (flipperBoxWidth + flipperSize) / -2, transitionProperty: 'left' }
-        : { left: 0 },
-
-      ...(autoHide
-        ? {
-            '&:focus:not(.react-film__flipper--hide) .react-film__flipper__slider': {
-              left: 0,
-              transitionDelay: '0s'
-            }
-          }
-        : {})
+      '& .react-film__flipper__slider': {
+        left: 0
+      }
     },
 
     '&.react-film__flipper--right': {
       right: 0,
-      transitionProperty: 'right',
 
-      '& .react-film__flipper__slider': autoHide
-        ? { right: (flipperBoxWidth + flipperSize) / -2, transitionProperty: 'right' }
-        : { right: 0 },
-
-      ...(autoHide
-        ? {
-            '&:focus:not(.react-film__flipper--hide) .react-film__flipper__slider': {
-              right: 0,
-              transitionDelay: '0s'
-            }
-          }
-        : {})
+      '& .react-film__flipper__slider': {
+        right: 0
+      }
     },
 
     '& .react-film__flipper__slider': {
@@ -122,19 +97,10 @@ const createFlipperStyle = ({ autoHide, cursor, flipperBoxWidth, flipperSize }) 
       justifyContent: 'center',
       position: 'absolute',
       top: 0,
-      width: '100%',
-
-      ...(autoHide
-        ? {
-            position: 'absolute',
-            top: 0,
-            transitionDelay: '1s',
-            transitionDuration: '300ms'
-          }
-        : {})
+      width: '100%'
     },
 
-    '& .react-film__flipper__content': {
+    '& .react-film__flipper__body': {
       backgroundColor: 'rgba(0, 0, 0, .6)',
       borderRadius: '50%',
       color: 'rgba(255, 255, 255, .6)',
@@ -150,14 +116,14 @@ const createFlipperStyle = ({ autoHide, cursor, flipperBoxWidth, flipperSize }) 
     },
 
     '&:hover, &:focus': {
-      '& .react-film__flipper__content': {
+      '& .react-film__flipper__body': {
         backgroundColor: 'rgba(0, 0, 0, .8)',
         color: 'rgba(255, 255, 255, .8)',
         transitionDuration: 0
       }
     },
 
-    '&:active .react-film__flipper__content': {
+    '&:active .react-film__flipper__body': {
       backgroundColor: 'Black',
       color: 'White',
       transitionDuration: 0
@@ -188,9 +154,6 @@ const createFilmstripStyle = () => ({
   }
 });
 
-const SCROLL_BAR_HEIGHT = 8;
-const SCROLL_BAR_MARGIN = 4;
-
 const createScrollBarStyle = ({ autoHide, scrollBarHeight, scrollBarMargin }) => ({
   '& .react-film__scroll-bar': {
     bottom: autoHide ? -30 : 0,
@@ -211,65 +174,77 @@ const createScrollBarStyle = ({ autoHide, scrollBarHeight, scrollBarMargin }) =>
   }
 });
 
-const createRootStyle = ({ autoHide, autoHideFlipperOnEdge }) => ({
-  '& .react-film__content': {
+const createRootStyle = ({ autoHide, autoHideFlipperOnEdge, flipperBoxWidth, flipperSize }) => ({
+  '& .react-film__main': {
     overflow: 'hidden',
-    position: 'relative'
-  },
+    position: 'relative',
 
-  ...(autoHide
-    ? {
-        '&:hover, &.react-film--scrolling': {
-          '& .react-film__scroll-bar': {
-            bottom: 0,
-            transitionDelay: '0s'
+    ...(autoHide
+      ? {
+          '&:hover, &.react-film__main--scrolling': {
+            '& .react-film__main__slider': {
+              transitionDelay: '0s',
+
+              '&.react-film__main__slider--bottom': {
+                bottom: 0
+              },
+
+              '&.react-film__main__slider--left': {
+                [autoHideFlipperOnEdge ? '&:not(.react-film__main__slider--hide)' : '&']: {
+                  left: 0
+                }
+              },
+
+              '&.react-film__main__slider--right': {
+                [autoHideFlipperOnEdge ? '&:not(.react-film__main__slider--hide)' : '&']: {
+                  right: 0
+                }
+              }
+            }
           },
 
-          '& .react-film__flipper': {
-            '& .react-film__flipper__slider': {
-              transitionDelay: '0s'
+          '& .react-film__main__overlay:focus .react-film__main__slider:not(.react-film__main__slider--hide)': {
+            transitionDelay: '0s',
+
+            '&.react-film__main__slider--left': {
+              left: 0
             },
 
-            '&.react-film__flipper--left': {
-              [autoHideFlipperOnEdge
-                ? '&:not(.react-film__flipper--hide) .react-film__flipper__slider'
-                : '& .react-film__flipper__slider']: {
-                left: 0
-              }
+            '&.react-film__main__slider--right': {
+              right: 0
+            }
+          },
+
+          '& .react-film__main__slider': {
+            transitionDelay: '1s',
+            transitionDuration: '300ms',
+
+            '&.react-film__main__slider--left': {
+              left: (flipperBoxWidth + flipperSize) / -2,
+              transitionProperty: 'left'
             },
 
-            '&.react-film__flipper--right': {
-              [autoHideFlipperOnEdge
-                ? '&:not(.react-film__flipper--hide) .react-film__flipper__slider'
-                : '& .react-film__flipper__slider']: {
-                right: 0
-              }
+            '&.react-film__main__slider--right': {
+              right: (flipperBoxWidth + flipperSize) / -2,
+              transitionProperty: 'right'
             }
           }
         }
-      }
-    : {})
+      : {})
+  }
 });
 
-export default function createBasicStyleSet({
-  autoHide = true,
-  autoHideFlipperOnEdge = true,
-  cursor = 'pointer',
-  dotBoxSize = DOT_BOX_SIZE,
-  dotSize = DOT_SIZE,
-  flipperBoxWidth = FLIPPER_BOX_WIDTH,
-  flipperSize = FLIPPER_SIZE,
-  scrollBarHeight = SCROLL_BAR_HEIGHT,
-  scrollBarMargin = SCROLL_BAR_MARGIN
-} = {}) {
+export default function createBasicStyleSet(styleOptions) {
+  styleOptions = patchStyleOptions(styleOptions);
+
   return {
     root: {
-      ...createDotsStyle({ dotBoxSize }),
-      ...createDotStyle({ cursor, dotBoxSize, dotSize }),
-      ...createFilmstripStyle(),
-      ...createFlipperStyle({ autoHide, autoHideFlipperOnEdge, cursor, flipperBoxWidth, flipperSize }),
-      ...createRootStyle({ autoHide, autoHideFlipperOnEdge }),
-      ...createScrollBarStyle({ autoHide, scrollBarHeight, scrollBarMargin })
+      ...createDotsStyle(styleOptions),
+      ...createDotStyle(styleOptions),
+      ...createFilmstripStyle(styleOptions),
+      ...createFlipperStyle(styleOptions),
+      ...createRootStyle(styleOptions),
+      ...createScrollBarStyle(styleOptions)
     }
   };
 }
