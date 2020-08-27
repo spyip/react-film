@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- Revamped in PR [#57](https://github.com/spyip/react-film/pull/57) and [#58](https://github.com/spyip/react-film/pull/58)
+- Revamped in PR [#57](https://github.com/spyip/react-film/pull/57), [#58](https://github.com/spyip/react-film/pull/58) and [#59](https://github.com/spyip/react-film/pull/59)
    - [Single set of CSS BEM style](https://github.com/spyip/react-film/search?q=createStyleSheet.js&unscoped_q=createStyleSheet.js)
    - Added `nonce` prop for Content Security Policy support
    - Added React Hooks API
