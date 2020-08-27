@@ -17,7 +17,7 @@ import useObserveScrollLeft from './hooks/internal/useObserveScrollLeft';
 import ViewContext from './ViewContext';
 
 // We pool the emotion, so we don't create a new set of <style> for every component and reuse as much as we could.
-const pooledEmotion = {};
+const emotionPool = {};
 
 const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleSet }) => {
   dir = dir === 'ltr' || dir === 'rtl' ? dir : undefined;
@@ -30,8 +30,8 @@ const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleS
 
   const styleSetClassNames = useMemo(() => {
     const emotion =
-      pooledEmotion[nonce] ||
-      (pooledEmotion[nonce] = createEmotion({ key: `css-react-film-${createCSSKey()}`, nonce }));
+      emotionPool[nonce] ||
+      (emotionPool[nonce] = createEmotion({ key: `react-film--css-${createCSSKey()}`, nonce }));
 
     return Object.fromEntries(Object.entries(patchedStyleSet).map(([name, style]) => [name, emotion.css(style) + '']));
   }, [nonce, patchedStyleSet]);
