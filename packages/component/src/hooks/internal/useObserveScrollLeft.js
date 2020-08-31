@@ -7,49 +7,55 @@ function sleepZero() {
   return new Promise(resolve => setTimeout(() => resolve));
 }
 
-export default function useObserveScrollLeft(element, observer) {
-  useEffect(() => {
-    if (!element) {
-      return;
-    }
+export default function useObserveScrollLeft(callbackRefWithSubscribe, observer) {
+  useEffect(
+    () =>
+      callbackRefWithSubscribe.subscribe(current => {
+        if (!current) {
+          return;
+        }
 
-    const memoizedEmitValue = memoize((initial, fraction, width) => observer && observer({ initial, fraction, width }));
+        const memoizedEmitValue = memoize(
+          (initial, fraction, width) => observer && observer({ initial, fraction, width })
+        );
 
-    const emitValue = initial => {
-      const { offsetWidth, scrollLeft, scrollWidth } = element;
+        const emitValue = initial => {
+          const { offsetWidth, scrollLeft, scrollWidth } = current;
 
-      memoizedEmitValue(
-        initial,
-        `${scrollWidth === offsetWidth ? 0 : (scrollLeft / (scrollWidth - offsetWidth)) * 100}%`,
-        `${(offsetWidth / scrollWidth) * 100}%`
-      );
-    };
+          memoizedEmitValue(
+            initial,
+            `${scrollWidth === offsetWidth ? 0 : (scrollLeft / (scrollWidth - offsetWidth)) * 100}%`,
+            `${(offsetWidth / scrollWidth) * 100}%`
+          );
+        };
 
-    const handleScroll = () => emitValue(false);
+        const handleScroll = () => emitValue(false);
 
-    const handlePointerOver = debounce(() => {
-      // We need to send "onScroll" because "scrollWidth" might have changed
-      // For example, the container resized, the scroll width will be incorrect
-      // We will debounce to prevent "pointerOver" calculating too often
-      // We will memoize to prevent firing unnecessary "onScroll"
-      emitValue(false);
-    });
+        const handlePointerOver = debounce(() => {
+          // We need to send "onScroll" because "scrollWidth" might have changed
+          // For example, the container resized, the scroll width will be incorrect
+          // We will debounce to prevent "pointerOver" calculating too often
+          // We will memoize to prevent firing unnecessary "onScroll"
+          emitValue(false);
+        });
 
-    element.addEventListener('pointerover', handlePointerOver, { passive: true });
-    element.addEventListener('scroll', handleScroll, { passive: true });
+        current.addEventListener('pointerover', handlePointerOver, { passive: true });
+        current.addEventListener('scroll', handleScroll, { passive: true });
 
-    (async function () {
-      if (element.scrollWidth === element.offsetWidth) {
-        // HACK: Chrome 66 will initially say scrollWidth equals to offsetWidth, until some time later
-        await sleepZero();
-      }
+        (async function () {
+          if (current.scrollWidth === current.offsetWidth) {
+            // HACK: Chrome 66 will initially say scrollWidth equals to offsetWidth, until some time later
+            await sleepZero();
+          }
 
-      emitValue(true);
-    })();
+          emitValue(true);
+        })();
 
-    return () => {
-      element.removeEventListener('pointerover', handlePointerOver);
-      element.removeEventListener('scroll', handleScroll);
-    };
-  }, [element, observer]);
+        return () => {
+          current.removeEventListener('pointerover', handlePointerOver);
+          current.removeEventListener('scroll', handleScroll);
+        };
+      }),
+    [callbackRefWithSubscribe, observer]
+  );
 }

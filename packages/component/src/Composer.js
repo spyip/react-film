@@ -13,6 +13,7 @@ import LegacyContext from './LegacyContext';
 import patchStyleOptions from './patchStyleOptions';
 import PropsContext from './PropsContext';
 import useAnimateScrollLeft from './hooks/internal/useAnimateScrollLeft';
+import useCallbackRefWithSubscribe from './hooks/internal/useCallbackRefWithSubscribe';
 import useObserveScrollLeft from './hooks/internal/useObserveScrollLeft';
 import ViewContext from './ViewContext';
 
@@ -36,8 +37,8 @@ const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleS
   }, [nonce, patchedStyleSet]);
 
   const [_, forceRender] = useState();
-  const itemContainerRef = useRef();
-  const scrollableRef = useRef();
+  const itemContainerRef = useCallbackRefWithSubscribe();
+  const scrollableRef = useCallbackRefWithSubscribe();
   const scrollLeftRef = useRef(null);
   const scrollTimeoutRef = useRef();
 
@@ -52,7 +53,7 @@ const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleS
         const targetIndex = scrollFn({ index, indexFraction });
 
         if (typeof targetIndex === 'number') {
-          scrollLeftRef.current = computeScrollLeft(dir, scrollableRef, itemContainerRef, targetIndex);
+          scrollLeftRef.current = computeScrollLeft(dir, scrollableRef.current, itemContainerRef.current, targetIndex);
           forceRender({});
         }
       }
@@ -159,17 +160,19 @@ const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleS
     handleScrollToEnd
   );
 
-  useEffect(() => {
-    const { current } = scrollableRef;
+  useEffect(
+    () =>
+      scrollableRef.subscribe(current => {
+        if (current) {
+          current.addEventListener('pointerdown', handleScrollToEnd, { passive: true });
 
-    if (current) {
-      current.addEventListener('pointerdown', handleScrollToEnd, { passive: true });
+          return () => current.removeEventListener('pointerdown', handleScrollToEnd);
+        }
+      }),
+    [scrollableRef]
+  );
 
-      return () => current.removeEventListener('pointerdown', handleScrollToEnd);
-    }
-  }, [handleScrollToEnd, scrollableRef]);
-
-  useObserveScrollLeft(scrollableRef.current, handleScroll);
+  useObserveScrollLeft(scrollableRef, handleScroll);
 
   return (
     <PropsContext.Provider value={propsContext}>
@@ -191,7 +194,7 @@ Composer.defaultProps = {
   children: undefined,
   dir: undefined,
   height: undefined,
-  nonce: '',
+  nonce: undefined,
   styleOptions: undefined,
   styleSet: undefined
 };

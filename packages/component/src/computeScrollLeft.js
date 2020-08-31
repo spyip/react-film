@@ -1,6 +1,6 @@
 import * as browser from './browser';
 
-export default function computeScrollLeft(dir, { current: scrollable } = {}, { current: itemContainer } = {}, index) {
+export default function computeScrollLeft(dir, scrollable, itemContainer, index) {
   const rtl = dir === 'rtl';
 
   if (itemContainer && scrollable) {
