@@ -4,7 +4,7 @@ import memoize from 'memoize-one';
 import debounce from '../../util/debounce';
 
 function sleepZero() {
-  return new Promise(resolve => setTimeout(() => resolve));
+  return new Promise(resolve => setTimeout(() => resolve()));
 }
 
 export default function useObserveScrollLeft(callbackRefWithSubscribe, observer) {
