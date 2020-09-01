@@ -2,6 +2,8 @@
 
 [![npm version](https://badge.fury.io/js/react-film.svg)](https://badge.fury.io/js/react-film) [![Build Status](https://travis-ci.org/spyip/react-film.svg?branch=master)](https://travis-ci.org/spyip/react-film)
 
+> Please refer to [`README.md` on our repository](https://github.com/spyip/react-film/) for most up-to-date information.
+
 HTML component for showing carousel just like a film strip. It is lightweight and focus on performance and accessibility.
 
 Although this component is built on top of React, it can be used outside of a React project.
@@ -82,7 +84,7 @@ You can control `<BasicFilm>` using props listed below.
 | `autoCenter`                | `true`                                                                                                     | `true` will enable auto-center after scroll stopped for a second, otherwise, `false`                                                       |
 | `autoHide`                  | `true`                                                                                                     | `true` to auto hide controls after pointer leave or scroll stopped, otherwise, `false` (surfaced from [style set](#presets-for-style-set)) |
 | `dir`                       | `'ltr'`                                                                                                    | `'ltr'` for left-to-right mode. `'rtl'` for right-to-left mode.                                                                            |
-| `flipperBlurFocusOnClick`   | `false`                                                                                                    | `true` will force the carousel flippers to blur on click, otherwise, `false`            
+| `flipperBlurFocusOnClick`   | `false`                                                                                                    | `true` will force the carousel flippers to blur on click, otherwise, `false`
 | `height`                    |                                                                                                            | Height of the carousel, in `number` (required for Firefox)                                                                                 |
 | `leftFlipperText`           | `'<'`                                                                                                      | Text for the left flipper                                                                                                                  |
 | `rightFlipperText`          | `'>'`                                                                                                      | Text for the right flipper                                                                                                                 |

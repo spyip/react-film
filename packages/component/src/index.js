@@ -12,9 +12,9 @@ import useDir from './hooks/useDir';
 import useHeight from './hooks/useHeight';
 import useIndex from './hooks/useIndex';
 import useIndexFraction from './hooks/useIndexFraction';
-import useItemContainerRef from './hooks/useItemContainerRef';
+import useItemContainerCallbackRef from './hooks/useItemContainerCallbackRef';
 import useNumItems from './hooks/useNumItems';
-import useScrollableRef from './hooks/useScrollableRef';
+import useScrollableCallbackRef from './hooks/useScrollableCallbackRef';
 import useScrollBarPercentage from './hooks/useScrollBarPercentage';
 import useScrollBarWidth from './hooks/useScrollBarWidth';
 import useScrolling from './hooks/useScrolling';
@@ -40,9 +40,9 @@ export {
   useHeight,
   useIndex,
   useIndexFraction,
-  useItemContainerRef,
+  useItemContainerCallbackRef,
   useNumItems,
-  useScrollableRef,
+  useScrollableCallbackRef,
   useScrollBarPercentage,
   useScrollBarWidth,
   useScrolling,
