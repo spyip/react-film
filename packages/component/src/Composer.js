@@ -46,14 +46,24 @@ const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleS
 
   const scrollTo = useCallback(
     scrollFn => {
-      const view = getView(dir, scrollableCallbackRefWithSubscribe.current, itemContainerCallbackRefWithSubscribe.current, scrollLeftRef.current);
+      const view = getView(
+        dir,
+        scrollableCallbackRefWithSubscribe.current,
+        itemContainerCallbackRefWithSubscribe.current,
+        scrollLeftRef.current
+      );
 
       if (view) {
         const { index, indexFraction } = view;
         const targetIndex = scrollFn({ index, indexFraction });
 
         if (typeof targetIndex === 'number') {
-          scrollLeftRef.current = computeScrollLeft(dir, scrollableCallbackRefWithSubscribe.current, itemContainerCallbackRefWithSubscribe.current, targetIndex);
+          scrollLeftRef.current = computeScrollLeft(
+            dir,
+            scrollableCallbackRefWithSubscribe.current,
+            itemContainerCallbackRefWithSubscribe.current,
+            targetIndex
+          );
           forceRender({});
         }
       }
@@ -122,7 +132,12 @@ const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleS
 
   const handleScroll = useCallback(
     ({ fraction: scrollBarPercentage, initial, width: scrollBarWidth }) => {
-      const view = getView(dir, scrollableCallbackRefWithSubscribe.current, itemContainerCallbackRefWithSubscribe.current, scrollLeftRef.current);
+      const view = getView(
+        dir,
+        scrollableCallbackRefWithSubscribe.current,
+        itemContainerCallbackRefWithSubscribe.current,
+        scrollLeftRef.current
+      );
 
       if (view) {
         const { index, indexFraction } = view;
