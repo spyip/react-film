@@ -37,8 +37,8 @@ const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleS
   }, [nonce, patchedStyleSet]);
 
   const [_, forceRender] = useState();
-  const itemContainerRef = useCallbackRefWithSubscribe();
-  const scrollableRef = useCallbackRefWithSubscribe();
+  const itemContainerCallbackRefWithSubscribe = useCallbackRefWithSubscribe();
+  const scrollableCallbackRefWithSubscribe = useCallbackRefWithSubscribe();
   const scrollLeftRef = useRef(null);
   const scrollTimeoutRef = useRef();
 
@@ -46,19 +46,19 @@ const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleS
 
   const scrollTo = useCallback(
     scrollFn => {
-      const view = getView(dir, scrollableRef.current, itemContainerRef.current, scrollLeftRef.current);
+      const view = getView(dir, scrollableCallbackRefWithSubscribe.current, itemContainerCallbackRefWithSubscribe.current, scrollLeftRef.current);
 
       if (view) {
         const { index, indexFraction } = view;
         const targetIndex = scrollFn({ index, indexFraction });
 
         if (typeof targetIndex === 'number') {
-          scrollLeftRef.current = computeScrollLeft(dir, scrollableRef.current, itemContainerRef.current, targetIndex);
+          scrollLeftRef.current = computeScrollLeft(dir, scrollableCallbackRefWithSubscribe.current, itemContainerCallbackRefWithSubscribe.current, targetIndex);
           forceRender({});
         }
       }
     },
-    [dir, forceRender, itemContainerRef, scrollableRef, scrollLeftRef]
+    [dir, forceRender, itemContainerCallbackRefWithSubscribe, scrollableCallbackRefWithSubscribe, scrollLeftRef]
   );
 
   const scrollOneLeft = useCallback(() => {
@@ -80,10 +80,10 @@ const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleS
 
   const internalContext = useMemo(
     () => ({
-      itemContainerRef,
-      scrollableRef
+      itemContainerCallbackRefWithSubscribe,
+      scrollableCallbackRefWithSubscribe
     }),
-    [itemContainerRef, scrollableRef]
+    [itemContainerCallbackRefWithSubscribe, scrollableCallbackRefWithSubscribe]
   );
 
   const propsContext = useMemo(
@@ -122,7 +122,7 @@ const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleS
 
   const handleScroll = useCallback(
     ({ fraction: scrollBarPercentage, initial, width: scrollBarWidth }) => {
-      const view = getView(dir, scrollableRef.current, itemContainerRef.current, scrollLeftRef.current);
+      const view = getView(dir, scrollableCallbackRefWithSubscribe.current, itemContainerCallbackRefWithSubscribe.current, scrollLeftRef.current);
 
       if (view) {
         const { index, indexFraction } = view;
@@ -136,7 +136,7 @@ const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleS
         });
       }
     },
-    [dir, itemContainerRef, scrollableRef, scrollLeftRef, setViewContext2]
+    [dir, itemContainerCallbackRefWithSubscribe, scrollableCallbackRefWithSubscribe, scrollLeftRef, setViewContext2]
   );
 
   const handleScrollToEnd = useCallback(() => {
@@ -155,24 +155,24 @@ const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleS
   );
 
   useAnimateScrollLeft(
-    typeof scrollLeftRef.current === 'number' && scrollableRef.current,
+    typeof scrollLeftRef.current === 'number' && scrollableCallbackRefWithSubscribe.current,
     scrollLeftRef.current,
     handleScrollToEnd
   );
 
   useEffect(
     () =>
-      scrollableRef.subscribe(current => {
+      scrollableCallbackRefWithSubscribe.subscribe(current => {
         if (current) {
           current.addEventListener('pointerdown', handleScrollToEnd, { passive: true });
 
           return () => current.removeEventListener('pointerdown', handleScrollToEnd);
         }
       }),
-    [scrollableRef]
+    [scrollableCallbackRefWithSubscribe]
   );
 
-  useObserveScrollLeft(scrollableRef, handleScroll);
+  useObserveScrollLeft(scrollableCallbackRefWithSubscribe, handleScroll);
 
   return (
     <PropsContext.Provider value={propsContext}>

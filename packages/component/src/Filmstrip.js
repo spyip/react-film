@@ -1,16 +1,16 @@
 import PropTypes from 'prop-types';
 import React, { Children } from 'react';
 
-import useItemContainerRef from './hooks/useItemContainerRef';
-import useScrollableRef from './hooks/useScrollableRef';
+import useItemContainerCallbackRef from './hooks/useItemContainerCallbackRef';
+import useScrollableCallbackRef from './hooks/useScrollableCallbackRef';
 
 const Filmstrip = ({ children }) => {
-  const itemContainerRef = useItemContainerRef();
-  const scrollableRef = useScrollableRef();
+  const itemContainerCallbackRef = useItemContainerCallbackRef();
+  const scrollableCallbackRef = useScrollableCallbackRef();
 
   return (
-    <div className="react-film__filmstrip" ref={scrollableRef}>
-      <ul className="react-film__filmstrip__list" ref={itemContainerRef}>
+    <div className="react-film__filmstrip" ref={scrollableCallbackRef}>
+      <ul className="react-film__filmstrip__list" ref={itemContainerCallbackRef}>
         {Children.map(children, child => (
           <li className="react-film__filmstrip__item">{child}</li>
         ))}
