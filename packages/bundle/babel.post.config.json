@@ -22,5 +22,5 @@
     "@babel/plugin-transform-spread",
     "@babel/plugin-transform-template-literals"
   ],
-  "sourceMaps": "inline"
+  "sourceMaps": true
 }

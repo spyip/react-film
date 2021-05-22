@@ -14,5 +14,5 @@
     ],
     "@babel/preset-react"
   ],
-  "sourceMaps": "inline"
+  "sourceMaps": true
 }
