@@ -60,6 +60,11 @@ jobs:
           cp LICENSE packages/component
           cp README.md packages/component
 
+      - name: Copying bundles
+        run: |
+          mkdir -p packages/component/dist/
+          cp packages/bundle/dist/* packages/component/dist/
+
       - name: Running npm pack
         run: |
           cd packages/component
