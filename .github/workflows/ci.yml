@@ -7,12 +7,14 @@ on:
   push:
     branches:
       - main
+      - master
     tags:
       - '*'
 
   pull_request:
     branches:
       - main
+      - master
 
 jobs:
   # "build" job will build artifacts for production.
