@@ -9,8 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changes
 
-- Moved from [`webpack`](https://webpack.js.org/) to [`esbuild@0.12.1`](https://esbuild.github.io/), by [@compulim](https://github.com/compulim), in PR [#XXX](https://github.com/spyip/react-film/pull/XXX)
-- Bump dependencies, by [@compulim](https://github.com/compulim), in PR [#XXX](https://github.com/spyip/react-film/pull/XXX)
+- Moved from [`webpack`](https://webpack.js.org/) to [`esbuild@0.12.1`](https://esbuild.github.io/), by [@compulim](https://github.com/compulim), in PR [#85](https://github.com/spyip/react-film/pull/85)
+- Bump dependencies, by [@compulim](https://github.com/compulim), in PR [#85](https://github.com/spyip/react-film/pull/85)
   - Production dependencies
     - [`@emotion/css@11.1.3`](https://npmjs.com/package/@emotion/css)
     - [`classnames@2.3.1`](https://npmjs.com/package/classnames)
