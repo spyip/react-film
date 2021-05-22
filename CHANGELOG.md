@@ -12,8 +12,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Moved from [`webpack`](https://webpack.js.org/) to [`esbuild@0.12.1`](https://esbuild.github.io/), by [@compulim](https://github.com/compulim), in PR [#85](https://github.com/spyip/react-film/pull/85)
 - Bump dependencies, by [@compulim](https://github.com/compulim), in PR [#85](https://github.com/spyip/react-film/pull/85)
   - Production dependencies
-    - [`@babel/runtime-corejs3@7.14.0`](https://npmjs.com/package/@babel/runtime-corejs3)
-    - [`@emotion/css@11.1.3`](https://npmjs.com/package/@emotion/css)
+    - [`@babel/runtime-corejs3@7.14.0`](https://npmjs.com/package/@babel/runtime-corejs3) from [`@babel/runtime`](https://npmjs.com/package/@babel/runtime)
+    - [`@emotion/css@11.1.3`](https://npmjs.com/package/@emotion/css) from [`create-emotion`](https://npmjs.com/package/create-emotion)
     - [`classnames@2.3.1`](https://npmjs.com/package/classnames)
     - [`core-js@3.12.1`](https://npmjs.com/package/core-js)
     - [`html-react-parser@1.2.6`](https://npmjs.com/package/html-react-parser)
