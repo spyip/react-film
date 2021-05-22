@@ -1,3 +1,6 @@
+import 'core-js/stable';
+import 'regenerator-runtime';
+
 import BasicFilm from 'react-film';
 import HTMLReactParser from 'html-react-parser';
 import React from 'react';
@@ -19,4 +22,4 @@ function retrofit(element, props) {
   );
 }
 
-export { retrofit };
+window.ReactFilm = { retrofit };

@@ -5,9 +5,9 @@ export default function best(array, scorer) {
 
       if (score > best.score) {
         return { index, score };
-      } else {
-        return best;
       }
+
+      return best;
     },
     { index: -1, score: -Infinity }
   ).index;

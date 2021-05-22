@@ -1,2 +1,4 @@
+/.env
+/coverage
 /lerna-debug.log
 /node_modules

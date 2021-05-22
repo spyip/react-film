@@ -1,5 +1,7 @@
-import { useEffect } from 'react';
+/* eslint no-magic-numbers: ["error", { "ignore": [0, 100] }] */
+
 import memoize from 'memoize-one';
+import { useEffect } from 'react';
 
 import debounce from '../../util/debounce';
 
@@ -42,6 +44,7 @@ export default function useObserveScrollLeft(callbackRefWithSubscribe, observer)
         current.addEventListener('pointerover', handlePointerOver, { passive: true });
         current.addEventListener('scroll', handleScroll, { passive: true });
 
+        // eslint-disable-next-line wrap-iife
         (async function () {
           if (current.scrollWidth === current.offsetWidth) {
             // HACK: Chrome 66 will initially say scrollWidth equals to offsetWidth, until some time later

@@ -1,66 +1,49 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
 import EventSpy from './EventSpy';
 
-export default class HoverSpy extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+const HoverSpy = ({ onEnter, onLeave, target }) => {
+  const [_, setPointers] = useState({});
 
-    this.handlePointerEnter = this.handlePointerEnter.bind(this);
-    this.handlePointerLeave = this.handlePointerLeave.bind(this);
+  const handlePointerEnter = useCallback(
+    ({ pointerId }) => {
+      setPointers(pointers => {
+        if (onEnter && !Object.keys(pointers).length) {
+          onEnter();
+        }
 
-    this.state = { pointers: {} };
-  }
-
-  handlePointerEnter({ pointerId }) {
-    this.setState(({ pointers }) => {
-      if (
-        this.props.onEnter
-        && !Object.keys(pointers).length
-      ) {
-        this.props.onEnter();
-      }
-
-      return {
-        pointers: {
+        return {
           ...pointers,
           [pointerId]: true
+        };
+      });
+    },
+    [setPointers]
+  );
+
+  const handlePointerLeave = useCallback(
+    ({ pointerId }) => {
+      setPointers(pointers => {
+        pointers = { ...pointers };
+
+        delete pointers[pointerId];
+
+        if (onLeave && !Object.keys(pointers).length) {
+          onLeave();
         }
-      };
-    });
-  }
 
-  handlePointerLeave({ pointerId }) {
-    this.setState(({ pointers }) => {
-      pointers = { ...pointers };
+        return pointers;
+      });
+    },
+    [setPointers]
+  );
 
-      delete pointers[pointerId];
+  return (
+    <React.Fragment>
+      <EventSpy name="pointerenter" onEvent={handlePointerEnter} target={target} />
+      <EventSpy name="pointerleave" onEvent={handlePointerLeave} target={target} />
+    </React.Fragment>
+  );
+};
 
-      if (
-        this.props.onLeave
-        && !Object.keys(pointers).length
-      ) {
-        this.props.onLeave();
-      }
-
-      return { pointers };
-    });
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        <EventSpy
-          name="pointerenter"
-          onEvent={ this.handlePointerEnter }
-          target={ this.props.target }
-        />
-        <EventSpy
-          name="pointerleave"
-          onEvent={ this.handlePointerLeave }
-          target={ this.props.target }
-        />
-      </React.Fragment>
-    );
-  }
-}
+export default HoverSpy;

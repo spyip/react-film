@@ -1,0 +1,26 @@
+{
+  /*
+    These are plugins that can transpile bundle emitted by ESBuild and also compatible with core-js@3.
+    Some plugins included by @babel/preset-env will break core-js@3 for Symbol, so we select plugin carefully.
+
+    List of plugins included by @babel/preset-env:
+    https://github.com/babel/babel/blob/master/packages/babel-compat-data/scripts/data/plugin-features.js
+
+    If we use @babel/preset-env on the bundle emitted by ESBuild, it will cause this issue.
+    https://github.com/zloirock/core-js/issues/514
+
+    The solution is to skip Babel on node_modules/core-js. But in our case, we can't because it is already in the final bundle.
+  */
+  "plugins": [
+    "@babel/plugin-proposal-nullish-coalescing-operator", // This is only needed for --minify build, which emit "??" operator.
+    "@babel/plugin-transform-arrow-functions",
+    "@babel/plugin-transform-block-scoping",
+    "@babel/plugin-transform-destructuring",
+    "@babel/plugin-transform-for-of",
+    "@babel/plugin-transform-parameters",
+    "@babel/plugin-transform-shorthand-properties",
+    "@babel/plugin-transform-spread",
+    "@babel/plugin-transform-template-literals"
+  ],
+  "sourceMaps": "inline"
+}

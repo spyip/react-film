@@ -1,5 +1,5 @@
 /* global module */
 
-const ReactDOM = require('react-dom');
+import ReactDOM from 'react-dom';
 
 module.exports = typeof window.ReactDOM === 'undefined' ? ReactDOM : window.ReactDOM;

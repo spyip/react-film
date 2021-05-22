@@ -1,4 +1,4 @@
-import createEmotion from 'create-emotion';
+import createEmotion from '@emotion/css/create-instance';
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
@@ -24,10 +24,10 @@ const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleS
   dir = dir === 'ltr' || dir === 'rtl' ? dir : undefined;
 
   const patchedStyleOptions = useMemo(() => patchStyleOptions(styleOptions), [styleOptions]);
-  const patchedStyleSet = useMemo(() => styleSet || createBasicStyleSet(patchedStyleOptions), [
-    patchedStyleOptions,
-    styleSet
-  ]);
+  const patchedStyleSet = useMemo(
+    () => styleSet || createBasicStyleSet(patchedStyleOptions),
+    [patchedStyleOptions, styleSet]
+  );
 
   const styleSetClassNames = useMemo(() => {
     const emotion =
@@ -123,6 +123,7 @@ const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleS
               ...nextViewContext,
               scrolling: false
             }),
+          // eslint-disable-next-line no-magic-numbers
           500
         );
       }
@@ -184,7 +185,7 @@ const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleS
           return () => current.removeEventListener('pointerdown', handleScrollToEnd);
         }
       }),
-    [scrollableCallbackRefWithSubscribe]
+    [handleScrollToEnd, scrollableCallbackRefWithSubscribe]
   );
 
   useObserveScrollLeft(scrollableCallbackRefWithSubscribe, handleScroll);

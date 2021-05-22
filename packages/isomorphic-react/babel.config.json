@@ -1,0 +1,12 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "forceAllTransforms": true,
+        "modules": false
+      }
+    ]
+  ],
+  "sourceMaps": "inline"
+}

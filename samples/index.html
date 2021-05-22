@@ -19,16 +19,15 @@
       <img alt="Cat 11" src="image/11.jpg" />
     </div>
     <script>
-      !function () {
+      !(function () {
         'use strict';
 
-        window.ReactFilm.retrofit(
-          document.getElementById('film'),
-          {
-            height: 316
-          }
-        );
-      }();
+        window.ReactFilm.retrofit(document.getElementById('film'), {
+          height: 316
+        });
+
+        console.log('window.React === ' + window.React);
+      })();
     </script>
   </body>
 </html>
