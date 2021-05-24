@@ -1,19 +1,29 @@
 {
-  "rewrites": [
+  "redirects": [
     {
       "source": "/",
-      "destination": "samples/index.html"
+      "destination": "samples/"
     },
+    {
+      "source": "/.git",
+      "destination": "/"
+    }
+  ],
+  "rewrites": [
     {
       "source": "/react-film/react-film.development.js",
       "destination": "packages/bundle/dist/react-film.development.js"
+    },
+    {
+      "source": "/react-film/react-film.production.min.js",
+      "destination": "packages/bundle/dist/react-film.production.min.js"
     },
     {
       "source": "/react-film/react-film.min.js",
       "destination": "packages/bundle/dist/react-film.min.js"
     },
     {
-      "source": "image/:id.jpg",
+      "source": "/samples/image/:id.jpg",
       "destination": "packages/playground/public/image/:id.jpg"
     }
   ]

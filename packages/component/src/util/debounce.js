@@ -1,21 +1,21 @@
 function later(fn, interval) {
   if (interval > 0) {
     return setTimeout(fn, interval);
-  } else {
-    fn();
   }
+
+  fn();
 }
 
 export default function (fn, interval) {
   let last = 0;
   let timeout;
 
-  return function () {
+  return function (...args) {
     timeout ||
       (timeout = later(() => {
         timeout = null;
         last = Date.now();
-        fn.apply(null, arguments);
+        fn(...args);
       }, interval + last - Date.now()));
   };
 }

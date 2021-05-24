@@ -15,6 +15,8 @@ const Dot = ({ 'aria-label': ariaLabel, itemIndex }) => {
     event => {
       const { keyCode } = event;
 
+      // 13 is ENTER, 32 is SPACEBAR.
+      // eslint-disable-next-line no-magic-numbers
       if (keyCode === 13 || keyCode === 32) {
         event.preventDefault();
         event.stopPropagation();

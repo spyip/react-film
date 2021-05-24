@@ -1,3 +1,5 @@
+/* eslint no-magic-numbers: "off" */
+
 import patchStyleOptions from './patchStyleOptions';
 
 const createDotsStyle = ({ dotBoxSize }) => ({

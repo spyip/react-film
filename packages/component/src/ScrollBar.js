@@ -1,3 +1,5 @@
+/* eslint no-magic-numbers: ["error", { "ignore": [1, 100] }] */
+
 import React from 'react';
 
 import * as browser from './browser';

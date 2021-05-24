@@ -1,0 +1,18 @@
+{
+  "plugins": [
+    "@babel/plugin-transform-runtime"
+  ],
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "corejs": "3",
+        "forceAllTransforms": true,
+        "modules": false,
+        "useBuiltIns": "usage"
+      }
+    ],
+    "@babel/preset-react"
+  ],
+  "sourceMaps": true
+}

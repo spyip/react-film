@@ -57,6 +57,8 @@ if (typeof document !== 'undefined' && document.head) {
   const meta = document.createElement('meta');
 
   meta.setAttribute('name', 'react-film');
+
+  // eslint-disable-next-line no-undef
   meta.setAttribute('content', `version=${process.env.npm_package_version}`);
 
   document.head.appendChild(meta);

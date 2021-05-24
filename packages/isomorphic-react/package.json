@@ -1,29 +1,29 @@
 {
   "name": "isomorphic-react",
   "version": "0.0.0-0",
-  "main": "dist/react.js",
   "private": true,
   "scripts": {
-    "build": "npm run build:babel && npm run build:webpack",
+    "build": "npm run build:babel && npm run build:esbuild:react && npm run build:esbuild:react-dom",
     "build:babel": "babel --out-dir lib src",
-    "build:webpack": "webpack --config webpack-development.config.js",
-    "eslint": "eslint src/**/*.js",
-    "prepublishOnly": "npm run prepublishOnly:babel && npm run prepublishOnly:webpack",
-    "prepublishOnly:babel": "npm run build:babel",
-    "prepublishOnly:webpack": "webpack",
-    "start": "npm run build && concurrently --kill-others --names \"babel,webpack\" \"npm run build:babel -- --watch\" \"npm run build:webpack -- --watch\""
+    "build:esbuild:react": "esbuild lib/React.js --bundle --format=cjs --outfile=dist/react.js --sourcemap",
+    "build:esbuild:react-dom": "esbuild lib/ReactDOM.js --bundle --external:react --format=cjs --outfile=dist/react-dom.js --sourcemap",
+    "precommit": "eslint",
+    "prestart": "npm run build:babel",
+    "start": "concurrently \"npm run start:*\"",
+    "start:babel": "npm run build:babel -- --skip-initial-build --watch",
+    "start:esbuild:react": "npm run build:esbuild:react -- --watch",
+    "start:esbuild:react-dom": "npm run build:esbuild:react-dom -- --watch"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@babel/cli": "^7.10.5",
-    "@babel/core": "^7.11.4",
-    "@babel/preset-env": "^7.11.0",
-    "concurrently": "^5.3.0",
-    "eslint": "^7.7.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "prettier": "^2.0.5",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
+    "concurrently": "^6.1.0",
+    "esbuild": "^0.12.1",
+    "eslint": "^7.26.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.3.0"
   }
 }

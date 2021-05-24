@@ -21,9 +21,8 @@ const BasicFilm = ({ children, className }) => {
   const [scrollBarWidth] = useScrollBarWidth();
   const [scrolling] = useScrolling();
   const [{ root: rootClassName }] = useStyleSetClassNames();
-  const [
-    { flipperBlurFocusOnClick, leftFlipperText, rightFlipperText, showDots, showFlipper, showScrollBar }
-  ] = useStyleOptions();
+  const [{ flipperBlurFocusOnClick, leftFlipperText, rightFlipperText, showDots, showFlipper, showScrollBar }] =
+    useStyleOptions();
 
   const contentStyle = useMemo(() => ({ height }), [height]);
 

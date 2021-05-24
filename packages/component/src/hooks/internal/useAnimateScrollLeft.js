@@ -17,9 +17,9 @@ function squareStepper(current, to) {
 
   if (sign > 0) {
     return Math.min(to, next);
-  } else {
-    return Math.max(to, next);
   }
+
+  return Math.max(to, next);
 }
 
 export default function useAnimateScrollLeft(element, to, onEnd) {
@@ -31,8 +31,10 @@ export default function useAnimateScrollLeft(element, to, onEnd) {
 
       const animate = from => {
         animator = requestAnimationFrame(() => {
+          // eslint-disable-next-line no-magic-numbers
           let nextValue = step(from, to, squareStepper, (Date.now() - start) / 5);
 
+          // eslint-disable-next-line no-magic-numbers
           if (Math.abs(to - nextValue) < 0.5) {
             nextValue = to;
           }

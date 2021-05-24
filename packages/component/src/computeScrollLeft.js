@@ -12,6 +12,7 @@ export default function computeScrollLeft(dir, scrollable, itemContainer, index)
         return 0;
       }
 
+      // eslint-disable-next-line no-magic-numbers
       let result = item.offsetLeft + (item.offsetWidth - scrollable.offsetWidth) / 2;
 
       if (rtl) {

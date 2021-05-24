@@ -1,3 +1,5 @@
+/* eslint no-magic-numbers: "off" */
+
 import * as browser from './browser';
 import best from './util/best';
 
