@@ -2,7 +2,6 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, { useCallback, useRef } from 'react';
 
-import * as browser from './browser';
 import useDir from './hooks/useDir';
 import useScrollBarPercentage from './hooks/useScrollBarPercentage';
 import useScrollOneLeft from './hooks/useScrollOneLeft';
@@ -35,7 +34,7 @@ const Flipper = ({ 'aria-label': ariaLabel, blurFocusOnClick, children, mode }) 
 
   let hide;
 
-  if (dir === 'rtl' && !browser.chrome) {
+  if (dir === 'rtl') {
     if (left) {
       hide = scrollBarPercentage === '100%' || scrollBarPercentage === '-100%';
     } else {

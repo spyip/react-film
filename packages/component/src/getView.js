@@ -8,13 +8,7 @@ export default function getView(dir, scrollable, itemContainer, scrollingTo) {
 
   if (itemContainer && scrollable) {
     const scrollLeft = scrollingTo || scrollable.scrollLeft;
-    const trueScrollLeft = rtl
-      ? browser.chrome
-        ? scrollLeft - (scrollable.scrollWidth - scrollable.offsetWidth)
-        : browser.edgeUWP || browser.internetExplorer
-        ? -scrollLeft
-        : scrollLeft
-      : scrollLeft;
+    const trueScrollLeft = rtl && (browser.edgeUWP || browser.internetExplorer) ? -scrollLeft : scrollLeft;
     const items = itemContainer.children; // This will enumerate <li> inside <FilmStrip>
     const scrollCenter = trueScrollLeft + scrollable.offsetWidth / 2;
     const index = best([].slice.call(items), item => {
