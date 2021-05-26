@@ -23,13 +23,10 @@ export default function computeScrollLeft(dir, scrollable, itemContainer, index)
         result = Math.min(result, scrollable.scrollWidth - scrollable.offsetWidth);
       }
 
-      if (rtl) {
-        if (browser.chrome) {
-          result += scrollable.scrollWidth - scrollable.offsetWidth;
-        } else if (browser.edgeUWP || browser.internetExplorer) {
-          result = -result;
-        }
+      if (rtl && (browser.edgeUWP || browser.internetExplorer)) {
+        result = -result;
       }
+
       return result;
     }
   }

@@ -18,16 +18,12 @@ const ScrollBar = () => {
         className="react-film__scroll-bar__handle"
         style={{
           ...(dir === 'rtl'
-            ? browser.firefox || browser.safari
-              ? {
-                  marginRight: `${(parseFloat(scrollBarWidth) / 100 - 1) * parseFloat(scrollBarPercentage)}%`
-                }
-              : browser.edgeUWP || browser.internetExplorer
+            ? browser.edgeUWP || browser.internetExplorer
               ? {
                   marginRight: `${(1 - parseFloat(scrollBarWidth) / 100) * parseFloat(scrollBarPercentage)}%`
                 }
               : {
-                  marginRight: `${(1 - parseFloat(scrollBarWidth) / 100) * (100 - parseFloat(scrollBarPercentage))}%`
+                  marginRight: `${(parseFloat(scrollBarWidth) / 100 - 1) * parseFloat(scrollBarPercentage)}%`
                 }
             : {
                 marginLeft: `${(1 - parseFloat(scrollBarWidth) / 100) * parseFloat(scrollBarPercentage)}%`
