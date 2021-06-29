@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.0.1] - 2021-06-29
+
 ### Fixed
 
 - Fixed [#75](https://github.com/spyip/react-film/issues/75). Flippers, dots, and scroll bar should work in right-to-left (RTL) correctly in Chrome 85 and beyond, by [@compulim](https://github.com/compulim), in PR [#86](https://github.com/spyip/react-film/pull/86)
