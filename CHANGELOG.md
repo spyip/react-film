@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.1.0] - 2021-10-14
+
 ### Changes
 
 - Added support of GitHub Codespaces, by [@compulim](https://github.com/compulim), in PR [#89](https://github.com/spyip/react-film/pull/89)
