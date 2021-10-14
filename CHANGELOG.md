@@ -7,6 +7,33 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changes
+
+- Added support of GitHub Codespaces, by [@compulim](https://github.com/compulim), in PR [#89](https://github.com/spyip/react-film/pull/89)
+- Changed peer dependencies requirement to `react >= 16.8.6`, by [@compulim](https://github.com/compulim), in PR [#89](https://github.com/spyip/react-film/pull/89)
+- Bump dependencies, by [@compulim](https://github.com/compulim), in PR [#89](https://github.com/spyip/react-film/pull/89)
+  - Development dependencies
+    - [`@babel/cli@7.15.7`](https://npmjs.com/package/@babel/cli)
+    - [`@babel/core@7.15.8`](https://npmjs.com/package/@babel/core)
+    - [`@babel/plugin-transform-runtime@7.15.8`](https://npmjs.com/package/@babel/plugin-transform-runtime)
+    - [`@babel/preset-env@7.15.8`](https://npmjs.com/package/@babel/preset-env)
+    - [`@babel/preset-react@7.14.5`](https://npmjs.com/package/@babel/preset-react)
+    - [`@testing-library/jest-dom@5.14.1`](https://npmjs.com/package/@testing-library/jest-dom)
+    - [`@testing-library/react@12.1.2`](https://npmjs.com/package/@testing-library/react)
+    - [`@testing-library/user-event@13.3.0`](https://npmjs.com/package/@testing-library/user-event)
+    - [`concurrently@6.3.0`](https://npmjs.com/package/concurrently)
+    - [`core-js@3.18.3`](https://npmjs.com/package/core-js)
+    - [`esbuild@0.13.6`](https://npmjs.com/package/esbuild)
+    - [`eslint-plugin-prettier@4.0.0`](https://npmjs.com/package/eslint-plugin-prettier)
+    - [`eslint-plugin-react@7.26.1`](https://npmjs.com/package/eslint-plugin-react)
+    - [`eslint@7.32.0`](https://npmjs.com/package/eslint)
+    - [`husky@7.0.2`](https://npmjs.com/package/husky)
+    - [`jest@27.2.5`](https://npmjs.com/package/jest)
+    - [`prettier@2.4.1`](https://npmjs.com/package/prettier)
+    - [`react-scripts@4.0.3`](https://npmjs.com/package/react-scripts)
+    - [`serve@12.0.1`](https://npmjs.com/package/serve)
+    - [`web-vitals@2.1.2`](https://npmjs.com/package/web-vitals)
+
 ## [3.0.1] - 2021-06-29
 
 ### Fixed
