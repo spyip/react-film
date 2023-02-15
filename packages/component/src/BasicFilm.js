@@ -21,8 +21,18 @@ const BasicFilm = ({ children, className }) => {
   const [scrollBarWidth] = useScrollBarWidth();
   const [scrolling] = useScrolling();
   const [{ root: rootClassName }] = useStyleSetClassNames();
-  const [{ flipperBlurFocusOnClick, leftFlipperText, rightFlipperText, showDots, showFlipper, showScrollBar }] =
-    useStyleOptions();
+  const [
+    {
+      flipperBlurFocusOnClick,
+      leftFlipperAriaLabel,
+      leftFlipperText,
+      rightFlipperAriaLabel,
+      rightFlipperText,
+      showDots,
+      showFlipper,
+      showScrollBar
+    }
+  ] = useStyleOptions();
 
   const contentStyle = useMemo(() => ({ height }), [height]);
 
@@ -33,13 +43,13 @@ const BasicFilm = ({ children, className }) => {
         style={contentStyle}
       >
         {!!numItems && scrollBarWidth !== '100%' && !!showFlipper && (
-          <Flipper blurFocusOnClick={flipperBlurFocusOnClick} mode="left">
+          <Flipper aria-label={leftFlipperAriaLabel} blurFocusOnClick={flipperBlurFocusOnClick} mode="left">
             {leftFlipperText}
           </Flipper>
         )}
         <Filmstrip>{children}</Filmstrip>
         {!!numItems && scrollBarWidth !== '100%' && !!showFlipper && (
-          <Flipper blurFocusOnClick={flipperBlurFocusOnClick} mode="right">
+          <Flipper aria-label={rightFlipperAriaLabel} blurFocusOnClick={flipperBlurFocusOnClick} mode="right">
             {rightFlipperText}
           </Flipper>
         )}
