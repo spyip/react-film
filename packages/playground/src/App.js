@@ -156,7 +156,9 @@ const App = () => {
           height={316}
           key={`${key}-c`}
           nonce="a1b2c3d"
+          leftFlipperAriaLabel="previous"
           leftFlipperText="L"
+          rightFlipperAriaLabel="next"
           rightFlipperText="R"
           styleSet={myStyleSet}
         >
