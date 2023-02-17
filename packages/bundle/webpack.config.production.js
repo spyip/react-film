@@ -1,3 +1,4 @@
+const { StatsWriterPlugin } = require('webpack-stats-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
@@ -18,5 +19,11 @@ module.exports = {
         }
       })
     ]
-  }
+  },
+  plugins: [
+    new StatsWriterPlugin({
+      filename: 'stats.json',
+      transform: (_, opts) => JSON.stringify(opts.compiler.getStats().toJson({ chunkModules: true }), null, 2)
+    })
+  ]
 };
