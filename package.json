@@ -29,16 +29,22 @@
     "react-dom": "Single version of isomorphic-reac across mono-repo."
   },
   "devDependencies": {
-    "concurrently": "^6.1.0",
-    "husky": "^7.0.2",
-    "lerna": "^4.0.0",
-    "lint-staged": "^11.0.0",
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
-    "serve": "^12.0.1"
+    "concurrently": "^7.6.0",
+    "husky": "^8.0.3",
+    "lerna": "^6.5.1",
+    "lint-staged": "^13.1.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "serve": "^14.2.0"
   },
   "pinDependencies": {
-    "react": ["16.8.6", "oldest supported version of react"],
-    "react-dom": ["16.8.6", "oldest supported version of react"]
+    "react": [
+      "16.8.6",
+      "oldest supported version of react"
+    ],
+    "react-dom": [
+      "16.8.6",
+      "oldest supported version of react"
+    ]
   }
 }
