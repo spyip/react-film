@@ -6,26 +6,35 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build --stream",
+    "bump": "npm run bump:prod && npm run bump:dev && npm run bump:auditfix",
+    "bump:auditfix": "npm audit fix || exit 0",
+    "bump:dev": "if [ `cat package.json | jq -r '.devDependencies | length'` -ne 0 ]; then npm install $(cat package.json | jq -r '.pinDependencies as $p | ((.devDependencies // {}) | keys) | map(. + \"@\" + ($p[.] // [\"latest\"])[0]) | .[]'); fi",
+    "bump:prod": "if [ `cat package.json | jq -r '.dependencies | length'` -ne 0 ]; then npm install --save-exact $(cat package.json | jq -r '.pinDependencies as $p | ((.dependencies // {}) | keys) | map(. + \"@\" + ($p[.] // [\"latest\"])[0]) | .[]'); fi",
+    "bump:packages": "for i in `find packages -name package.json ! -path */node_modules/* | xargs realpath | xargs dirname`; do echo \u001b[32m--- Bumping $i/package.json ---\u001b[0m; cd $i; npm run bump; if [ $? -ne 0 ]; then echo \u001b[31m--- Error while bumping $i/package.json ---\u001b[0m; break; fi; cd $OLDPWD; done; echo \u001b[32m--- Bump completed ---\u001b[0m && lerna clean --yes && lerna bootstrap",
     "clean": "lerna run clean --parallel --stream",
     "precommit": "lint-staged",
     "precommit:bundle": "cd packages && cd bundle && npm run precommit --",
     "precommit:component": "cd packages && cd component && npm run precommit --",
     "precommit:isomorphic-react": "cd packages && cd isomorphic-react && npm run precommit --",
     "precommit:isomorphic-react-dom": "cd packages && cd isomorphic-react-dom && npm run precommit --",
-    "prepare": "husky install",
+    "prepare": "husky install && lerna bootstrap",
     "prepublishOnly": "lerna run prepublishOnly --stream",
     "start": "concurrently \"npm run start:*\"",
     "start:lerna": "lerna run start --parallel --stream",
     "start:server": "serve -p 5000",
     "test": "lerna run test"
   },
+  "skipBump": {
+    "react": "Single version of isomorphic-react across mono-repo.",
+    "react-dom": "Single version of isomorphic-reac across mono-repo."
+  },
   "devDependencies": {
-    "concurrently": "^6.1.0",
-    "husky": "^7.0.2",
-    "lerna": "^4.0.0",
-    "lint-staged": "^11.0.0",
+    "concurrently": "^7.6.0",
+    "husky": "^8.0.3",
+    "lerna": "^6.5.1",
+    "lint-staged": "^13.1.2",
     "react": "16.8.6",
     "react-dom": "16.8.6",
-    "serve": "^12.0.1"
+    "serve": "^14.2.0"
   }
 }
