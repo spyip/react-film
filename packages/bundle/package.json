@@ -51,13 +51,17 @@
     "source-map-loader": "^4.0.1",
     "terser-webpack-plugin": "^5.3.6",
     "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1"
+    "webpack-cli": "^5.0.1",
+    "webpack-stats-plugin": "^1.1.1"
   },
   "localPeerDependencies": {
     "isomorphic-react": "0.0.0-0",
     "react-film": "0.0.0-0"
   },
   "pinDependencies": {
-    "html-react-parser": ["^1", ">= 2 does not support IE"]
+    "html-react-parser": [
+      "^1",
+      ">= 2 does not support IE"
+    ]
   }
 }
