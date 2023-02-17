@@ -62,8 +62,8 @@ jobs:
 
       - name: Copying bundles
         run: |
-          mkdir -p packages/component/dist/
-          cp packages/bundle/dist/* packages/component/dist/
+          mkdir -p packages/component/umd/
+          cp packages/bundle/dist/* packages/component/umd/
 
       - name: Running npm pack
         run: |
