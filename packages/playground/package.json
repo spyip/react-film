@@ -3,23 +3,17 @@
   "version": "0.1.0",
   "homepage": "/react-film",
   "private": true,
-  "dependencies": {
-    "@emotion/css": "^11.1.3",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^12.1.2",
-    "@testing-library/user-event": "^13.3.0",
-    "classnames": "^2.3.1",
-    "core-js": "^3.18.3",
-    "react-app-polyfill": "^2.0.0",
-    "react-film": "^0.0.0-0",
-    "react-scripts": "^4.0.3",
-    "web-vitals": "^2.1.2"
-  },
   "scripts": {
-    "start": "react-scripts start",
+    "bump": "npm run bump:prod && npm run bump:dev && npm run bump:auditfix",
+    "bump:auditfix": "npm audit fix || exit 0",
+    "bump:dev": "if [ `cat package.json | jq -r '.devDependencies | length'` -ne 0 ]; then npm install $(cat package.json | jq -r '((.devDependencies // {}) | keys) - ((.skipBump // {}) | keys) | .[]' | awk '{print $1 \"@latest\"}'); fi",
+    "bump:prod": "if [ `cat package.json | jq -r '.dependencies | length'` -ne 0 ]; then npm install --save-exact $(cat package.json | jq -r '((.dependencies // {}) | keys) - ((.skipBump // {}) | keys) | .[]' | awk '{print $1 \"@latest\"}'); fi",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postbump": "cat package.json | jq '. + (.dependencies = ((.dependencies + (.localPeerDependencies // {})) | to_entries | sort_by(.key) | from_entries)) | (.devDependencies = ((.devDependencies + (.localPeerDevDependencies // {})) | to_entries | sort_by(.key) | from_entries))' > package-temp.json && mv package-temp.json package.json",
+    "prebump": "cat package.json | jq '(((.localPeerDependencies // {}) | keys | map([\"dependencies\", .])) + ((.localPeerDevDependencies // {}) | keys | map([\"devDependencies\", .]))) as $localPeerPaths | delpaths($localPeerPaths)' > package-temp.json && mv package-temp.json package.json",
+    "start": "react-scripts start",
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": [
@@ -38,5 +32,21 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "dependencies": {
+    "@emotion/css": "^11.1.3",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.3.0",
+    "classnames": "^2.3.1",
+    "core-js": "^3.18.3",
+    "react-app-polyfill": "^2.0.0",
+    "react-film": "0.0.0-0",
+    "react-scripts": "^4.0.3",
+    "web-vitals": "^2.1.2"
+  },
+  "devDependencies": {},
+  "localPeerDependencies": {
+    "react-film": "0.0.0-0"
   }
 }

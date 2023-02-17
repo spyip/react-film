@@ -1,4 +1,4 @@
-const { resolve } = require('path');
+import { resolve } from 'path';
 
 const onResolveReact = {
   name: 'isomorphic-react',
@@ -17,11 +17,11 @@ const onResolveReact = {
   }
 };
 
-module.exports = {
+export default {
   bundle: true,
-  entryPoints: ['src/index.js'],
+  entryPoints: ['lib/index.js'],
   logLevel: 'info',
   plugins: [onResolveReact],
   sourcemap: true,
-  watch: process.argv.slice(2).includes('--watch')
+  target: ['ie11'],
 };

@@ -1,27 +1,38 @@
 {
   "name": "bundle",
   "version": "0.0.0-0",
-  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "private": true,
   "scripts": {
-    "build": "npm run build:babel:pre && npm run build:esbuild && npm run build:babel:post",
+    "build": "npm run build:babel:pre && npm run build:esbuild && npm run build:webpack",
     "build:babel:pre": "babel --config-file ./babel.pre.config.json --out-dir lib --verbose src/",
-    "build:babel:post": "babel --config-file ./babel.post.config.json --out-dir dist --verbose lib/esbuild/",
     "build:esbuild": "concurrently \"npm run build:esbuild:*\"",
-    "build:esbuild:development": "node ./esbuild.development",
-    "build:esbuild:production": "node ./esbuild.production",
+    "build:esbuild:development": "node ./esbuild.development.mjs",
+    "build:esbuild:production": "node ./esbuild.production.mjs",
+    "build:webpack": "concurrently \"npm run build:webpack:*\"",
+    "build:webpack:development": "webpack --config ./webpack.config.development.js",
+    "build:webpack:production": "webpack --config ./webpack.config.production.js",
+    "bump": "npm run bump:prod && npm run bump:dev && npm run bump:auditfix",
+    "bump:auditfix": "npm audit fix || exit 0",
+    "bump:dev": "if [ `cat package.json | jq -r '.devDependencies | length'` -ne 0 ]; then npm install $(cat package.json | jq -r '((.devDependencies // {}) | keys) - ((.skipBump // {}) | keys) | .[]' | awk '{print $1 \"@latest\"}'); fi",
+    "bump:prod": "if [ `cat package.json | jq -r '.dependencies | length'` -ne 0 ]; then npm install --save-exact $(cat package.json | jq -r '((.dependencies // {}) | keys) - ((.skipBump // {}) | keys) | .[]' | awk '{print $1 \"@latest\"}'); fi",
+    "postbump": "cat package.json | jq '. + (.dependencies = ((.dependencies + (.localPeerDependencies // {})) | to_entries | sort_by(.key) | from_entries)) | (.devDependencies = ((.devDependencies + (.localPeerDevDependencies // {})) | to_entries | sort_by(.key) | from_entries))' > package-temp.json && mv package-temp.json package.json",
+    "prebump": "cat package.json | jq '(((.localPeerDependencies // {}) | keys | map([\"dependencies\", .])) + ((.localPeerDevDependencies // {}) | keys | map([\"devDependencies\", .]))) as $localPeerPaths | delpaths($localPeerPaths)' > package-temp.json && mv package-temp.json package.json",
     "precommit": "eslint",
-    "prestart": "npm run build:babel:pre && npm run build:esbuild:development && npm run build:esbuild:production && npm run build:babel:post",
+    "prestart": "npm run build:babel:pre && npm run build:webpack:development && npm run build:webpack:production",
     "start": "concurrently \"npm run start:*\"",
     "start:babel:pre": "npm run build:babel:pre -- --skip-initial-build --watch",
-    "start:babel:post": "npm run build:babel:post -- --skip-initial-build --watch",
     "start:esbuild:development": "npm run build:esbuild:development -- --watch",
-    "start:esbuild:production": "npm run build:esbuild:production -- --watch"
+    "start:esbuild:production": "npm run build:esbuild:production -- --watch",
+    "start:webpack:development": "npm run build:webpack:development -- --watch",
+    "start:webpack:production": "npm run build:webpack:production -- --watch"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "7.14.0",
     "core-js": "3.12.1",
     "html-react-parser": "1.2.6",
-    "react-film": "^0.0.0-0",
+    "isomorphic-react": "0.0.0-0",
+    "react-film": "0.0.0-0",
     "regenerator-runtime": "0.13.7"
   },
   "devDependencies": {
@@ -31,12 +42,19 @@
     "@babel/preset-env": "^7.15.8",
     "@babel/preset-react": "^7.14.5",
     "concurrently": "^6.3.0",
-    "esbuild": "^0.13.6",
+    "esbuild": "^0.17.8",
     "eslint": "^7.32.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "isomorphic-react": "^0.0.0-0",
-    "prettier": "^2.4.1"
+    "prettier": "^2.4.1",
+    "source-map-loader": "^4.0.1",
+    "terser-webpack-plugin": "^5.3.6",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  },
+  "localPeerDependencies": {
+    "isomorphic-react": "0.0.0-0",
+    "react-film": "0.0.0-0"
   }
 }
