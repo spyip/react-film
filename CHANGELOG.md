@@ -11,6 +11,52 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Added `leftFlipperAriaLabel` and `rightFlipperAriaLabel` for customizing the `aria-label` attribute for flipper buttons, by [@compulim](https://github.com/compulim), in PR [#98](https://github.com/spyip/react-film/pull/98)
 
+### Changes
+
+- Avoided global pollution via `@babel/runtime-corejs3`, by [@compulim](https://github.com/compulim), in PR [#99](https://github.com/spyip/react-film/pull/99)
+- Bundle is now built using Webpack for compatibility with IE Mode, by [@compulim](https://github.com/compulim), in PR [#99](https://github.com/spyip/react-film/pull/99)
+- Bump dependencies, by [@compulim](https://github.com/compulim), in PR [#99](https://github.com/spyip/react-film/pull/99)
+  - Added `bump` scripts
+  - Production dependencies
+    - [`@babel/runtime-corejs3@7.20.13`](https://npmjs.com/package/@babel/runtime-corejs3
+    - [`@emotion/css@11.10.6`](https://npmjs.com/package/@emotion/css
+    - [`classnames@2.3.2`](https://npmjs.com/package/classnames
+    - [`core-js@3.28.0`](https://npmjs.com/package/core-js
+    - [`html-react-parser@1.4.14`](https://npmjs.com/package/html-react-parser
+    - [`memoize-one@6.0.0`](https://npmjs.com/package/memoize-one
+    - [`prop-types@15.8.1`](https://npmjs.com/package/prop-types
+    - [`regenerator-runtime@0.13.11`](https://npmjs.com/package/regenerator-runtime
+  - Development dependencies
+    - [`@babel/cli@7.20.7`](https://npmjs.com/package/@babel/cli)
+    - [`@babel/core@7.20.12`](https://npmjs.com/package/@babel/core)
+    - [`@babel/plugin-transform-runtime@7.19.6`](https://npmjs.com/package/@babel/plugin-transform-runtime)
+    - [`@babel/preset-env@7.20.2`](https://npmjs.com/package/@babel/preset-env)
+    - [`@babel/preset-react@7.18.6`](https://npmjs.com/package/@babel/preset-react)
+    - [`@emotion/css@11.10.6`](https://npmjs.com/package/@emotion/css)
+    - [`@testing-library/jest-dom@5.16.5`](https://npmjs.com/package/@testing-library/jest-dom)
+    - [`@testing-library/react@12.1.5`](https://npmjs.com/package/@testing-library/react)
+    - [`@testing-library/user-event@14.4.3`](https://npmjs.com/package/@testing-library/user-event)
+    - [`babel-plugin-transform-inline-environment-variables@0.4.4`](https://npmjs.com/package/babel-plugin-transform-inline-environment-variables)
+    - [`classnames@2.3.2`](https://npmjs.com/package/classnames)
+    - [`concurrently@7.6.0`](https://npmjs.com/package/concurrently)
+    - [`core-js@3.28.0`](https://npmjs.com/package/core-js)
+    - [`esbuild@0.17.8`](https://npmjs.com/package/esbuild)
+    - [`eslint-plugin-prettier@4.2.1`](https://npmjs.com/package/eslint-plugin-prettier)
+    - [`eslint-plugin-react-hooks@4.6.0`](https://npmjs.com/package/eslint-plugin-react-hooks)
+    - [`eslint-plugin-react@7.32.2`](https://npmjs.com/package/eslint-plugin-react)
+    - [`eslint@8.34.0`](https://npmjs.com/package/eslint)
+    - [`husky@8.0.3`](https://npmjs.com/package/husky)
+    - [`jest@29.4.3`](https://npmjs.com/package/jest)
+    - [`lerna@6.5.1`](https://npmjs.com/package/lerna)
+    - [`lint-staged@13.1.2`](https://npmjs.com/package/lint-staged)
+    - [`prettier@2.8.4`](https://npmjs.com/package/prettier)
+    - [`react-app-polyfill@3.0.0`](https://npmjs.com/package/react-app-polyfill)
+    - [`react-dom@16.8.6`](https://npmjs.com/package/react-dom)
+    - [`react-scripts@5.0.1`](https://npmjs.com/package/react-scripts)
+    - [`react@16.8.6`](https://npmjs.com/package/react)
+    - [`serve@14.2.0`](https://npmjs.com/package/serve)
+    - [`web-vitals@3.1.1`](https://npmjs.com/package/web-vitals)
+
 ## [3.1.0] - 2021-10-14
 
 ### Changes

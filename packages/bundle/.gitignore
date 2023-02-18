@@ -1,3 +1,4 @@
 /dist
+/dist.esbuild
 /lib
 /node_modules
