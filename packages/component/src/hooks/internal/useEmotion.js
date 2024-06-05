@@ -18,21 +18,19 @@ export default function useEmotion(nonce, container) {
   }, [container, nonce]);
 
   useEffect(
-    () =>
-      emotion?.sheet &&
-      (() => {
-        const index = sharedEmotionInstances.lastIndexOf(emotion);
+    () => () => {
+      const index = sharedEmotionInstances.lastIndexOf(emotion);
 
-        // Reduce ref count for the specific emotion instance.
-        ~index && sharedEmotionInstances.splice(index, 1);
+      // Reduce ref count for the specific emotion instance.
+      ~index && sharedEmotionInstances.splice(index, 1);
 
-        if (!sharedEmotionInstances.includes(emotion)) {
-          // No more hooks use this emotion object, we can clean up the container for stuff we added.
-          for (const child of emotion.sheet.tags) {
-            child.remove();
-          }
+      if (!sharedEmotionInstances.includes(emotion) && emotion.sheet?.tags) {
+        // No more hooks use this emotion object, we can clean up the container for stuff we added.
+        for (const child of emotion.sheet.tags) {
+          child.remove();
         }
-      }),
+      }
+    },
     [emotion]
   );
 
