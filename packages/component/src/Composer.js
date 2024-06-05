@@ -170,8 +170,6 @@ const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleS
     scrollLeftRef.current,
     handleScrollToEnd
   );
-  // eslint-disable-next-line no-console
-  console.log('rerendered', scrollLeftRef.current, scrollableCallbackRefWithSubscribe.current);
 
   useEffect(
     () =>
