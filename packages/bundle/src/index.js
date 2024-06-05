@@ -22,4 +22,4 @@ function retrofit(element, props) {
   );
 }
 
-window.ReactFilm = { retrofit };
+window.ReactFilm = { retrofit, BasicFilm };
