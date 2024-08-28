@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - Added `leftFlipperAriaLabel` and `rightFlipperAriaLabel` for customizing the `aria-label` attribute for flipper buttons, by [@compulim](https://github.com/compulim), in PR [#98](https://github.com/spyip/react-film/pull/98)
+- Added `stylesRoot` property which allows to specify a container node component styles will be placed into, by [@OEvgeny](https://github.com/OEvgeny) in PR [#102](https://github.com/spyip/react-film/pull/102)
 
 ### Changes
 

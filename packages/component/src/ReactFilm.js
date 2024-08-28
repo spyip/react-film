@@ -21,7 +21,8 @@ const ReactFilm = ({
   showDots,
   showFlipper,
   showScrollBar,
-  styleSet
+  styleSet,
+  stylesRoot
 }) => {
   const styleOptions = useMemo(
     () => ({
@@ -29,28 +30,30 @@ const ReactFilm = ({
       autoHide,
       autoHideFlipperOnEdge,
       dir,
+      flipperBlurFocusOnClick,
       leftFlipperAriaLabel,
       leftFlipperText,
-      flipperBlurFocusOnClick,
       rightFlipperAriaLabel,
       rightFlipperText,
       showDots,
       showFlipper,
-      showScrollBar
+      showScrollBar,
+      stylesRoot
     }),
     [
       autoCenter,
       autoHide,
       autoHideFlipperOnEdge,
       dir,
+      flipperBlurFocusOnClick,
       leftFlipperAriaLabel,
       leftFlipperText,
-      flipperBlurFocusOnClick,
       rightFlipperAriaLabel,
       rightFlipperText,
       showDots,
       showFlipper,
-      showScrollBar
+      showScrollBar,
+      stylesRoot
     ]
   );
 
@@ -85,7 +88,8 @@ ReactFilm.defaultProps = {
   showDots: undefined,
   showFlipper: undefined,
   showScrollBar: undefined,
-  styleSet: undefined
+  styleSet: undefined,
+  stylesRoot: undefined
 };
 
 ReactFilm.propTypes = {
@@ -106,7 +110,8 @@ ReactFilm.propTypes = {
   showDots: PropTypes.bool,
   showFlipper: PropTypes.bool,
   showScrollBar: PropTypes.bool,
-  styleSet: PropTypes.any
+  styleSet: PropTypes.any,
+  stylesRoot: PropTypes.any
 };
 
 export default ReactFilm;

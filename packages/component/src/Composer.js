@@ -1,11 +1,9 @@
-import createEmotion from '@emotion/css/create-instance';
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import AutoCenter from './AutoCenter';
 import computeScrollLeft from './computeScrollLeft';
 import createBasicStyleSet from './createBasicStyleSet';
-import createCSSKey from './util/createCSSKey';
 import FunctionContext from './FunctionContext';
 import getView from './getView';
 import InternalContext from './InternalContext';
@@ -14,11 +12,9 @@ import patchStyleOptions from './patchStyleOptions';
 import PropsContext from './PropsContext';
 import useAnimateScrollLeft from './hooks/internal/useAnimateScrollLeft';
 import useCallbackRefWithSubscribe from './hooks/internal/useCallbackRefWithSubscribe';
+import useEmotion from './hooks/internal/useEmotion';
 import useObserveScrollLeft from './hooks/internal/useObserveScrollLeft';
 import ViewContext from './ViewContext';
-
-// We pool the emotion, so we don't create a new set of <style> for every component and reuse as much as we could.
-const emotionPool = {};
 
 const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleSet }) => {
   dir = dir === 'ltr' || dir === 'rtl' ? dir : undefined;
@@ -29,12 +25,11 @@ const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleS
     [patchedStyleOptions, styleSet]
   );
 
-  const styleSetClassNames = useMemo(() => {
-    const emotion =
-      emotionPool[nonce] || (emotionPool[nonce] = createEmotion({ key: `react-film--css-${createCSSKey()}`, nonce }));
-
-    return Object.fromEntries(Object.entries(patchedStyleSet).map(([name, style]) => [name, emotion.css(style) + '']));
-  }, [nonce, patchedStyleSet]);
+  const emotion = useEmotion(nonce, styleOptions.stylesRoot);
+  const styleSetClassNames = useMemo(
+    () => Object.fromEntries(Object.entries(patchedStyleSet).map(([name, style]) => [name, emotion.css(style) + ''])),
+    [emotion, patchedStyleSet]
+  );
 
   const [_, forceRender] = useState();
   const itemContainerCallbackRefWithSubscribe = useCallbackRefWithSubscribe();

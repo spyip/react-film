@@ -100,6 +100,7 @@ You can control `<BasicFilm>` using props listed below.
 | `styleSet.rightFlipper`     | [`'css-*'`](https://github.com/threepointone/glamor/blob/master/docs/howto.md#apply-a-style-to-an-element) | Class name for right flipper                                                                                                               |
 | `styleSet.scrollBarBox`     | [`'css-*'`](https://github.com/threepointone/glamor/blob/master/docs/howto.md#apply-a-style-to-an-element) | Class name for scroll bar container                                                                                                        |
 | `styleSet.scrollBarHandler` | [`'css-*'`](https://github.com/threepointone/glamor/blob/master/docs/howto.md#apply-a-style-to-an-element) | Class name for scroll bar handler                                                                                                          |
+| `stylesRoot`                |  `undefined`                                                                                               | Set the container node for component styles to be placed into. When set to `undefined`, will use `document.head`                           |
 
 ## Basic style set
 
