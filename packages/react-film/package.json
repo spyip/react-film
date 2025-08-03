@@ -61,6 +61,7 @@
       "@testing-library/react": "^12",
       "@types/react": "^16",
       "@types/react-dom": "^16",
+      "@types/react-test-renderer": "^16",
       "react": "16.8.0",
       "react-dom": "16.8.0",
       "react-test-renderer": "16.8.0"
@@ -71,6 +72,7 @@
       "@testing-library/react": "^12",
       "@types/react": "^17",
       "@types/react-dom": "^17",
+      "@types/react-test-renderer": "^17",
       "react": "17.0.0",
       "react-dom": "17.0.0",
       "react-test-renderer": "17.0.0"
@@ -80,6 +82,7 @@
     "devDependencies": {
       "@types/react": "^18",
       "@types/react-dom": "^18",
+      "@types/react-test-renderer": "^18",
       "react": "18.0.0",
       "react-dom": "18.0.0",
       "react-test-renderer": "18.0.0"
@@ -87,6 +90,12 @@
   },
   "pinDependencies": {
     "@types/react": [
+      "18"
+    ],
+    "@types/react-dom": [
+      "18"
+    ],
+    "@types/react-test-renderer": [
       "18"
     ],
     "react": [
@@ -118,6 +127,8 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^24.1.0",
     "@types/react": "^18.3.23",
+    "@types/react-dom": "^18.3.7",
+    "@types/react-test-renderer": "^18.3.1",
     "esbuild": "^0.25.8",
     "jest": "^30.0.5",
     "jest-environment-jsdom": "^30.0.5",
