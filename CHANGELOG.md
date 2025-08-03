@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Avoided global pollution via `@babel/runtime-corejs3`, by [@compulim](https://github.com/compulim), in PR [#99](https://github.com/spyip/react-film/pull/99)
 - Bundle is now built using Webpack for compatibility with IE Mode, by [@compulim](https://github.com/compulim), in PR [#99](https://github.com/spyip/react-film/pull/99)
-- Bump dependencies, by [@compulim](https://github.com/compulim), in PR [#99](https://github.com/spyip/react-film/pull/99), and PR [#XXX](https://github.com/spyip/react-film/pull/XXX)
+- Bump dependencies, by [@compulim](https://github.com/compulim), in PR [#99](https://github.com/spyip/react-film/pull/99), and PR [#103](https://github.com/spyip/react-film/pull/103)
   - Added `bump` scripts
   - Bumped scaffold
   - Production dependencies
@@ -44,8 +44,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     - [`react-dom@18.3.1`](https://npmjs.com/package/react-dom/v/18.3.1)
     - [`react-test-renderer@18.3.1`](https://npmjs.com/package/react-test-renderer/v/18.3.1)
     - [`react@18.3.1`](https://npmjs.com/package/react/v/18.3.1)
-- 💥 Default has been renamed to `ReactFilm`, by [@compulim](https://github.com/compulim), in PR [#XXX](https://github.com/spyip/react-film/pull/XXX)
-- `retrofit()` is now available in CJS, ESM and UMD, by [@compulim](https://github.com/compulim), in PR [#XXX](https://github.com/spyip/react-film/pull/XXX)
+- 💥 Default has been renamed to `ReactFilm`, by [@compulim](https://github.com/compulim), in PR [#103](https://github.com/spyip/react-film/pull/103)
+- `retrofit()` is now available in CJS, ESM and UMD, by [@compulim](https://github.com/compulim), in PR [#103](https://github.com/spyip/react-film/pull/103)
 
 ## [3.1.0] - 2021-10-14
 
