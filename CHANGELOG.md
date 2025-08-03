@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Added `leftFlipperAriaLabel` and `rightFlipperAriaLabel` for customizing the `aria-label` attribute for flipper buttons, by [@compulim](https://github.com/compulim), in PR [#98](https://github.com/spyip/react-film/pull/98)
 - Added `stylesRoot` property which allows to specify a container node component styles will be placed into, by [@OEvgeny](https://github.com/OEvgeny) in PR [#102](https://github.com/spyip/react-film/pull/102)
 
-### Changes
+### Changed
 
 - Avoided global pollution via `@babel/runtime-corejs3`, by [@compulim](https://github.com/compulim), in PR [#99](https://github.com/spyip/react-film/pull/99)
 - Bundle is now built using Webpack for compatibility with IE Mode, by [@compulim](https://github.com/compulim), in PR [#99](https://github.com/spyip/react-film/pull/99)
@@ -49,7 +49,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.1.0] - 2021-10-14
 
-### Changes
+### Changed
 
 - Added support of GitHub Codespaces, by [@compulim](https://github.com/compulim), in PR [#89](https://github.com/spyip/react-film/pull/89)
 - Changed peer dependencies requirement to `react >= 16.8.6`, by [@compulim](https://github.com/compulim), in PR [#89](https://github.com/spyip/react-film/pull/89)
@@ -82,7 +82,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Fixed [#75](https://github.com/spyip/react-film/issues/75). Flippers, dots, and scroll bar should work in right-to-left (RTL) correctly in Chrome 85 and beyond, by [@compulim](https://github.com/compulim), in PR [#86](https://github.com/spyip/react-film/pull/86)
 
-### Changes
+### Changed
 
 - Moved from [`webpack`](https://webpack.js.org/) to [`esbuild@0.12.1`](https://esbuild.github.io/), by [@compulim](https://github.com/compulim), in PR [#85](https://github.com/spyip/react-film/pull/85)
 - Bump dependencies, by [@compulim](https://github.com/compulim), in PR [#85](https://github.com/spyip/react-film/pull/85)
@@ -110,13 +110,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.0.0] - 2020-09-01
 
-### Breaking changes
+### Removed
 
-- API through React Context is being deprecated in favor of React Hooks
-- CSS has been revamped by introducing support of customization through CSS BEM
-  - `className` props are removed from sub-components
-  - `createBasicStyleSet()` will only return a single complete style set, namely `root`. The style set will be a React CSS object, instead of a class name
-  - `styleSet` prop will accept a map of React CSS object, instead of class names
+- 💥 API through React Context is being deprecated in favor of React Hooks
 
 ### Added
 
@@ -130,7 +126,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - Sub-component `FilmStrip` is renamed to `Filmstrip`
   - Moved from class components to functional components
 
-### Changes
+### Changed
 
 - Moved from [`glamor`](https://npmjs.com/package/glamor) to [`create-emotion`](https://npmjs.com/package/create-emotion), in PR [#57](https://github.com/spyip/react-film/pull/57)
 - Replaced [`babel-plugin-version-transform`](https://npmjs.com/package/babel-plugin-version-transform) with [`babel-plugin-transform-inline-environment-variables`](https://npmjs.com/package/babel-plugin-transform-inline-environment-variables), in PR [#56](https://github.com/spyip/react-film/pull/56)
@@ -164,12 +160,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     - [`serve@11.3.2`](https://npmjs.com/package/serve)
     - [`webpack-cli@3.3.12`](https://npmjs.com/package/webpack-cli)
     - [`webpack@4.44.1`](https://npmjs.com/package/webpack)
+- 💥 CSS has been revamped by introducing support of customization through CSS BEM
+  - `className` props are removed from sub-components
+  - `createBasicStyleSet()` will only return a single complete style set, namely `root`. The style set will be a React CSS object, instead of a class name
+  - `styleSet` prop will accept a map of React CSS object, instead of class names
 
 ## [2.1.0] - 2020-05-11
 
-### Breaking changes
+### Changed
 
-- `z-index` added to flipper and filmstrip
+- 💥 `z-index` added to flipper and filmstrip
   - List item with `position: relative` will no longer obstructing the left flipper, we are adding `z-index: 1` to both flippers, and `z-index: 0` to filmstrip to form a new [stacking context](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context).
 
 ### Fixed
@@ -191,7 +191,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [2.0.0] - 2019-12-03
 
-### Breaking changes
+### Removed
 
 - We will no longer include `react` and `react-dom` in our NPM package, instead, we will requires peer dependencies of `react@^16.8.6` and `react-dom@^16.8.6`
 
