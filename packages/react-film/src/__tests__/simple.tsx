@@ -3,6 +3,7 @@
 import { scenario } from '@testduet/given-when-then';
 import React from 'react';
 import { create } from 'react-test-renderer';
+// @ts-expect-error no declaration
 import ReactFilm from '../ReactFilm.jsx';
 
 scenario('simple scenario', bdd => {
