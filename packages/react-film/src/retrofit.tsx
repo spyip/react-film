@@ -2,7 +2,6 @@ import parse from 'html-react-parser';
 import React, { Fragment } from 'react';
 // eslint-disable-next-line react/no-deprecated
 import { render } from 'react-dom';
-// @ts-expect-error no declaration
 import ReactFilm from './ReactFilm.jsx';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

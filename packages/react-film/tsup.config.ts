@@ -5,12 +5,12 @@ const COMMON_CONFIG: Options = {
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || ''),
     'process.env.npm_package_version': JSON.stringify(process.env.npm_package_version || '0.0.0-0')
   },
-  // dts: true,
+  dts: true,
   sourcemap: true,
   target: 'esnext',
 
   // TODO: Remove below when fully migrated.
-  dts: false,
+  // dts: false,
   platform: 'browser'
 };
 
