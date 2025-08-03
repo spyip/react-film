@@ -1,0 +1,30 @@
+.source-code {
+  display: grid;
+  grid-template-areas: 'title' 'code';
+  grid-template-rows: auto 1fr;
+}
+
+.source-code__title {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: large;
+  font-weight: 100;
+  grid-area: title;
+  margin: var(--padding);
+}
+
+.source-code__code {
+  box-sizing: border-box;
+  font-family: Consolas, 'Courier New', Courier, monospace;
+  font-size: 16px;
+  grid-area: code;
+  padding: var(--padding);
+  margin: 0;
+}
+
+.source-code__code--plain {
+  color: #999;
+}
+
+.source-code__code .shiki {
+  margin: 0;
+}

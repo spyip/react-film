@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "lib": ["DOM", "ESNext"]
+  },
+  "extends": "@tsconfig/recommended/tsconfig.json"
+}

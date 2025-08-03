@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link href="../common.css" rel="stylesheet" type="text/css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "@emotion/css": "https://esm.sh/@emotion/css",
+          "react": "https://esm.sh/react@18",
+          "react-dom/client": "https://esm.sh/react-dom@18/client",
+          "react-film": "./static/react-film/js/main.js"
+        }
+      }
+    </script>
+    <script type="module">
+      import React from 'react';
+
+      window.React = React;
+    </script>
+    <script src="https://esm.sh/tsx" type="module"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script async id="code" type="text/babel">
+      import { css } from '@emotion/css';
+      import { Fragment } from 'react';
+      import { createRoot } from 'react-dom/client';
+      import { ReactFilm, createBasicStyleSet } from 'react-film';
+
+      const rootContainer = createRoot(document.getElementById('root'));
+
+      const listFilmItemCSS = css({
+        width: 200
+      });
+
+      rootContainer.render(
+        <Fragment>
+          <h1>Unordered list with right-to-left</h1>
+          <ReactFilm dir="rtl">
+            <ul className={listFilmItemCSS}>
+              <li>A</li>
+              <li>B</li>
+              <li>C</li>
+            </ul>
+            <ul className={listFilmItemCSS}>
+              <li>A</li>
+              <li>B</li>
+              <li>C</li>
+            </ul>
+            <ul className={listFilmItemCSS}>
+              <li>A</li>
+              <li>B</li>
+              <li>C</li>
+            </ul>
+            <ul className={listFilmItemCSS}>
+              <li>A</li>
+              <li>B</li>
+              <li>C</li>
+            </ul>
+            <ul className={listFilmItemCSS}>
+              <li>A</li>
+              <li>B</li>
+              <li>C</li>
+            </ul>
+            <ul className={listFilmItemCSS}>
+              <li>A</li>
+              <li>B</li>
+              <li>C</li>
+            </ul>
+          </ReactFilm>
+        </Fragment>
+      );
+    </script>
+    <script type="module">
+      window.parent.postMessage({ code: document.getElementById('code')?.textContent }, '*');
+    </script>
+  </body>
+</html>

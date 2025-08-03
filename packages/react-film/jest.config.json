@@ -1,0 +1,35 @@
+{
+  "testPathIgnorePatterns": ["/__setup__/", "/lib/", "/node_modules/", "/__types__/", "\\.pnp\\.[^\\/]+$"],
+  "transform": {
+    "\\.[jt]sx?$": [
+      "babel-jest",
+      {
+        "presets": [
+          [
+            "@babel/preset-react",
+            {
+              "runtime": "classic"
+            }
+          ],
+          [
+            "@babel/preset-typescript",
+            {
+              "allowDeclareFields": true
+            }
+          ],
+          [
+            "@babel/preset-env",
+            {
+              "modules": "commonjs",
+              "targets": {
+                "node": "20"
+              }
+            }
+          ]
+        ],
+        "sourceMaps": true
+      }
+    ]
+  },
+  "watchPathIgnorePatterns": ["\\.tmp\\."]
+}

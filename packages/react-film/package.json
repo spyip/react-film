@@ -1,0 +1,152 @@
+{
+  "name": "react-film",
+  "version": "0.0.0-0",
+  "description": "React component for showing carousel just like a film strip",
+  "files": [
+    "./dist/",
+    "./umd/"
+  ],
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/react-film.d.mts",
+        "default": "./dist/react-film.mjs"
+      },
+      "require": {
+        "types": "./dist/react-film.d.ts",
+        "default": "./dist/react-film.js"
+      }
+    }
+  },
+  "main": "./dist/react-film.js",
+  "typings": "./dist/react-film.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "bump": "npm run bump:prod && npm run bump:dev",
+    "bump:dev": "PACKAGES_TO_BUMP=$(cat package.json | jq -r '(.pinDependencies // {}) as $P | (.localPeerDependencies // {}) as $L | (.devDependencies // {}) | to_entries | map(select(.key as $K | $L | has($K) | not)) | map(.key + \"@\" + ($P[.key] // [\"latest\"])[0]) | join(\" \")') && [ ! -z \"$PACKAGES_TO_BUMP\" ] && npm install $PACKAGES_TO_BUMP || true",
+    "bump:prod": "PACKAGES_TO_BUMP=$(cat package.json | jq -r '(.pinDependencies // {}) as $P | (.localPeerDependencies // {}) as $L | (.dependencies // {}) | to_entries | map(select(.key as $K | $L | has($K) | not)) | map(.key + \"@\" + ($P[.key] // [\"latest\"])[0]) | join(\" \")') && [ ! -z \"$PACKAGES_TO_BUMP\" ] && npm install $PACKAGES_TO_BUMP || true",
+    "postbuild": "cd ../pages && npm run prebuild",
+    "precommit": "npm run precommit:eslint && npm run precommit:publint && npm run precommit:typescript:production && npm run precommit:typescript:test",
+    "precommit:eslint": "ESLINT_USE_FLAT_CONFIG=false eslint ./src/",
+    "precommit:publint": "publint",
+    "precommit:typescript:production": "tsc --noEmit --project ./src/tsconfig.precommit.production.json",
+    "precommit:typescript:test": "tsc --noEmit --project ./src/tsconfig.precommit.test.json",
+    "prepack": "cp ../../CHANGELOG.md . && cp ../../LICENSE . && cp ../../README.md .",
+    "start": "npm run build -- --onSuccess \"touch ../pages/package.json && npm run prebuild --workspace react-film-pages\" --watch",
+    "switch": "cat package.json | jq --arg SWITCH_NAME $SWITCH_NAME -r '(.[\"switch:\" + $SWITCH_NAME] // {}) as $TEMPLATE | .devDependencies += ($TEMPLATE.devDependencies // {}) | .dependencies += ($TEMPLATE.dependencies // {})' | tee ./package.json.tmp && mv ./package.json.tmp ./package.json",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spyip/react-film.git"
+  },
+  "keywords": [
+    "carousel",
+    "film",
+    "react",
+    "slideshow",
+    "slide show"
+  ],
+  "contributors": [
+    "Ping Yip (https://github.com/spyip)",
+    "William Wong (https://github.com/compulim)"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/spyip/react-film/issues"
+  },
+  "homepage": "https://github.com/spyip/react-film#readme",
+  "switch:react-16": {
+    "devDependencies": {
+      "@testing-library/react": "^12",
+      "@types/react": "^16",
+      "@types/react-dom": "^16",
+      "@types/react-test-renderer": "^16",
+      "react": "16.8.0",
+      "react-dom": "16.8.0",
+      "react-test-renderer": "16.8.0"
+    }
+  },
+  "switch:react-17": {
+    "devDependencies": {
+      "@testing-library/react": "^12",
+      "@types/react": "^17",
+      "@types/react-dom": "^17",
+      "@types/react-test-renderer": "^17",
+      "react": "17.0.0",
+      "react-dom": "17.0.0",
+      "react-test-renderer": "17.0.0"
+    }
+  },
+  "switch:react-18": {
+    "devDependencies": {
+      "@types/react": "^18",
+      "@types/react-dom": "^18",
+      "@types/react-test-renderer": "^18",
+      "react": "18.0.0",
+      "react-dom": "18.0.0",
+      "react-test-renderer": "18.0.0"
+    }
+  },
+  "pinDependencies": {
+    "@types/react": [
+      "18"
+    ],
+    "@types/react-dom": [
+      "18"
+    ],
+    "@types/react-test-renderer": [
+      "18"
+    ],
+    "react": [
+      "18"
+    ],
+    "react-dom": [
+      "18"
+    ],
+    "react-test-renderer": [
+      "18"
+    ],
+    "typescript": [
+      "<5.9",
+      "@typescript-eslint/* does not support typescript@>=5.9"
+    ]
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.28.0",
+    "@babel/preset-react": "^7.27.1",
+    "@babel/preset-typescript": "^7.27.1",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.0",
+    "@tsconfig/recommended": "^1.0.10",
+    "@tsconfig/strictest": "^2.0.5",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.1.0",
+    "@types/react": "^18.3.23",
+    "@types/react-dom": "^18.3.7",
+    "@types/react-test-renderer": "^18.3.1",
+    "esbuild": "^0.25.8",
+    "jest": "^30.0.5",
+    "jest-environment-jsdom": "^30.0.5",
+    "prettier": "^3.6.2",
+    "publint": "^0.3.12",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-test-renderer": "^18.3.1",
+    "tsup": "^8.5.0",
+    "type-fest": "^4.41.0",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@emotion/css": "^11.13.5",
+    "classnames": "^2.5.1",
+    "html-react-parser": "^5.2.6",
+    "math-random": "^2.0.1",
+    "memoize-one": "^6.0.0",
+    "prop-types": "^15.8.1"
+  }
+}

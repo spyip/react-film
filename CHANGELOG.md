@@ -12,55 +12,44 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Added `leftFlipperAriaLabel` and `rightFlipperAriaLabel` for customizing the `aria-label` attribute for flipper buttons, by [@compulim](https://github.com/compulim), in PR [#98](https://github.com/spyip/react-film/pull/98)
 - Added `stylesRoot` property which allows to specify a container node component styles will be placed into, by [@OEvgeny](https://github.com/OEvgeny) in PR [#102](https://github.com/spyip/react-film/pull/102)
 
-### Changes
+### Changed
 
 - Avoided global pollution via `@babel/runtime-corejs3`, by [@compulim](https://github.com/compulim), in PR [#99](https://github.com/spyip/react-film/pull/99)
 - Bundle is now built using Webpack for compatibility with IE Mode, by [@compulim](https://github.com/compulim), in PR [#99](https://github.com/spyip/react-film/pull/99)
-- Bump dependencies, by [@compulim](https://github.com/compulim), in PR [#99](https://github.com/spyip/react-film/pull/99)
+- Bump dependencies, by [@compulim](https://github.com/compulim), in PR [#99](https://github.com/spyip/react-film/pull/99), and PR [#103](https://github.com/spyip/react-film/pull/103)
   - Added `bump` scripts
+  - Bumped scaffold
   - Production dependencies
-    - [`@babel/runtime-corejs3@7.20.13`](https://npmjs.com/package/@babel/runtime-corejs3
-    - [`@emotion/css@11.10.6`](https://npmjs.com/package/@emotion/css
-    - [`classnames@2.3.2`](https://npmjs.com/package/classnames
-    - [`core-js@3.28.0`](https://npmjs.com/package/core-js
-    - [`html-react-parser@1.4.14`](https://npmjs.com/package/html-react-parser
-    - [`memoize-one@6.0.0`](https://npmjs.com/package/memoize-one
-    - [`prop-types@15.8.1`](https://npmjs.com/package/prop-types
-    - [`regenerator-runtime@0.13.11`](https://npmjs.com/package/regenerator-runtime
+    - [`@emotion/css@11.13.5`](https://npmjs.com/package/@emotion/css/v/11.13.5)
+    - [`classnames@2.5.1`](https://npmjs.com/package/classnames/v/2.5.1)
+    - [`html-react-parser@5.2.6`](https://npmjs.com/package/html-react-parser/v/5.2.6)
   - Development dependencies
-    - [`@babel/cli@7.20.7`](https://npmjs.com/package/@babel/cli)
-    - [`@babel/core@7.20.12`](https://npmjs.com/package/@babel/core)
-    - [`@babel/plugin-transform-runtime@7.19.6`](https://npmjs.com/package/@babel/plugin-transform-runtime)
-    - [`@babel/preset-env@7.20.2`](https://npmjs.com/package/@babel/preset-env)
-    - [`@babel/preset-react@7.18.6`](https://npmjs.com/package/@babel/preset-react)
-    - [`@emotion/css@11.10.6`](https://npmjs.com/package/@emotion/css)
-    - [`@testing-library/jest-dom@5.16.5`](https://npmjs.com/package/@testing-library/jest-dom)
-    - [`@testing-library/react@12.1.5`](https://npmjs.com/package/@testing-library/react)
-    - [`@testing-library/user-event@14.4.3`](https://npmjs.com/package/@testing-library/user-event)
-    - [`babel-plugin-transform-inline-environment-variables@0.4.4`](https://npmjs.com/package/babel-plugin-transform-inline-environment-variables)
-    - [`classnames@2.3.2`](https://npmjs.com/package/classnames)
-    - [`concurrently@7.6.0`](https://npmjs.com/package/concurrently)
-    - [`core-js@3.28.0`](https://npmjs.com/package/core-js)
-    - [`esbuild@0.17.8`](https://npmjs.com/package/esbuild)
-    - [`eslint-plugin-prettier@4.2.1`](https://npmjs.com/package/eslint-plugin-prettier)
-    - [`eslint-plugin-react-hooks@4.6.0`](https://npmjs.com/package/eslint-plugin-react-hooks)
-    - [`eslint-plugin-react@7.32.2`](https://npmjs.com/package/eslint-plugin-react)
-    - [`eslint@8.34.0`](https://npmjs.com/package/eslint)
-    - [`husky@8.0.3`](https://npmjs.com/package/husky)
-    - [`jest@29.4.3`](https://npmjs.com/package/jest)
-    - [`lerna@6.5.1`](https://npmjs.com/package/lerna)
-    - [`lint-staged@13.1.2`](https://npmjs.com/package/lint-staged)
-    - [`prettier@2.8.4`](https://npmjs.com/package/prettier)
-    - [`react-app-polyfill@3.0.0`](https://npmjs.com/package/react-app-polyfill)
-    - [`react-dom@16.8.6`](https://npmjs.com/package/react-dom)
-    - [`react-scripts@5.0.1`](https://npmjs.com/package/react-scripts)
-    - [`react@16.8.6`](https://npmjs.com/package/react)
-    - [`serve@14.2.0`](https://npmjs.com/package/serve)
-    - [`web-vitals@3.1.1`](https://npmjs.com/package/web-vitals)
+    - [`@babel/preset-env@7.28.0`](https://npmjs.com/package/@babel/preset-env/v/7.28.0)
+    - [`@babel/preset-react@7.27.1`](https://npmjs.com/package/@babel/preset-react/v/7.27.1)
+    - [`@babel/preset-typescript@7.27.1`](https://npmjs.com/package/@babel/preset-typescript/v/7.27.1)
+    - [`@emotion/css@11.13.5`](https://npmjs.com/package/@emotion/css/v/11.13.5)
+    - [`@testing-library/dom@10.4.1`](https://npmjs.com/package/@testing-library/dom/v/10.4.1)
+    - [`@testing-library/react@16.3.0`](https://npmjs.com/package/@testing-library/react/v/16.3.0)
+    - [`classnames@2.5.1`](https://npmjs.com/package/classnames/v/2.5.1)
+    - [`esbuild@0.25.8`](https://npmjs.com/package/esbuild/v/0.25.8)
+    - [`eslint-import-resolver-node@0.3.9`](https://npmjs.com/package/eslint-import-resolver-node/v/0.3.9)
+    - [`eslint-import-resolver-typescript@4.4.4`](https://npmjs.com/package/eslint-import-resolver-typescript/v/4.4.4)
+    - [`eslint-plugin-import@2.32.0`](https://npmjs.com/package/eslint-plugin-import/v/2.32.0)
+    - [`eslint-plugin-prettier@5.5.3`](https://npmjs.com/package/eslint-plugin-prettier/v/5.5.3)
+    - [`eslint-plugin-react@7.37.5`](https://npmjs.com/package/eslint-plugin-react/v/7.37.5)
+    - [`eslint@9.32.0`](https://npmjs.com/package/eslint/v/9.32.0)
+    - [`jest@30.0.5`](https://npmjs.com/package/jest/v/30.0.5)
+    - [`prettier@3.6.2`](https://npmjs.com/package/prettier/v/3.6.2)
+    - [`publint@0.3.12`](https://npmjs.com/package/publint/v/0.3.12)
+    - [`react-dom@18.3.1`](https://npmjs.com/package/react-dom/v/18.3.1)
+    - [`react-test-renderer@18.3.1`](https://npmjs.com/package/react-test-renderer/v/18.3.1)
+    - [`react@18.3.1`](https://npmjs.com/package/react/v/18.3.1)
+- 💥 Default has been renamed to `ReactFilm`, by [@compulim](https://github.com/compulim), in PR [#103](https://github.com/spyip/react-film/pull/103)
+- `retrofit()` is now available in CJS, ESM and UMD, by [@compulim](https://github.com/compulim), in PR [#103](https://github.com/spyip/react-film/pull/103)
 
 ## [3.1.0] - 2021-10-14
 
-### Changes
+### Changed
 
 - Added support of GitHub Codespaces, by [@compulim](https://github.com/compulim), in PR [#89](https://github.com/spyip/react-film/pull/89)
 - Changed peer dependencies requirement to `react >= 16.8.6`, by [@compulim](https://github.com/compulim), in PR [#89](https://github.com/spyip/react-film/pull/89)
@@ -93,7 +82,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Fixed [#75](https://github.com/spyip/react-film/issues/75). Flippers, dots, and scroll bar should work in right-to-left (RTL) correctly in Chrome 85 and beyond, by [@compulim](https://github.com/compulim), in PR [#86](https://github.com/spyip/react-film/pull/86)
 
-### Changes
+### Changed
 
 - Moved from [`webpack`](https://webpack.js.org/) to [`esbuild@0.12.1`](https://esbuild.github.io/), by [@compulim](https://github.com/compulim), in PR [#85](https://github.com/spyip/react-film/pull/85)
 - Bump dependencies, by [@compulim](https://github.com/compulim), in PR [#85](https://github.com/spyip/react-film/pull/85)
@@ -121,13 +110,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.0.0] - 2020-09-01
 
-### Breaking changes
+### Removed
 
-- API through React Context is being deprecated in favor of React Hooks
-- CSS has been revamped by introducing support of customization through CSS BEM
-  - `className` props are removed from sub-components
-  - `createBasicStyleSet()` will only return a single complete style set, namely `root`. The style set will be a React CSS object, instead of a class name
-  - `styleSet` prop will accept a map of React CSS object, instead of class names
+- 💥 API through React Context is being deprecated in favor of React Hooks
 
 ### Added
 
@@ -141,7 +126,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - Sub-component `FilmStrip` is renamed to `Filmstrip`
   - Moved from class components to functional components
 
-### Changes
+### Changed
 
 - Moved from [`glamor`](https://npmjs.com/package/glamor) to [`create-emotion`](https://npmjs.com/package/create-emotion), in PR [#57](https://github.com/spyip/react-film/pull/57)
 - Replaced [`babel-plugin-version-transform`](https://npmjs.com/package/babel-plugin-version-transform) with [`babel-plugin-transform-inline-environment-variables`](https://npmjs.com/package/babel-plugin-transform-inline-environment-variables), in PR [#56](https://github.com/spyip/react-film/pull/56)
@@ -175,12 +160,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     - [`serve@11.3.2`](https://npmjs.com/package/serve)
     - [`webpack-cli@3.3.12`](https://npmjs.com/package/webpack-cli)
     - [`webpack@4.44.1`](https://npmjs.com/package/webpack)
+- 💥 CSS has been revamped by introducing support of customization through CSS BEM
+  - `className` props are removed from sub-components
+  - `createBasicStyleSet()` will only return a single complete style set, namely `root`. The style set will be a React CSS object, instead of a class name
+  - `styleSet` prop will accept a map of React CSS object, instead of class names
 
 ## [2.1.0] - 2020-05-11
 
-### Breaking changes
+### Changed
 
-- `z-index` added to flipper and filmstrip
+- 💥 `z-index` added to flipper and filmstrip
   - List item with `position: relative` will no longer obstructing the left flipper, we are adding `z-index: 1` to both flippers, and `z-index: 0` to filmstrip to form a new [stacking context](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context).
 
 ### Fixed
@@ -202,7 +191,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [2.0.0] - 2019-12-03
 
-### Breaking changes
+### Removed
 
 - We will no longer include `react` and `react-dom` in our NPM package, instead, we will requires peer dependencies of `react@^16.8.6` and `react-dom@^16.8.6`
 

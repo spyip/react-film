@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link href="../common.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="../static/react-film/umd/react-film.production.min.js"></script>
+  </head>
+  <body>
+    <div id="film">
+      <img alt="Cat 01" src="../image/01.jpg" />
+      <img alt="Cat 02" src="../image/02.jpg" />
+      <img alt="Cat 03" src="../image/03.jpg" />
+      <img alt="Cat 04" src="../image/04.jpg" />
+      <img alt="Cat 05" src="../image/05.jpg" />
+      <img alt="Cat 06" src="../image/06.jpg" />
+      <img alt="Cat 07" src="../image/07.jpg" />
+      <img alt="Cat 08" src="../image/08.jpg" />
+      <img alt="Cat 09" src="../image/09.jpg" />
+      <img alt="Cat 10" src="../image/10.jpg" />
+      <img alt="Cat 11" src="../image/11.jpg" />
+    </div>
+    <script async id="code">
+      window.ReactFilm.retrofit(document.getElementById('film'), {
+        height: 316
+      });
+    </script>
+    <script type="module">
+      window.parent.postMessage({ code: document.getElementById('code')?.textContent }, '*');
+    </script>
+  </body>
+</html>

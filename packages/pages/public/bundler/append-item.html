@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link href="../common.css" rel="stylesheet" type="text/css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "react": "https://esm.sh/react@18",
+          "react-dom/client": "https://esm.sh/react-dom@18/client",
+          "react-film": "./static/react-film/js/main.js"
+        }
+      }
+    </script>
+    <script type="module">
+      import React from 'react';
+
+      window.React = React;
+    </script>
+    <script src="https://esm.sh/tsx" type="module"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script async id="code" type="text/babel">
+      import { Fragment, memo, useCallback, useState } from 'react';
+      import { createRoot } from 'react-dom/client';
+      import { ReactFilm } from 'react-film';
+
+      const rootContainer = createRoot(document.getElementById('root'));
+
+      function pad(value, count = 2, padding = '0') {
+        value += '';
+        count -= value.length;
+
+        while (--count >= 0) {
+          value = padding + value;
+        }
+
+        return value;
+      }
+
+      function wrap(value, from, to) {
+        const width = to - from + 1;
+
+        while (value < from) {
+          value += width;
+        }
+
+        while (value > to) {
+          value -= width;
+        }
+
+        return value;
+      }
+
+      const App = memo(function App() {
+        const [items, setItems] = useState(['01', '02', '03']);
+
+        const handleAppendItem = useCallback(
+          () => setItems(items => [...items, pad(wrap((+items[items.length - 1] || 0) + 1, 1, 11))]),
+          [setItems]
+        );
+
+        const handlePrependItem = useCallback(
+          () => setItems(items => [pad(wrap((+items[0] || 0) - 1, 1, 11)), ...items]),
+          [setItems]
+        );
+
+        return (
+          <Fragment>
+            <h1>Append item</h1>
+            <ReactFilm>
+              {items.map((item, index) => (
+                <img alt={`Cat ${item}`} key={index} src={`../image/${item}.jpg`} />
+              ))}
+            </ReactFilm>
+            <div>
+              <button onClick={handlePrependItem}>Insert a cat to the left</button>
+              <button onClick={handleAppendItem}>Insert a cat to the right</button>
+            </div>
+          </Fragment>
+        );
+      });
+
+      rootContainer.render(<App />);
+    </script>
+    <script type="module">
+      window.parent.postMessage({ code: document.getElementById('code')?.textContent }, '*');
+    </script>
+  </body>
+</html>
