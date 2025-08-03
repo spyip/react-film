@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [4.0.0] - 2025-08-03
 
 ### Added
 
@@ -78,10 +78,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.0.1] - 2021-06-29
 
-### Fixed
-
-- Fixed [#75](https://github.com/spyip/react-film/issues/75). Flippers, dots, and scroll bar should work in right-to-left (RTL) correctly in Chrome 85 and beyond, by [@compulim](https://github.com/compulim), in PR [#86](https://github.com/spyip/react-film/pull/86)
-
 ### Changed
 
 - Moved from [`webpack`](https://webpack.js.org/) to [`esbuild@0.12.1`](https://esbuild.github.io/), by [@compulim](https://github.com/compulim), in PR [#85](https://github.com/spyip/react-film/pull/85)
@@ -108,11 +104,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     - [`lerna@4.0.0`](https://npmjs.com/package/lerna)
     - [`prettier@2.3.0`](https://npmjs.com/package/prettier)
 
+### Fixed
+
+- Fixed [#75](https://github.com/spyip/react-film/issues/75). Flippers, dots, and scroll bar should work in right-to-left (RTL) correctly in Chrome 85 and beyond, by [@compulim](https://github.com/compulim), in PR [#86](https://github.com/spyip/react-film/pull/86)
+
 ## [3.0.0] - 2020-09-01
-
-### Removed
-
-- 💥 API through React Context is being deprecated in favor of React Hooks
 
 ### Added
 
@@ -165,6 +161,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - `createBasicStyleSet()` will only return a single complete style set, namely `root`. The style set will be a React CSS object, instead of a class name
   - `styleSet` prop will accept a map of React CSS object, instead of class names
 
+### Removed
+
+- 💥 API through React Context is being deprecated in favor of React Hooks
+
 ## [2.1.0] - 2020-05-11
 
 ### Changed
@@ -191,10 +191,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [2.0.0] - 2019-12-03
 
-### Removed
-
-- We will no longer include `react` and `react-dom` in our NPM package, instead, we will requires peer dependencies of `react@^16.8.6` and `react-dom@^16.8.6`
-
 ### Added
 
 - Support right-to-left, by [@spyip](https://github.com/spyip) in PR [#32](https://github.com/spyip/react-film/pull/32).
@@ -206,6 +202,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Bump peer dependency, in PR [#33](https://github.com/spyip/react-film/pull/33)
   - [react@^16.8.6](https://www.npmjs.com/package/react)
+
+### Removed
+
+- We will no longer include `react` and `react-dom` in our NPM package, instead, we will requires peer dependencies of `react@^16.8.6` and `react-dom@^16.8.6`
 
 ### Fixed
 
@@ -250,14 +250,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - Load bundle from [unpkg.com](https://unpkg.com/react-film/umd/), then call `window.ReactFilm.retrofit(element, props)`.
   - Retrofit existing DOM tree with a new DOM tree backed by React/ReactDOM in the bundle.
 
+### Changed
+
+- Fix [#12](https://github.com/spyip/react-film/issues/12). Split `Context` into public and internal, by [@compulim](https://github.com/compulim) in PR [#16](https://github.com/spyip/react-film/pull/16).
+
 ### Fixed
 
 - Fix [#13](https://github.com/spyip/react-film/issues/13). Fix flipper not working on content with `<ul>`, by [@compulim](https://github.com/compulim) in PR [#15](https://github.com/spyip/react-film/pull/15).
 - Fix [#18](https://github.com/spyip/react-film/issues/18). Fix flipper should not submit if carousel is a descendant of `<form>`, by [@compulim](https://github.com/compulim) in PR [#19](https://github.com/spyip/react-film/pull/19).
-
-### Changed
-
-- Fix [#12](https://github.com/spyip/react-film/issues/12). Split `Context` into public and internal, by [@compulim](https://github.com/compulim) in PR [#16](https://github.com/spyip/react-film/pull/16).
 
 ## [1.1.2] - 2019-01-20
 
@@ -291,3 +291,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - Initial release
+
+[4.0.0]: https://github.com/spyip/react-film/compare/v3.1.0...v4.0.0
+[3.1.0]: https://github.com/spyip/react-film/compare/v3.0.1...v3.1.0
+[3.0.1]: https://github.com/spyip/react-film/compare/v3.0.0...v3.0.1
+[3.0.0]: https://github.com/spyip/react-film/compare/v2.1.0...v3.0.0
+[2.1.0]: https://github.com/spyip/react-film/compare/v2.0.2...v2.1.0
+[2.0.2]: https://github.com/spyip/react-film/compare/v2.0.1...v2.0.2
+[2.0.1]: https://github.com/spyip/react-film/compare/v2.0.0...v2.0.1
+[2.0.0]: https://github.com/spyip/react-film/compare/v1.3.0...v2.0.0
+[1.3.0]: https://github.com/spyip/react-film/compare/v1.2.0...v1.3.0
+[1.2.0]: https://github.com/spyip/react-film/compare/v1.1.2...v1.2.0
+[1.1.2]: https://github.com/spyip/react-film/compare/v1.1.1...v1.1.2
+[1.1.1]: https://github.com/spyip/react-film/compare/v1.1.0...v1.1.1
+[1.1.0]: https://github.com/spyip/react-film/compare/v1.0.0...v1.1.0
+[1.0.0]: https://github.com/spyip/react-film/releases/tag/v1.0.0
