@@ -1,0 +1,82 @@
+{
+  "name": "@spyip/react-film-integration-test",
+  "version": "0.0.0-0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "build": "if test \"$CI\" = \"true\"; then mkdir -p ./test/webDriver/static/js/; cp `node --eval=\"console.log(require('path').resolve(require('resolve-cwd')('@testduet/wait-for'), '../../dist/**'))\"` ./test/webDriver/static/js/; else mkdir -p ./test/webDriver/static/; ln --relative --symbolic `node --eval=\"console.log(require('path').resolve(require('resolve-cwd')('@testduet/wait-for'), '../../dist'))\"` ./test/webDriver/static/js; fi",
+    "bump": "npm run bump:prod && npm run bump:dev",
+    "bump:dev": "PACKAGES_TO_BUMP=$(cat package.json | jq -r '(.pinDependencies // {}) as $P | (.localPeerDependencies // {}) as $L | (.devDependencies // {}) | to_entries | map(select(.key as $K | $L | has($K) | not)) | map(.key + \"@\" + ($P[.key] // [\"latest\"])[0]) | join(\" \")') && [ ! -z \"$PACKAGES_TO_BUMP\" ] && npm install $PACKAGES_TO_BUMP || true",
+    "bump:prod": "PACKAGES_TO_BUMP=$(cat package.json | jq -r '(.pinDependencies // {}) as $P | (.localPeerDependencies // {}) as $L | (.dependencies // {}) | to_entries | map(select(.key as $K | $L | has($K) | not)) | map(.key + \"@\" + ($P[.key] // [\"latest\"])[0]) | join(\" \")') && [ ! -z \"$PACKAGES_TO_BUMP\" ] && npm install $PACKAGES_TO_BUMP || true",
+    "docker": "docker compose up --quiet-pull --scale chromium=4",
+    "posttest": "if test \"$CI\" = \"true\"; then docker compose logs; docker compose down; fi",
+    "precommit": "ESLINT_USE_FLAT_CONFIG=false eslint --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts ./",
+    "pretest": "if test \"$CI\" = \"true\"; then npm run build; npm run docker -- --detach --wait; fi",
+    "switch": "cat package.json | jq --arg SWITCH_NAME $SWITCH_NAME -r '(.[\"switch:\" + $SWITCH_NAME] // {}) as $TEMPLATE | .devDependencies += ($TEMPLATE.devDependencies // {}) | .dependencies += ($TEMPLATE.dependencies // {})' | tee ./package.json.tmp && mv ./package.json.tmp ./package.json",
+    "test": "jest"
+  },
+  "author": "William Wong (https://github.com/compulim)",
+  "license": "MIT",
+  "switch:react-16": {
+    "devDependencies": {
+      "@types/react": "^16",
+      "react": "16.8.0",
+      "react-test-renderer": "16.8.0"
+    }
+  },
+  "switch:react-17": {
+    "devDependencies": {
+      "@types/react": "^17",
+      "react": "17.0.0",
+      "react-test-renderer": "17.0.0"
+    }
+  },
+  "switch:react-18": {
+    "devDependencies": {
+      "@types/react": "^18",
+      "react": "18.0.0",
+      "react-test-renderer": "18.0.0"
+    }
+  },
+  "localPeerDependencies": {
+    "react-film": "^0.0.0-0"
+  },
+  "pinDependencies": {
+    "@testduet/wait-for": [
+      "main"
+    ],
+    "@types/react": [
+      "18"
+    ],
+    "@types/react-dom": [
+      "18"
+    ],
+    "react": [
+      "18"
+    ],
+    "react-dom": [
+      "18"
+    ],
+    "react-test-renderer": [
+      "18"
+    ]
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.28.0",
+    "@babel/preset-react": "^7.27.1",
+    "@happy-dom/jest-environment": "^18.0.1",
+    "@testduet/given-when-then": "^0.1.0",
+    "@testduet/wait-for": "^0.1.0",
+    "@tsconfig/strictest": "^2.0.5",
+    "@types/jest": "^30.0.0",
+    "@types/react": "^18.3.23",
+    "@types/react-test-renderer": "^19.1.0",
+    "jest": "^30.0.5",
+    "react": "^18.3.1",
+    "react-test-renderer": "^18.3.1",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "react-film": "^0.0.0-0"
+  }
+}

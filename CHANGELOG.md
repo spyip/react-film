@@ -16,47 +16,36 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Avoided global pollution via `@babel/runtime-corejs3`, by [@compulim](https://github.com/compulim), in PR [#99](https://github.com/spyip/react-film/pull/99)
 - Bundle is now built using Webpack for compatibility with IE Mode, by [@compulim](https://github.com/compulim), in PR [#99](https://github.com/spyip/react-film/pull/99)
-- Bump dependencies, by [@compulim](https://github.com/compulim), in PR [#99](https://github.com/spyip/react-film/pull/99)
+- Bump dependencies, by [@compulim](https://github.com/compulim), in PR [#99](https://github.com/spyip/react-film/pull/99), and PR [#XXX](https://github.com/spyip/react-film/pull/XXX)
   - Added `bump` scripts
+  - Bumped scaffold
   - Production dependencies
-    - [`@babel/runtime-corejs3@7.20.13`](https://npmjs.com/package/@babel/runtime-corejs3
-    - [`@emotion/css@11.10.6`](https://npmjs.com/package/@emotion/css
-    - [`classnames@2.3.2`](https://npmjs.com/package/classnames
-    - [`core-js@3.28.0`](https://npmjs.com/package/core-js
-    - [`html-react-parser@1.4.14`](https://npmjs.com/package/html-react-parser
-    - [`memoize-one@6.0.0`](https://npmjs.com/package/memoize-one
-    - [`prop-types@15.8.1`](https://npmjs.com/package/prop-types
-    - [`regenerator-runtime@0.13.11`](https://npmjs.com/package/regenerator-runtime
+    - [`@emotion/css@11.13.5`](https://npmjs.com/package/@emotion/css/v/11.13.5)
+    - [`classnames@2.5.1`](https://npmjs.com/package/classnames/v/2.5.1)
+    - [`html-react-parser@5.2.6`](https://npmjs.com/package/html-react-parser/v/5.2.6)
   - Development dependencies
-    - [`@babel/cli@7.20.7`](https://npmjs.com/package/@babel/cli)
-    - [`@babel/core@7.20.12`](https://npmjs.com/package/@babel/core)
-    - [`@babel/plugin-transform-runtime@7.19.6`](https://npmjs.com/package/@babel/plugin-transform-runtime)
-    - [`@babel/preset-env@7.20.2`](https://npmjs.com/package/@babel/preset-env)
-    - [`@babel/preset-react@7.18.6`](https://npmjs.com/package/@babel/preset-react)
-    - [`@emotion/css@11.10.6`](https://npmjs.com/package/@emotion/css)
-    - [`@testing-library/jest-dom@5.16.5`](https://npmjs.com/package/@testing-library/jest-dom)
-    - [`@testing-library/react@12.1.5`](https://npmjs.com/package/@testing-library/react)
-    - [`@testing-library/user-event@14.4.3`](https://npmjs.com/package/@testing-library/user-event)
-    - [`babel-plugin-transform-inline-environment-variables@0.4.4`](https://npmjs.com/package/babel-plugin-transform-inline-environment-variables)
-    - [`classnames@2.3.2`](https://npmjs.com/package/classnames)
-    - [`concurrently@7.6.0`](https://npmjs.com/package/concurrently)
-    - [`core-js@3.28.0`](https://npmjs.com/package/core-js)
-    - [`esbuild@0.17.8`](https://npmjs.com/package/esbuild)
-    - [`eslint-plugin-prettier@4.2.1`](https://npmjs.com/package/eslint-plugin-prettier)
-    - [`eslint-plugin-react-hooks@4.6.0`](https://npmjs.com/package/eslint-plugin-react-hooks)
-    - [`eslint-plugin-react@7.32.2`](https://npmjs.com/package/eslint-plugin-react)
-    - [`eslint@8.34.0`](https://npmjs.com/package/eslint)
-    - [`husky@8.0.3`](https://npmjs.com/package/husky)
-    - [`jest@29.4.3`](https://npmjs.com/package/jest)
-    - [`lerna@6.5.1`](https://npmjs.com/package/lerna)
-    - [`lint-staged@13.1.2`](https://npmjs.com/package/lint-staged)
-    - [`prettier@2.8.4`](https://npmjs.com/package/prettier)
-    - [`react-app-polyfill@3.0.0`](https://npmjs.com/package/react-app-polyfill)
-    - [`react-dom@16.8.6`](https://npmjs.com/package/react-dom)
-    - [`react-scripts@5.0.1`](https://npmjs.com/package/react-scripts)
-    - [`react@16.8.6`](https://npmjs.com/package/react)
-    - [`serve@14.2.0`](https://npmjs.com/package/serve)
-    - [`web-vitals@3.1.1`](https://npmjs.com/package/web-vitals)
+    - [`@babel/preset-env@7.28.0`](https://npmjs.com/package/@babel/preset-env/v/7.28.0)
+    - [`@babel/preset-react@7.27.1`](https://npmjs.com/package/@babel/preset-react/v/7.27.1)
+    - [`@babel/preset-typescript@7.27.1`](https://npmjs.com/package/@babel/preset-typescript/v/7.27.1)
+    - [`@emotion/css@11.13.5`](https://npmjs.com/package/@emotion/css/v/11.13.5)
+    - [`@testing-library/dom@10.4.1`](https://npmjs.com/package/@testing-library/dom/v/10.4.1)
+    - [`@testing-library/react@16.3.0`](https://npmjs.com/package/@testing-library/react/v/16.3.0)
+    - [`classnames@2.5.1`](https://npmjs.com/package/classnames/v/2.5.1)
+    - [`esbuild@0.25.8`](https://npmjs.com/package/esbuild/v/0.25.8)
+    - [`eslint-import-resolver-node@0.3.9`](https://npmjs.com/package/eslint-import-resolver-node/v/0.3.9)
+    - [`eslint-import-resolver-typescript@4.4.4`](https://npmjs.com/package/eslint-import-resolver-typescript/v/4.4.4)
+    - [`eslint-plugin-import@2.32.0`](https://npmjs.com/package/eslint-plugin-import/v/2.32.0)
+    - [`eslint-plugin-prettier@5.5.3`](https://npmjs.com/package/eslint-plugin-prettier/v/5.5.3)
+    - [`eslint-plugin-react@7.37.5`](https://npmjs.com/package/eslint-plugin-react/v/7.37.5)
+    - [`eslint@9.32.0`](https://npmjs.com/package/eslint/v/9.32.0)
+    - [`jest@30.0.5`](https://npmjs.com/package/jest/v/30.0.5)
+    - [`prettier@3.6.2`](https://npmjs.com/package/prettier/v/3.6.2)
+    - [`publint@0.3.12`](https://npmjs.com/package/publint/v/0.3.12)
+    - [`react-dom@18.3.1`](https://npmjs.com/package/react-dom/v/18.3.1)
+    - [`react-test-renderer@18.3.1`](https://npmjs.com/package/react-test-renderer/v/18.3.1)
+    - [`react@18.3.1`](https://npmjs.com/package/react/v/18.3.1)
+- 💥 Default has been renamed to `ReactFilm`, by [@compulim](https://github.com/compulim), in PR [#XXX](https://github.com/spyip/react-film/pull/XXX)
+- `retrofit()` is now available in CJS, ESM and UMD, by [@compulim](https://github.com/compulim), in PR [#XXX](https://github.com/spyip/react-film/pull/XXX)
 
 ## [3.1.0] - 2021-10-14
 

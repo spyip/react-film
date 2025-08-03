@@ -1,0 +1,27 @@
+.table-of-content {
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: calc(var(--padding) * 1.5);
+}
+
+.table-of-content h1,
+.table-of-content h2,
+.table-of-content h3,
+.table-of-content h4,
+.table-of-content h5,
+.table-of-content h6 {
+  font-family: unset;
+  font-weight: 100;
+}
+
+.table-of-content *:first-child {
+  margin-block-start: 0;
+}
+
+.table-of-content *:last-child {
+  margin-block-end: 0;
+}
+
+.table-of-content a {
+  color: unset;
+}

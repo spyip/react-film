@@ -47,20 +47,20 @@ Every children in the target element will become an individual carousel item.
 
 ## Using in React projects
 
-First, import `react-film` on your JSX file, namely `BasicFilm`.
+First, import `react-film` on your JSX file, namely `ReactFilm`.
 
 ```js
-import BasicFilm from 'react-film';
+import { ReactFilm } from 'react-film';
 ```
 
-Then, instantiate a component using `BasicFilm`.
+Then, instantiate a component using `ReactFilm`.
 
 ```jsx
-<BasicFilm height={ 316 }>
+<ReactFilm height={ 316 }>
   <img alt="Cat 01" src="image/01.jpg" />
   <img alt="Cat 02" src="image/02.jpg" />
   <img alt="Cat 03" src="image/03.jpg" />
-</BasicFilm>
+</ReactFilm>
 ```
 
 > Note: we need to specify `height` here because there are no CSS rule one can use to [hide scroll bars in Firefox](https://stackoverflow.com/questions/19580366/hide-scrollbar-in-firefox).
@@ -77,7 +77,7 @@ When we design `react-film`, customization is our top priority. From shallow to 
 
 # Props
 
-You can control `<BasicFilm>` using props listed below.
+You can control `<ReactFilm>` using props listed below.
 
 | Name                        | Default                                                                                                    | Description                                                                                                                                |
 |-----------------------------|------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
@@ -113,7 +113,7 @@ To start with the basic style set, just copy the following code:
 ```
 
 ```js
-import BasicFilm, { createBasicStyleSet } from 'react-film';
+import { createBasicStyleSet, ReactFilm } from 'react-film';
 
 const originalStyleSet = createBasicStyleSet();
 const myStyleSet = {
@@ -122,11 +122,11 @@ const myStyleSet = {
 };
 
 export default props =>
-  <BasicFilm styleSet={ myStyleSet }>
+  <ReactFilm styleSet={ myStyleSet }>
     <img alt="Cat 01" src="image/01.jpg" />
     <img alt="Cat 02" src="image/02.jpg" />
     <img alt="Cat 03" src="image/03.jpg" />
-  </BasicFilm>
+  </ReactFilm>
 ```
 
 ### Style using glamor
@@ -135,7 +135,7 @@ If you are familiar with [`glamor`](https://github.com/threepointone/glamor/), y
 
 ```js
 import { css } from 'glamor';
-import BasicFilm, { createBasicStyleSet } from 'react-film';
+import { createBasicStyleSet, ReactFilm } from 'react-film';
 
 const originalStyleSet = createBasicStyleSet();
 const myStyleSet = {
@@ -144,11 +144,11 @@ const myStyleSet = {
 };
 
 export default props =>
-  <BasicFilm styleSet={ myStyleSet }>
+  <ReactFilm styleSet={ myStyleSet }>
     <img alt="Cat 01" src="image/01.jpg" />
     <img alt="Cat 02" src="image/02.jpg" />
     <img alt="Cat 03" src="image/03.jpg" />
-  </BasicFilm>
+  </ReactFilm>
 ```
 
 ### Presets for style set

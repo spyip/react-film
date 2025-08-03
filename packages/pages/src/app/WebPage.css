@@ -1,0 +1,7 @@
+.web-page {
+  border: 0;
+  height: 100%;
+  overflow: auto;
+  scrollbar-width: thin;
+  width: 100%;
+}
