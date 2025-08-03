@@ -9,14 +9,17 @@
   "exports": {
     ".": {
       "import": {
+        "types": "./dist/react-film.d.mts",
         "default": "./dist/react-film.mjs"
       },
       "require": {
+        "types": "./dist/react-film.d.ts",
         "default": "./dist/react-film.js"
       }
     }
   },
   "main": "./dist/react-film.js",
+  "typings": "./dist/react-film.d.ts",
   "scripts": {
     "build": "tsup",
     "bump": "npm run bump:prod && npm run bump:dev",
