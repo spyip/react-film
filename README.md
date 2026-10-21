@@ -22,6 +22,8 @@ You can use `react-film` to retrofit existing DOM element outside of a React pro
 
 Every children in the target element will become an individual carousel item.
 
+> `retrofit()` uses `ReactDOM.render()` and requires React 16.8 to 18. On React 19 or later, render `<ReactFilm>` using `createRoot()` from `react-dom/client` instead.
+
 ```html
 <!DOCTYPE html>
 <html lang="en-US">
