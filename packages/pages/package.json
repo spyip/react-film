@@ -8,6 +8,9 @@
     "bump": "npm run bump:prod && npm run bump:dev",
     "bump:dev": "PACKAGES_TO_BUMP=$(cat package.json | jq -r '(.pinDependencies // {}) as $P | (.localPeerDependencies // {}) as $L | (.devDependencies // {}) | to_entries | map(select(.key as $K | $L | has($K) | not)) | map(.key + \"@\" + ($P[.key] // [\"latest\"])[0]) | join(\" \")') && [ ! -z \"$PACKAGES_TO_BUMP\" ] && npm install $PACKAGES_TO_BUMP || true",
     "bump:prod": "PACKAGES_TO_BUMP=$(cat package.json | jq -r '(.pinDependencies // {}) as $P | (.localPeerDependencies // {}) as $L | (.dependencies // {}) | to_entries | map(select(.key as $K | $L | has($K) | not)) | map(.key + \"@\" + ($P[.key] // [\"latest\"])[0]) | join(\" \")') && [ ! -z \"$PACKAGES_TO_BUMP\" ] && npm install $PACKAGES_TO_BUMP || true",
+    "postscaffold": "npm run postscaffold:dev --if-present && npm run postscaffold:prod --if-present",
+    "postscaffold:dev": "npm install --save-dev $(cat ../common/package.json | jq -r \".name + \\\"@\\\" + .version\") @tsconfig/strictest @types/react@18 @types/react-dom@18 esbuild typescript",
+    "postscaffold:prod": "npm install --save react@18 react-dom@18 react-film@0.0.0-0",
     "prebuild": "mkdir -p ./public/static/react-film/umd/ && cp ../react-film/umd/* ./public/static/react-film/umd/",
     "precommit": "npm run precommit:eslint && npm run precommit:typescript",
     "precommit:eslint": "ESLINT_USE_FLAT_CONFIG=false eslint --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts ./src/",
@@ -48,7 +51,8 @@
     }
   },
   "localPeerDependencies": {
-    "react-film": "^0.0.0-0"
+    "@spyip/common": "0.0.0-0",
+    "react-film": "0.0.0-0"
   },
   "pinDependencies": {
     "@types/react": [
@@ -65,12 +69,13 @@
     ]
   },
   "devDependencies": {
+    "@spyip/common": "^0.0.0-0",
     "@tsconfig/recommended": "^1.0.10",
-    "@tsconfig/strictest": "^2.0.5",
-    "@types/react": "^18.3.23",
+    "@tsconfig/strictest": "^2.0.8",
+    "@types/react": "^18.3.31",
     "@types/react-dom": "^18.3.7",
-    "esbuild": "^0.25.8",
-    "typescript": "^5.8.3"
+    "esbuild": "^0.25.12",
+    "typescript": "^6.0.3"
   },
   "dependencies": {
     "@emotion/css": "^11.13.5",
@@ -82,5 +87,9 @@
     "react-film": "^0.0.0-0",
     "shiki": "^3.9.1",
     "valibot": "^1.1.0"
-  }
+  },
+  "contributors": [
+    "Ping Yip (https://github.com/spyip)",
+    "William Wong (https://github.com/compulim)"
+  ]
 }

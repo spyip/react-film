@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, { memo } from 'react';
 import { object, optional, parse, pipe, readonly, string, type InferInput } from 'valibot';
+// @ts-expect-error CSS side-effect import has no type declarations
 import './GitHubLogo.css';
 
 const propsSchema = pipe(

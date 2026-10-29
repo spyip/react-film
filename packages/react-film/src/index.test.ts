@@ -1,3 +1,5 @@
+/* eslint-env jest */
+
 test('should import successfully', () => {
-  jest.requireActual('./index');
+  jest.requireActual('./index.js');
 });

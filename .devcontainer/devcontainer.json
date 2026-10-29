@@ -3,11 +3,11 @@
     "dockerfile": "Dockerfile"
   },
   "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+    "ghcr.io/devcontainers/features/docker-in-docker:3.0.1": {}
   },
   "forwardPorts": [
     8000
   ],
   "remoteUser": "node",
-  "updateContentCommand": "npm clean-install && npm run build"
+  "postCreateCommand": "npm clean-install || true"
 }

@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import { codeToHtml } from 'shiki';
 import { object, parse, pipe, readonly, string, type InferInput } from 'valibot';
+// @ts-expect-error CSS side-effect import has no type declarations
 import './SourceCode.css';
 import prettify from './private/prettify.ts';
 
@@ -22,12 +23,15 @@ function SourceCode(props: Props) {
   useEffect(() => {
     let unmounted = false;
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setHTMLCode(undefined);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPrettifiedCode('');
 
     (async () => {
       const prettifiedCode = await prettify(code);
 
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       unmounted || setPrettifiedCode(prettifiedCode);
     })();
 
@@ -46,6 +50,7 @@ function SourceCode(props: Props) {
         theme: 'dark-plus'
       });
 
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       unmounted || setHTMLCode({ __html: htmlCode });
     })();
 
