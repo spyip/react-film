@@ -117,6 +117,10 @@
     "typescript": [
       "<5.9",
       "@typescript-eslint/* does not support typescript@>=5.9"
+    ],
+    "yaml": [
+      "^2.4.2",
+      "tsup -> postcss-load-config optionally depends on yaml@2.4.2, not installed but required by `npm sbom`"
     ]
   },
   "peerDependencies": {
@@ -152,7 +156,8 @@
     "react-test-renderer": "^18.3.1",
     "tsup": "^8.5.1",
     "type-fest": "^4.41.0",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "yaml": "^2.4.2"
   },
   "dependencies": {
     "@emotion/css": "^11.13.5",
