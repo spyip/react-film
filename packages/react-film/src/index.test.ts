@@ -1,3 +1,5 @@
-test('should import successfully', () => {
-  jest.requireActual('./index');
+import { test } from 'node:test';
+
+test('should import successfully', async () => {
+  await import('./index.js');
 });
