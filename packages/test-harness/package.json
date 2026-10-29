@@ -75,7 +75,7 @@
     }
   },
   "localPeerDependencies": {
-    "./common": "0.0.0-0"
+    "@spyip/common": "0.0.0-0"
   },
   "pinDependencies": {
     "@types/react": [

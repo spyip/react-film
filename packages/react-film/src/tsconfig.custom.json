@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "ignoreDeprecations": "6.0"
+    "allowJs": true,
+    "ignoreDeprecations": "6.0",
+    "lib": ["DOM", "ESNext"]
   },
   "extends": "@tsconfig/strictest/tsconfig.json"
 }

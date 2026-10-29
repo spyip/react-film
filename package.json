@@ -53,7 +53,5 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "prettier": "^3.9.10"
   },
-  "author": "William Wong (https://github.com/compulim)",
-  "exports": {},
   "localPeerDependencies": {}
 }

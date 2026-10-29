@@ -4,7 +4,8 @@
   "description": "React component for showing carousel just like a film strip",
   "files": [
     "./*.js",
-    "./dist/"
+    "./dist/",
+    "./umd/"
   ],
   "exports": {
     ".": {
@@ -25,6 +26,7 @@
     "bump": "npm run bump:prod && npm run bump:dev",
     "bump:dev": "PACKAGES_TO_BUMP=$(cat package.json | jq -r '(.pinDependencies // {}) as $P | (.localPeerDependencies // {}) as $L | (.devDependencies // {}) | to_entries | map(select(.key as $K | $L | has($K) | not)) | map(.key + \"@\" + ($P[.key] // [\"latest\"])[0]) | join(\" \")') && [ ! -z \"$PACKAGES_TO_BUMP\" ] && npm install $PACKAGES_TO_BUMP || true",
     "bump:prod": "PACKAGES_TO_BUMP=$(cat package.json | jq -r '(.pinDependencies // {}) as $P | (.localPeerDependencies // {}) as $L | (.dependencies // {}) | to_entries | map(select(.key as $K | $L | has($K) | not)) | map(.key + \"@\" + ($P[.key] // [\"latest\"])[0]) | join(\" \")') && [ ! -z \"$PACKAGES_TO_BUMP\" ] && npm install $PACKAGES_TO_BUMP || true",
+    "init:dev": "npm install --save-dev $(cat ../test-harness/package.json | jq -r \".name + \\\"@\\\" + .version\") @tsconfig/recommended @tsconfig/strictest @types/node @types/react@18 @types/react-dom@18 escape-string-regexp expect publint react@18 react-dom@18 react-test-renderer@18 tsup typescript",
     "postbuild": "cd ../pages && npm run prebuild",
     "postscaffold": "npm run postscaffold:dev --if-present && npm run postscaffold:prod --if-present",
     "postscaffold:dev": "npm install --save-dev $(cat ../common/package.json | jq -r \".name + \\\"@\\\" + .version\") $(cat ../test-harness/package.json | jq -r \".name + \\\"@\\\" + .version\") @happy-dom/global-registrator @testduet/given-when-then @tsconfig/recommended @tsconfig/strictest @types/node esbuild escape-string-regexp expect prettier publint tsup typescript",
@@ -38,12 +40,11 @@
     "switch": "cat package.json | jq --arg SWITCH_NAME $SWITCH_NAME -r '(.[\"switch:\" + $SWITCH_NAME] // {}) as $TEMPLATE | .devDependencies += ($TEMPLATE.devDependencies // {}) | .dependencies += ($TEMPLATE.dependencies // {})' | tee ./package.json.tmp && mv ./package.json.tmp ./package.json",
     "test": "npm run test:unit && npm run test:types",
     "test:types": "node --experimental-strip-types --import ./test-harness/test-types.import --test **/*.test-types.ts",
-    "test:unit": "node --experimental-strip-types --experimental-test-coverage --experimental-test-isolation=none --import @compulim/test-harness/happy-dom.import --import @compulim/test-harness/jsx.import --test --test-force-exit **/*.test.{cjs,cts,js,jsx,mjs,mts,ts,tsx}",
-    "init:dev": "npm install --save-dev @compulim/test-harness@0.0.0-0 @tsconfig/recommended @tsconfig/strictest @types/node @types/react@18 @types/react-dom@18 escape-string-regexp expect publint react@18 react-dom@18 react-test-renderer@18 tsup typescript"
+    "test:unit": "node --experimental-strip-types --experimental-test-coverage --experimental-test-isolation=none --import $(cat ../test-harness/package.json | jq -r \".name\")/happy-dom.import --import $(cat ../test-harness/package.json | jq -r \".name\")/jsx.import --test --test-force-exit **/*.test.{cjs,cts,js,jsx,mjs,mts,ts,tsx}"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/compulim/react-film.git"
+    "url": "https://github.com/spyip/react-film.git"
   },
   "keywords": [
     "carousel",
@@ -58,9 +59,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/compulim/react-film/issues"
+    "url": "https://github.com/spyip/react-film/issues"
   },
-  "homepage": "https://github.com/compulim/react-film#readme",
+  "homepage": "https://github.com/spyip/react-film#readme",
   "switch:react-16": {
     "devDependencies": {
       "@testing-library/react": "^12",
@@ -161,8 +162,7 @@
     "prop-types": "^15.8.1"
   },
   "localPeerDependencies": {
-    "./common": "0.0.0-0",
-    "./test-harness": "0.0.0-0"
-  },
-  "author": "William Wong (https://github.com/compulim)"
+    "@spyip/common": "0.0.0-0",
+    "@spyip/test-harness": "0.0.0-0"
+  }
 }

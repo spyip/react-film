@@ -70,8 +70,8 @@
     }
   },
   "localPeerDependencies": {
-    "./common": "0.0.0-0",
-    "./test-harness": "0.0.0-0",
+    "@spyip/common": "0.0.0-0",
+    "@spyip/test-harness": "0.0.0-0",
     "react-film": "0.0.0-0"
   },
   "pinDependencies": {

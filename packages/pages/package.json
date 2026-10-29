@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "build": "esbuild --bundle --entry-names=[name]/[ext]/main --jsx=transform --minify --outdir=./public/static/ --sourcemap $(find ./src -mindepth 1 -maxdepth 1 -type d -printf '%f=./src/%f/index.tsx ')",
+    "build": "esbuild --alias:react=./src/react.cjs --bundle --entry-names=[name]/[ext]/main --format=esm --jsx=automatic --minify --outdir=./public/static/ --sourcemap app=./src/app/index.tsx react-film=../react-film/dist/react-film.mjs",
     "bump": "npm run bump:prod && npm run bump:dev",
     "bump:dev": "PACKAGES_TO_BUMP=$(cat package.json | jq -r '(.pinDependencies // {}) as $P | (.localPeerDependencies // {}) as $L | (.devDependencies // {}) | to_entries | map(select(.key as $K | $L | has($K) | not)) | map(.key + \"@\" + ($P[.key] // [\"latest\"])[0]) | join(\" \")') && [ ! -z \"$PACKAGES_TO_BUMP\" ] && npm install $PACKAGES_TO_BUMP || true",
     "bump:prod": "PACKAGES_TO_BUMP=$(cat package.json | jq -r '(.pinDependencies // {}) as $P | (.localPeerDependencies // {}) as $L | (.dependencies // {}) | to_entries | map(select(.key as $K | $L | has($K) | not)) | map(.key + \"@\" + ($P[.key] // [\"latest\"])[0]) | join(\" \")') && [ ! -z \"$PACKAGES_TO_BUMP\" ] && npm install $PACKAGES_TO_BUMP || true",
@@ -51,7 +51,7 @@
     }
   },
   "localPeerDependencies": {
-    "./common": "0.0.0-0",
+    "@spyip/common": "0.0.0-0",
     "react-film": "0.0.0-0"
   },
   "pinDependencies": {
@@ -88,6 +88,8 @@
     "shiki": "^3.9.1",
     "valibot": "^1.1.0"
   },
-  "author": "William Wong (https://github.com/compulim)",
-  "exports": {}
+  "contributors": [
+    "Ping Yip (https://github.com/spyip)",
+    "William Wong (https://github.com/compulim)"
+  ]
 }
