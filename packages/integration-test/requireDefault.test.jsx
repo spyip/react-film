@@ -1,4 +1,5 @@
 /** @jest-environment @happy-dom/jest-environment */
+/* eslint-env jest */
 
 const React = require('react');
 const { ReactFilm } = require('react-film');
