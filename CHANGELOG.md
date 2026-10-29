@@ -18,9 +18,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - Production dependencies
     - [`html-react-parser@6.1.9`](https://npmjs.com/package/html-react-parser/v/6.1.9)
   - Development dependencies
-    - [`@babel/preset-env@8.0.7`](https://npmjs.com/package/@babel/preset-env/v/8.0.7)
-    - [`@babel/preset-react@8.0.1`](https://npmjs.com/package/@babel/preset-react/v/8.0.1)
-    - [`@babel/preset-typescript@8.0.7`](https://npmjs.com/package/@babel/preset-typescript/v/8.0.7)
+    - [`@babel/preset-env@7.29.7`](https://npmjs.com/package/@babel/preset-env/v/7.29.7)
+    - [`@babel/preset-react@7.29.7`](https://npmjs.com/package/@babel/preset-react/v/7.29.7)
     - [`@testduet/wait-for@0.1.2-main.202512220309.d045537`](https://npmjs.com/package/@testduet/wait-for/v/0.1.2-main.202512220309.d045537)
     - [`@testing-library/dom@10.4.2`](https://npmjs.com/package/@testing-library/dom/v/10.4.2)
     - [`@testing-library/react@16.3.3`](https://npmjs.com/package/@testing-library/react/v/16.3.3)

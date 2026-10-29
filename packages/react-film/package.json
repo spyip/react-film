@@ -124,9 +124,6 @@
     "react-dom": ">=16.8.0"
   },
   "devDependencies": {
-    "@babel/preset-env": "^8.0.7",
-    "@babel/preset-react": "^8.0.1",
-    "@babel/preset-typescript": "^8.0.7",
     "@happy-dom/global-registrator": "^21.0.4",
     "@spyip/common": "^0.0.0-0",
     "@spyip/test-harness": "^0.0.0-0",
