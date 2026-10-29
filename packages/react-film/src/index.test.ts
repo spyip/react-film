@@ -1,6 +1,5 @@
-import { test } from 'node:test';
+/* eslint-env jest */
 
-test('should import successfully', async () => {
-  // @ts-expect-error index.js has no .d.ts
-  await import('./index.js');
+test('should import successfully', () => {
+  jest.requireActual('./index.js');
 });

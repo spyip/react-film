@@ -40,7 +40,8 @@
     "switch": "cat package.json | jq --arg SWITCH_NAME $SWITCH_NAME -r '(.[\"switch:\" + $SWITCH_NAME] // {}) as $TEMPLATE | .devDependencies += ($TEMPLATE.devDependencies // {}) | .dependencies += ($TEMPLATE.dependencies // {})' | tee ./package.json.tmp && mv ./package.json.tmp ./package.json",
     "test": "npm run test:unit && npm run test:types",
     "test:types": "node --experimental-strip-types --import ./test-harness/test-types.import --test **/*.test-types.ts",
-    "test:unit": "node --experimental-strip-types --experimental-test-coverage --experimental-test-isolation=none --import $(cat ../test-harness/package.json | jq -r \".name\")/happy-dom.import --import $(cat ../test-harness/package.json | jq -r \".name\")/jsx.import --test --test-force-exit **/*.test.{cjs,cts,js,jsx,mjs,mts,ts,tsx}"
+    "test:unit": "jest",
+    "test:unit:disable-modern": "node --experimental-strip-types --experimental-test-coverage --experimental-test-isolation=none --import $(cat ../test-harness/package.json | jq -r \".name\")/happy-dom.import --import $(cat ../test-harness/package.json | jq -r \".name\")/jsx.import --test --test-force-exit **/*.test.{cjs,cts,js,jsx,mjs,mts,ts,tsx}"
   },
   "repository": {
     "type": "git",
