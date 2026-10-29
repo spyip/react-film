@@ -66,6 +66,10 @@
     ],
     "react-dom": [
       "18"
+    ],
+    "typescript": [
+      "^6",
+      "@typescript-eslint/* does not support typescript@>6"
     ]
   },
   "devDependencies": {
@@ -75,7 +79,7 @@
     "@types/react": "^18.3.31",
     "@types/react-dom": "^18.3.7",
     "esbuild": "^0.28.2",
-    "typescript": "^7.0.2"
+    "typescript": "^6.0.3"
   },
   "dependencies": {
     "@emotion/css": "^11.13.5",

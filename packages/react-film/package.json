@@ -115,8 +115,8 @@
       "18"
     ],
     "typescript": [
-      "<5.9",
-      "@typescript-eslint/* does not support typescript@>=5.9"
+      "^6",
+      "@typescript-eslint/* does not support typescript@>6"
     ]
   },
   "peerDependencies": {
@@ -149,7 +149,7 @@
     "react-test-renderer": "^18.3.1",
     "tsup": "^9.0.0",
     "type-fest": "^5.10.0",
-    "typescript": "<5.9"
+    "typescript": "^6.0.3"
   },
   "dependencies": {
     "@emotion/css": "^11.13.5",

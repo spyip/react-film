@@ -35,7 +35,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     - [`shiki@4.5.0`](https://npmjs.com/package/shiki/v/4.5.0)
     - [`tsup@9.0.0`](https://npmjs.com/package/tsup/v/9.0.0)
     - [`type-fest@5.10.0`](https://npmjs.com/package/type-fest/v/5.10.0)
-    - [`typescript@7.0.2`](https://npmjs.com/package/typescript/v/7.0.2)
     - [`valibot@1.5.0`](https://npmjs.com/package/valibot/v/1.5.0)
     - [`yaml@2.9.1`](https://npmjs.com/package/yaml/v/2.9.1)
 
