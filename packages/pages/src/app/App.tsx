@@ -1,4 +1,5 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
+// @ts-expect-error CSS side-effect import has no type declarations
 import './App.css';
 import GitHubLogo from './GitHubLogo.tsx';
 import SourceCode from './SourceCode.tsx';
