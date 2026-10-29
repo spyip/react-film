@@ -101,7 +101,7 @@
     "@babel/preset-env": "^7.28.0",
     "@babel/preset-react": "^7.27.1",
     "@happy-dom/global-registrator": "^21.0.4",
-    "@happy-dom/jest-environment": "^18.0.1",
+    "@happy-dom/jest-environment": "^21.0.4",
     "@spyip/common": "^0.0.0-0",
     "@testduet/given-when-then": "^0.1.0",
     "@testduet/wait-for": "^0.1.0",
