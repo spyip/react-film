@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- Bumped scaffolding in PR [#113](https://github.com/spyip/react-film/pull/113), [#114](https://github.com/spyip/react-film/pull/114), [#115](https://github.com/spyip/react-film/pull/115), by [@compulim](https://github.com/compulim)
+- Bumped dependencies in PR [#113](https://github.com/spyip/react-film/pull/113), by [@compulim](https://github.com/compulim)
+   - Development dependencies
+      - [`@happy-dom/jest-environment@21.0.4`](https://npmjs.com/package/@happy-dom/jest-environment/v/21.0.4)
+      - [`typescript@6.0.3`](https://npmjs.com/package/typescript/v/6.0.3)
+
 ## [4.0.0] - 2025-08-03
 
 ### Added
