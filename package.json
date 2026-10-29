@@ -49,14 +49,14 @@
     "@typescript-eslint/eslint-plugin": "^8.72.1",
     "@typescript-eslint/parser": "^8.72.1",
     "eslint": "^9.39.5",
-    "eslint-import-resolver-node": "^0.3.10",
+    "eslint-import-resolver-node": "^0.4.0",
     "eslint-import-resolver-typescript": "^4.4.5",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-prettier": "^5.5.7",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.1.1",
     "prettier": "^3.9.10",
-    "yaml": "^2.4.2"
+    "yaml": "^2.9.1"
   },
   "localPeerDependencies": {}
 }
