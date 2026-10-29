@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed bundlers (e.g. Webpack) failing to build with React 19 because `retrofit()` imported `render` from `react-dom`, by [@OEvgeny](https://github.com/OEvgeny) in PR [#110](https://github.com/spyip/react-film/pull/110)
+  - `retrofit()` now throws an error with React 19, which no longer has `ReactDOM.render()`
+
 ### Changed
 
 - Bumped scaffolding in PR [#113](https://github.com/spyip/react-film/pull/113), [#114](https://github.com/spyip/react-film/pull/114), [#115](https://github.com/spyip/react-film/pull/115), by [@compulim](https://github.com/compulim)
