@@ -17,6 +17,8 @@ import useObserveScrollLeft from './hooks/internal/useObserveScrollLeft.js';
 import ViewContext from './ViewContext.js';
 
 const Composer = ({ children, dir, height, nonce, numItems, styleOptions, styleSet }) => {
+  // Normalizing `dir` prop.
+  // eslint-disable-next-line react-hooks/immutability
   dir = dir === 'ltr' || dir === 'rtl' ? dir : undefined;
 
   const patchedStyleOptions = useMemo(() => patchStyleOptions(styleOptions), [styleOptions]);

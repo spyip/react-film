@@ -3,6 +3,7 @@
   "version": "0.0.0-0",
   "description": "React component for showing carousel just like a film strip",
   "files": [
+    "./*.js",
     "./dist/",
     "./umd/"
   ],
@@ -25,20 +26,26 @@
     "bump": "npm run bump:prod && npm run bump:dev",
     "bump:dev": "PACKAGES_TO_BUMP=$(cat package.json | jq -r '(.pinDependencies // {}) as $P | (.localPeerDependencies // {}) as $L | (.devDependencies // {}) | to_entries | map(select(.key as $K | $L | has($K) | not)) | map(.key + \"@\" + ($P[.key] // [\"latest\"])[0]) | join(\" \")') && [ ! -z \"$PACKAGES_TO_BUMP\" ] && npm install $PACKAGES_TO_BUMP || true",
     "bump:prod": "PACKAGES_TO_BUMP=$(cat package.json | jq -r '(.pinDependencies // {}) as $P | (.localPeerDependencies // {}) as $L | (.dependencies // {}) | to_entries | map(select(.key as $K | $L | has($K) | not)) | map(.key + \"@\" + ($P[.key] // [\"latest\"])[0]) | join(\" \")') && [ ! -z \"$PACKAGES_TO_BUMP\" ] && npm install $PACKAGES_TO_BUMP || true",
+    "init:dev": "npm install --save-dev $(cat ../test-harness/package.json | jq -r \".name + \\\"@\\\" + .version\") @tsconfig/recommended @tsconfig/strictest @types/node @types/react@18 @types/react-dom@18 escape-string-regexp expect publint react@18 react-dom@18 react-test-renderer@18 tsup typescript",
     "postbuild": "cd ../pages && npm run prebuild",
+    "postscaffold": "npm run postscaffold:dev --if-present && npm run postscaffold:prod --if-present",
+    "postscaffold:dev": "npm install --save-dev $(cat ../common/package.json | jq -r \".name + \\\"@\\\" + .version\") $(cat ../test-harness/package.json | jq -r \".name + \\\"@\\\" + .version\") @happy-dom/global-registrator @testduet/given-when-then @tsconfig/recommended @tsconfig/strictest @types/node esbuild escape-string-regexp expect prettier publint tsup typescript",
     "precommit": "npm run precommit:eslint && npm run precommit:publint && npm run precommit:typescript:production && npm run precommit:typescript:test",
     "precommit:eslint": "ESLINT_USE_FLAT_CONFIG=false eslint ./src/",
     "precommit:publint": "publint",
     "precommit:typescript:production": "tsc --noEmit --project ./src/tsconfig.precommit.production.json",
     "precommit:typescript:test": "tsc --noEmit --project ./src/tsconfig.precommit.test.json",
     "prepack": "cp ../../CHANGELOG.md . && cp ../../LICENSE . && cp ../../README.md .",
-    "start": "npm run build -- --onSuccess \"touch ../pages/package.json && npm run prebuild --workspace react-film-pages\" --watch",
+    "start": "npm run build -- --onSuccess \"touch ../pages/package.json\" --watch",
     "switch": "cat package.json | jq --arg SWITCH_NAME $SWITCH_NAME -r '(.[\"switch:\" + $SWITCH_NAME] // {}) as $TEMPLATE | .devDependencies += ($TEMPLATE.devDependencies // {}) | .dependencies += ($TEMPLATE.dependencies // {})' | tee ./package.json.tmp && mv ./package.json.tmp ./package.json",
-    "test": "jest"
+    "test": "npm run test:unit && npm run test:types",
+    "test:types": "node --experimental-strip-types --import ./test-harness/test-types.import --test **/*.test-types.ts",
+    "test:unit": "jest",
+    "test:unit:disable-modern": "node --experimental-strip-types --experimental-test-coverage --experimental-test-isolation=none --import $(cat ../test-harness/package.json | jq -r \".name\")/happy-dom.import --import $(cat ../test-harness/package.json | jq -r \".name\")/jsx.import --test --test-force-exit **/*.test.{cjs,cts,js,jsx,mjs,mts,ts,tsx}"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/spyip/react-film.git"
+    "url": "https://github.com/spyip/react-film.git"
   },
   "keywords": [
     "carousel",
@@ -120,28 +127,32 @@
     "@babel/preset-env": "^7.28.0",
     "@babel/preset-react": "^7.27.1",
     "@babel/preset-typescript": "^7.27.1",
+    "@happy-dom/global-registrator": "^21.0.4",
     "@spyip/common": "^0.0.0-0",
     "@spyip/test-harness": "^0.0.0-0",
+    "@testduet/given-when-then": "^0.1.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/react": "^16.3.0",
-    "@tsconfig/recommended": "^1.0.10",
-    "@tsconfig/strictest": "^2.0.5",
+    "@tsconfig/recommended": "^1.0.13",
+    "@tsconfig/strictest": "^2.0.8",
     "@types/jest": "^30.0.0",
-    "@types/node": "^24.1.0",
+    "@types/node": "^24.19.2",
     "@types/react": "^18.3.23",
     "@types/react-dom": "^18.3.7",
     "@types/react-test-renderer": "^18.3.1",
-    "esbuild": "^0.25.8",
+    "esbuild": "^0.25.12",
+    "escape-string-regexp": "^5.0.0",
+    "expect": "^30.5.2",
     "jest": "^30.0.5",
     "jest-environment-jsdom": "^30.0.5",
-    "prettier": "^3.6.2",
-    "publint": "^0.3.12",
+    "prettier": "^3.9.10",
+    "publint": "^0.3.25",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-test-renderer": "^18.3.1",
-    "tsup": "^8.5.0",
+    "tsup": "^8.5.1",
     "type-fest": "^4.41.0",
-    "typescript": "^5.8.3"
+    "typescript": "^6.0.3"
   },
   "dependencies": {
     "@emotion/css": "^11.13.5",
@@ -150,5 +161,9 @@
     "math-random": "^2.0.1",
     "memoize-one": "^6.0.0",
     "prop-types": "^15.8.1"
+  },
+  "localPeerDependencies": {
+    "@spyip/common": "0.0.0-0",
+    "@spyip/test-harness": "0.0.0-0"
   }
 }

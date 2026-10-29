@@ -22,8 +22,12 @@
     "bump:eslintrc": "if [ -f node_modules/react/package.json ]; then docker run -e VERSION=$(cat node_modules/react/package.json | jq -r '.version') -i --rm mikefarah/yq '.settings.react.version = strenv(VERSION)' < ./.eslintrc.react.yml | tee /tmp/output.tmp && mv /tmp/output.tmp ./.eslintrc.react.yml; fi",
     "bump:packages": "npm run bump --if-present --workspaces",
     "bump:prod": "PACKAGES_TO_BUMP=$(cat package.json | jq -r '(.pinDependencies // {}) as $P | (.localPeerDependencies // {}) as $L | (.dependencies // {}) | to_entries | map(select(.key as $K | $L | has($K) | not)) | map(.key + \"@\" + ($P[.key] // [\"latest\"])[0]) | join(\" \")') && [ ! -z \"$PACKAGES_TO_BUMP\" ] && npm install $PACKAGES_TO_BUMP || true",
-    "postscaffold": "npm run postscaffold:eslint:react && npm run postscaffold --if-present --workspaces",
+    "init": "npm run init:dev --if-present && npm run init:prod --if-present",
+    "init:dev": "npm install --save-dev @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint-plugin-react eslint-plugin-react-hooks prettier",
+    "postscaffold": "npm run postscaffold:npm-install && npm run postscaffold:eslint-react --if-present && npm run postscaffold --if-present --workspaces",
     "postscaffold:eslint:react": "npm run bump:eslintrc",
+    "postscaffold:npm-install": "npm run postscaffold:npm-install:dev --if-present && npm run postscaffold:npm-install:prod --if-present",
+    "postscaffold:npm-install:dev": "npm install --save-dev @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint-plugin-react eslint-plugin-react-hooks prettier",
     "precommit": "npm run precommit --if-present --workspaces",
     "switch:_": "npm run --if-present --workspaces switch && npm install --legacy-peer-deps --prefer-dedupe",
     "switch:react-16": "SWITCH_NAME=react-16 npm run switch:_",
@@ -31,16 +35,23 @@
     "switch:react-18": "SWITCH_NAME=react-18 npm run switch:_",
     "test": "npm run test --if-present --workspaces"
   },
-  "pinDependencies": {},
+  "pinDependencies": {
+    "eslint": [
+      "9",
+      "eslint-plugin-react@7.37.5 does not support eslint@10 yet"
+    ]
+  },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^8.38.0",
-    "@typescript-eslint/parser": "^8.38.0",
-    "eslint": "^9.32.0",
-    "eslint-import-resolver-node": "^0.3.9",
-    "eslint-import-resolver-typescript": "^4.4.4",
+    "@typescript-eslint/eslint-plugin": "^8.72.1",
+    "@typescript-eslint/parser": "^8.72.1",
+    "eslint": "^9.39.5",
+    "eslint-import-resolver-node": "^0.3.10",
+    "eslint-import-resolver-typescript": "^4.4.5",
     "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-prettier": "^5.5.3",
+    "eslint-plugin-prettier": "^5.5.7",
     "eslint-plugin-react": "^7.37.5",
-    "prettier": "^3.6.2"
-  }
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "prettier": "^3.9.10"
+  },
+  "localPeerDependencies": {}
 }

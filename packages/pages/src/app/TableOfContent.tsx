@@ -1,5 +1,6 @@
 import { micromark } from 'micromark';
 import React, { memo, useEffect, useState } from 'react';
+// @ts-expect-error CSS side-effect import has no type declarations
 import './TableOfContent.css';
 
 function TableOfContent() {

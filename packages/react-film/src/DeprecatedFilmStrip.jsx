@@ -7,6 +7,8 @@ let deprecationNotesShown;
 const DeprecatedFilmStrip = props => {
   if (!deprecationNotesShown) {
     console.warn('react-film: <FilmStrip> is being renamed to <Filmstrip>.');
+    // Intended to warn once.
+    // eslint-disable-next-line react-hooks/globals
     deprecationNotesShown = true;
   }
 
