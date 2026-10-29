@@ -24,7 +24,7 @@
   "devDependencies": {
     "@tsconfig/strictest": "^2.0.8",
     "resolve-cwd": "^3.0.0",
-    "typescript": "^7.0.2"
+    "typescript": "^6.0.3"
   },
   "private": true,
   "files": [
