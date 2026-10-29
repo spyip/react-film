@@ -3,16 +3,12 @@
     "allowImportingTsExtensions": true,
     "esModuleInterop": true,
     "jsx": "react",
-    "lib": [
-      "DOM",
-      "ESNext",
-      "WebWorker"
-    ],
+    "lib": ["DOM", "ESNext", "WebWorker"],
     "module": "esnext",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "bundler",
     "noEmit": true,
     "strict": true,
-    "target": "ESNext",
+    "target": "esnext",
     "types": []
   },
   "extends": "./tsconfig.custom.json"

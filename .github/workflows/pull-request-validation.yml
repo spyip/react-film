@@ -12,10 +12,7 @@ jobs:
     strategy:
       matrix:
         switch: [current, react-16, react-17, react-18]
-    # Pinned to the version used by v4.0.0. Newer versions require "packages/test-harness", exact "localPeerDependencies" and
-    # a matching "repository.url". Unpin after running "Bump scaffold".
-    uses: compulim/workflows/.github/workflows/pull-request-validation.yml@d68910fa1aafefb65ce177cef29612ff14ec320c
+    uses: compulim/workflows/.github/workflows/pull-request-validation.yml@main
     with:
-      package-name: react-film
-      skip-integration-test: false
+      package-name: 'react-film'
       switch: ${{ matrix.switch }}
