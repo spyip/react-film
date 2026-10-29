@@ -21,7 +21,8 @@
     "switch": "cat package.json | jq --arg SWITCH_NAME $SWITCH_NAME -r '(.[\"switch:\" + $SWITCH_NAME] // {}) as $TEMPLATE | .devDependencies += ($TEMPLATE.devDependencies // {}) | .dependencies += ($TEMPLATE.dependencies // {})' | tee ./package.json.tmp && mv ./package.json.tmp ./package.json",
     "test": "npm run test:unit && npm run test:types",
     "test:types": "node --experimental-strip-types --import ./test-harness/test-types.import --test **/*.test-types.ts",
-    "test:unit": "node --experimental-strip-types --experimental-test-coverage --experimental-test-isolation=none --import @spyip/test-harness/happy-dom.import --import @spyip/test-harness/jsx.import --test --test-force-exit **/*.test.{cjs,cts,js,jsx,mjs,mts,ts,tsx}",
+    "test:unit": "jest",
+    "test:unit:disable-modern": "node --experimental-strip-types --experimental-test-coverage --experimental-test-isolation=none --import @spyip/test-harness/happy-dom.import --import @spyip/test-harness/jsx.import --test --test-force-exit **/*.test.{cjs,cts,js,jsx,mjs,mts,ts,tsx}",
     "init:dev": "npm install --save-dev @tsconfig/strictest @types/react@18 @types/react-dom@18 @types/react-test-renderer@18 expect resolve-cwd typescript",
     "init:prod": "npm install --save @spyip/test-harness@0.0.0-0 react@18 react-dom@18 react-test-renderer@18 react-film@0.0.0-0"
   },
