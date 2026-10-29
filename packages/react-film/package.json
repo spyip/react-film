@@ -96,6 +96,18 @@
     }
   },
   "pinDependencies": {
+    "@babel/preset-env": [
+      "^7",
+      "jest@30.5.2 -> babel-preset-current-node-syntax@1.2.0 does not support @babel/*@8 yet"
+    ],
+    "@babel/preset-react": [
+      "^7",
+      "jest@30.5.2 -> babel-preset-current-node-syntax@1.2.0 does not support @babel/*@8 yet"
+    ],
+    "@babel/preset-typescript": [
+      "^7",
+      "jest@30.5.2 -> babel-preset-current-node-syntax@1.2.0 does not support @babel/*@8 yet"
+    ],
     "@types/react": [
       "18"
     ],
@@ -104,6 +116,10 @@
     ],
     "@types/react-test-renderer": [
       "18"
+    ],
+    "html-react-parser": [
+      "^5",
+      "html-react-parser@>=6 moved to ESM which is incompatible with jest@30"
     ],
     "react": [
       "18"
@@ -115,8 +131,8 @@
       "18"
     ],
     "typescript": [
-      "<5.9",
-      "@typescript-eslint/* does not support typescript@>=5.9"
+      "^6",
+      "@typescript-eslint/* does not support typescript@>6"
     ]
   },
   "peerDependencies": {
@@ -124,40 +140,40 @@
     "react-dom": ">=16.8.0"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.28.0",
-    "@babel/preset-react": "^7.27.1",
-    "@babel/preset-typescript": "^7.27.1",
+    "@babel/preset-env": "^7.29.7",
+    "@babel/preset-react": "^7.29.7",
+    "@babel/preset-typescript": "^7.29.7",
     "@happy-dom/global-registrator": "^21.0.4",
     "@spyip/common": "^0.0.0-0",
     "@spyip/test-harness": "^0.0.0-0",
     "@testduet/given-when-then": "^0.1.0",
-    "@testing-library/dom": "^10.4.1",
-    "@testing-library/react": "^16.3.0",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/react": "^16.3.3",
     "@tsconfig/recommended": "^1.0.13",
     "@tsconfig/strictest": "^2.0.8",
     "@types/jest": "^30.0.0",
-    "@types/node": "^24.19.2",
-    "@types/react": "^18.3.23",
+    "@types/node": "^26.6.6",
+    "@types/react": "^18.3.31",
     "@types/react-dom": "^18.3.7",
     "@types/react-test-renderer": "^18.3.1",
-    "esbuild": "^0.25.12",
+    "esbuild": "^0.28.2",
     "escape-string-regexp": "^5.0.0",
     "expect": "^30.5.2",
-    "jest": "^30.0.5",
-    "jest-environment-jsdom": "^30.0.5",
+    "jest": "^30.5.2",
+    "jest-environment-jsdom": "^30.5.2",
     "prettier": "^3.9.10",
     "publint": "^0.3.25",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-test-renderer": "^18.3.1",
-    "tsup": "^8.5.1",
-    "type-fest": "^4.41.0",
+    "tsup": "^9.0.0",
+    "type-fest": "^5.10.0",
     "typescript": "^6.0.3"
   },
   "dependencies": {
     "@emotion/css": "^11.13.5",
     "classnames": "^2.5.1",
-    "html-react-parser": "^5.2.6",
+    "html-react-parser": "^5.2.17",
     "math-random": "^2.0.1",
     "memoize-one": "^6.0.0",
     "prop-types": "^15.8.1"

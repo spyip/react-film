@@ -40,6 +40,10 @@
       "9",
       "eslint-plugin-react@7.37.5 does not support eslint@10 yet"
     ],
+    "eslint-import-resolver-node": [
+      "^0.3.9",
+      "eslint-plugin-import@2.32.0 depends on eslint-import-resolver-node@0.3.9"
+    ],
     "yaml": [
       "^2.4.2",
       "tsup -> postcss-load-config optionally depends on yaml@2.4.2, not installed but required by `npm sbom`"
@@ -56,7 +60,7 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.1.1",
     "prettier": "^3.9.10",
-    "yaml": "^2.4.2"
+    "yaml": "^2.9.1"
   },
   "localPeerDependencies": {}
 }

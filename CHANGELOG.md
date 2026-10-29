@@ -7,11 +7,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-### Fixed
-
-- Fixed bundlers (e.g. Webpack) failing to build with React 19 because `retrofit()` imported `render` from `react-dom`, by [@OEvgeny](https://github.com/OEvgeny) in PR [#110](https://github.com/spyip/react-film/pull/110)
-  - `retrofit()` now throws an error with React 19, which no longer has `ReactDOM.render()`
-
 ### Changed
 
 - Bumped scaffolding in PR [#113](https://github.com/spyip/react-film/pull/113), [#114](https://github.com/spyip/react-film/pull/114), [#115](https://github.com/spyip/react-film/pull/115), by [@compulim](https://github.com/compulim)
@@ -19,6 +14,33 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
    - Development dependencies
       - [`@happy-dom/jest-environment@21.0.4`](https://npmjs.com/package/@happy-dom/jest-environment/v/21.0.4)
       - [`typescript@6.0.3`](https://npmjs.com/package/typescript/v/6.0.3)
+- Bumped dependencies, in PR [#117](https://github.com/spyip/react-film/pull/117)
+  - Production dependencies
+    - [`html-react-parser@5.2.17`](https://npmjs.com/package/html-react-parser/v/5.2.17)
+  - Development dependencies
+    - [`@babel/preset-env@7.29.7`](https://npmjs.com/package/@babel/preset-env/v/7.29.7)
+    - [`@babel/preset-react@7.29.7`](https://npmjs.com/package/@babel/preset-react/v/7.29.7)
+    - [`@testduet/wait-for@0.1.2-main.202512220309.d045537`](https://npmjs.com/package/@testduet/wait-for/v/0.1.2-main.202512220309.d045537)
+    - [`@testing-library/dom@10.4.2`](https://npmjs.com/package/@testing-library/dom/v/10.4.2)
+    - [`@testing-library/react@16.3.3`](https://npmjs.com/package/@testing-library/react/v/16.3.3)
+    - [`@tsconfig/recommended@1.0.13`](https://npmjs.com/package/@tsconfig/recommended/v/1.0.13)
+    - [`@types/node@26.6.6`](https://npmjs.com/package/@types/node/v/26.6.6)
+    - [`@types/react@18.3.31`](https://npmjs.com/package/@types/react/v/18.3.31)
+    - [`esbuild@0.28.2`](https://npmjs.com/package/esbuild/v/0.28.2)
+    - [`jest@30.5.2`](https://npmjs.com/package/jest/v/30.5.2)
+    - [`jest-environment-jsdom@30.5.2`](https://npmjs.com/package/jest-environment-jsdom/v/30.5.2)
+    - [`micromark@4.0.3`](https://npmjs.com/package/micromark/v/4.0.3)
+    - [`prettier@3.9.10`](https://npmjs.com/package/prettier/v/3.9.10)
+    - [`shiki@4.5.0`](https://npmjs.com/package/shiki/v/4.5.0)
+    - [`tsup@9.0.0`](https://npmjs.com/package/tsup/v/9.0.0)
+    - [`type-fest@5.10.0`](https://npmjs.com/package/type-fest/v/5.10.0)
+    - [`valibot@1.5.0`](https://npmjs.com/package/valibot/v/1.5.0)
+    - [`yaml@2.9.1`](https://npmjs.com/package/yaml/v/2.9.1)
+
+### Fixed
+
+- Fixed bundlers (e.g. Webpack) failing to build with React 19 because `retrofit()` imported `render` from `react-dom`, by [@OEvgeny](https://github.com/OEvgeny) in PR [#110](https://github.com/spyip/react-film/pull/110)
+  - `retrofit()` now throws an error with React 19, which no longer has `ReactDOM.render()`
 
 ## [4.0.0] - 2025-08-03
 
@@ -307,6 +329,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Initial release
 
+[Unreleased]: https://github.com/spyip/react-film/compare/v4.0.0...HEAD
 [4.0.0]: https://github.com/spyip/react-film/compare/v3.1.0...v4.0.0
 [3.1.0]: https://github.com/spyip/react-film/compare/v3.0.1...v3.1.0
 [3.0.1]: https://github.com/spyip/react-film/compare/v3.0.0...v3.0.1

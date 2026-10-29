@@ -91,6 +91,10 @@
     ],
     "react-test-renderer": [
       "18"
+    ],
+    "typescript": [
+      "^6",
+      "@typescript-eslint/* does not support typescript@>6"
     ]
   },
   "peerDependencies": {
@@ -152,7 +156,7 @@
     "@happy-dom/global-registrator": "^21.0.4",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/react": "^16.3.3",
-    "esbuild": "^0.25.12",
+    "esbuild": "^0.28.2",
     "escape-string-regexp": "^5.0.0",
     "expect": "^30.5.2"
   }
