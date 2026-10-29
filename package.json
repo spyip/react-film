@@ -40,6 +40,10 @@
       "9",
       "eslint-plugin-react@7.37.5 does not support eslint@10 yet"
     ],
+    "eslint-import-resolver-node": [
+      "^0.3.9",
+      "eslint-plugin-import@2.32.0 depends on eslint-import-resolver-node@0.3.9"
+    ],
     "yaml": [
       "^2.4.2",
       "tsup -> postcss-load-config optionally depends on yaml@2.4.2, not installed but required by `npm sbom`"
@@ -49,7 +53,7 @@
     "@typescript-eslint/eslint-plugin": "^8.72.1",
     "@typescript-eslint/parser": "^8.72.1",
     "eslint": "^9.39.5",
-    "eslint-import-resolver-node": "^0.4.0",
+    "eslint-import-resolver-node": "^0.3.10",
     "eslint-import-resolver-typescript": "^4.4.5",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-prettier": "^5.5.7",

@@ -27,7 +27,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     - [`@types/node@26.6.6`](https://npmjs.com/package/@types/node/v/26.6.6)
     - [`@types/react@18.3.31`](https://npmjs.com/package/@types/react/v/18.3.31)
     - [`esbuild@0.28.2`](https://npmjs.com/package/esbuild/v/0.28.2)
-    - [`eslint-import-resolver-node@0.4.0`](https://npmjs.com/package/eslint-import-resolver-node/v/0.4.0)
     - [`jest@30.5.2`](https://npmjs.com/package/jest/v/30.5.2)
     - [`jest-environment-jsdom@30.5.2`](https://npmjs.com/package/jest-environment-jsdom/v/30.5.2)
     - [`micromark@4.0.3`](https://npmjs.com/package/micromark/v/4.0.3)
