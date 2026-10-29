@@ -117,6 +117,10 @@
     "@types/react-test-renderer": [
       "18"
     ],
+    "html-react-parser": [
+      "^5",
+      "html-react-parser@>=6 moved to ESM which is incompatible with jest@30"
+    ],
     "react": [
       "18"
     ],
@@ -169,7 +173,7 @@
   "dependencies": {
     "@emotion/css": "^11.13.5",
     "classnames": "^2.5.1",
-    "html-react-parser": "^6.1.9",
+    "html-react-parser": "^5.2.17",
     "math-random": "^2.0.1",
     "memoize-one": "^6.0.0",
     "prop-types": "^15.8.1"

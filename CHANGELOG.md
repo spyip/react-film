@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
       - [`typescript@6.0.3`](https://npmjs.com/package/typescript/v/6.0.3)
 - Bumped dependencies, in PR [#117](https://github.com/spyip/react-film/pull/117)
   - Production dependencies
-    - [`html-react-parser@6.1.9`](https://npmjs.com/package/html-react-parser/v/6.1.9)
+    - [`html-react-parser@5.2.17`](https://npmjs.com/package/html-react-parser/v/5.2.17)
   - Development dependencies
     - [`@babel/preset-env@7.29.7`](https://npmjs.com/package/@babel/preset-env/v/7.29.7)
     - [`@babel/preset-react@7.29.7`](https://npmjs.com/package/@babel/preset-react/v/7.29.7)
