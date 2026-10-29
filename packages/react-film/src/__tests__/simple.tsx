@@ -1,4 +1,5 @@
 /** @jest-environment @happy-dom/jest-environment */
+/* eslint-env jest */
 
 import { scenario } from '@testduet/given-when-then';
 import React from 'react';

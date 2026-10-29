@@ -2,3 +2,6 @@ env:
   browser: true
 extends:
   - ./.eslintrc.custom.yml
+parserOptions:
+  ecmaVersion: latest
+  sourceType: module
