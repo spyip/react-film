@@ -9,6 +9,8 @@
   ],
   "license": "MIT",
   "workspaces": [
+    "packages/common",
+    "packages/test-harness",
     "packages/react-film",
     "packages/integration-test",
     "packages/pages"
